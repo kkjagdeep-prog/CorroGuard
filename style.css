@@ -2103,3 +2103,123 @@ button, input, select {
     cursor: pointer;
     font-size: 15px;
 }
+
+/* CORROGUARD PROJECT DASHBOARD */
+
+.dashboard-section {
+    background: #f4f8fc;
+}
+
+.dashboard-stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    margin-top: 35px;
+}
+
+.dashboard-card {
+    background: white;
+    padding: 25px;
+    border-radius: 15px;
+    border: 1px solid #e5edf5;
+    box-shadow: 0 5px 18px rgba(16, 45, 80, 0.05);
+}
+
+.dashboard-card-icon {
+    font-size: 28px;
+}
+
+.dashboard-card h3 {
+    font-size: 32px;
+    color: #1769aa;
+    margin: 15px 0 5px;
+}
+
+.dashboard-card p {
+    color: #718096;
+    font-size: 14px;
+}
+
+.dashboard-lower {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 22px;
+    margin-top: 25px;
+}
+
+.dashboard-info-card {
+    background: white;
+    padding: 28px;
+    border-radius: 15px;
+    border: 1px solid #e5edf5;
+    box-shadow: 0 5px 18px rgba(16, 45, 80, 0.05);
+}
+
+.dashboard-info-card h3 {
+    color: #102d50;
+    margin: 15px 0 20px;
+}
+
+.dashboard-risk {
+    display: flex;
+    gap: 35px;
+    flex-wrap: wrap;
+    margin: 20px 0;
+}
+
+.dashboard-risk div {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.dashboard-risk span {
+    color: #718096;
+    font-size: 13px;
+}
+
+.dashboard-risk strong {
+    color: #1769aa;
+    font-size: 22px;
+}
+
+.dashboard-info-card > p {
+    color: #718096;
+    margin-bottom: 22px;
+}
+
+.dashboard-links {
+    display: grid;
+    gap: 12px;
+}
+
+.dashboard-links a {
+    display: block;
+    padding: 13px 15px;
+    background: #f4f8fc;
+    border-radius: 9px;
+    color: #1769aa;
+    text-decoration: none;
+    transition: 0.2s ease;
+}
+
+.dashboard-links a:hover {
+    background: #e5f1fc;
+    transform: translateX(4px);
+}
+
+@media (max-width: 800px) {
+    .dashboard-stats {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .dashboard-lower {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 450px) {
+    .dashboard-stats {
+        grid-template-columns: 1fr;
+    }
+}
