@@ -1,10 +1,9 @@
- 
+```javascript
 /* =========================================
    CORROGUARD - JAVASCRIPT
    Corrosion Risk Analysis Platform
-   ========================================= */
+========================================= */
 
-// Wait until the page is fully loaded
 document.addEventListener("DOMContentLoaded", function () {
 
     // =====================================
@@ -31,6 +30,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const riskCircle = document.getElementById("riskCircle");
     const resultMetal = document.getElementById("resultMetal");
 
+
     // =====================================
     // 2. UPDATE SLIDER VALUES
     // =====================================
@@ -38,12 +38,10 @@ document.addEventListener("DOMContentLoaded", function () {
     function updateSliderValues() {
 
         temperatureValue.textContent = temperature.value + " °C";
-
         humidityValue.textContent = humidity.value + "%";
-
         phValue.textContent = Number(ph.value).toFixed(1);
-
         salinityValue.textContent = salinity.value + "%";
+
     }
 
     temperature.addEventListener("input", updateSliderValues);
@@ -52,6 +50,7 @@ document.addEventListener("DOMContentLoaded", function () {
     salinity.addEventListener("input", updateSliderValues);
 
     updateSliderValues();
+
 
     // =====================================
     // 3. CORROSION RISK MODEL
@@ -65,27 +64,17 @@ document.addEventListener("DOMContentLoaded", function () {
         const salt = Number(salinity.value);
         const selectedMetal = metal.value;
 
-        // Environmental factor scores (0-100)
-
         const humidityRisk = humid;
-
         const temperatureRisk = (temp / 60) * 100;
-
         const saltRisk = salt;
-
-        // Greater acidity or alkalinity can affect corrosion,
-        // depending on the metal and chemical environment.
         const phRisk = (Math.abs(acidity - 7) / 7) * 100;
 
-        // Weighted educational environmental score
         let environmentalScore =
             (humidityRisk * 0.35) +
             (temperatureRisk * 0.20) +
             (saltRisk * 0.30) +
             (phRisk * 0.15);
 
-        // Illustrative material adjustment factors.
-        // These are not experimentally calibrated corrosion rates.
         const metalFactors = {
             iron: 1.00,
             steel: 0.95,
@@ -99,7 +88,9 @@ document.addEventListener("DOMContentLoaded", function () {
         );
 
         return finalScore;
+
     }
+
 
     // =====================================
     // 4. DISPLAY RISK RESULT
@@ -112,7 +103,6 @@ document.addEventListener("DOMContentLoaded", function () {
         const selectedMetal = metal.options[metal.selectedIndex].text;
 
         riskScore.textContent = score;
-
         resultMetal.textContent = selectedMetal;
 
         let level;
@@ -150,6 +140,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
             description =
                 "The selected conditions produce a very high score. A detailed engineering assessment and suitable protection strategy are recommended.";
+
         }
 
         riskLevel.textContent = level;
@@ -157,7 +148,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
         riskDescription.textContent = description;
 
-        // Update circular risk indicator
         const degrees = score * 3.6;
 
         riskCircle.style.background =
@@ -165,17 +155,17 @@ document.addEventListener("DOMContentLoaded", function () {
 
     }
 
+
     // =====================================
     // 5. ANALYZE BUTTON
     // =====================================
 
     analyzeButton.addEventListener("click", analyzeCorrosion);
 
-    // Recalculate when material changes
     metal.addEventListener("change", analyzeCorrosion);
 
-    // Initial result
     analyzeCorrosion();
+
 
     // =====================================
     // 6. ENVIRONMENTAL IMPACT CHART
@@ -185,7 +175,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     if (chartCanvas && typeof Chart !== "undefined") {
 
-        const impactChart = new Chart(chartCanvas, {
+        new Chart(chartCanvas, {
 
             type: "bar",
 
@@ -212,7 +202,6 @@ document.addEventListener("DOMContentLoaded", function () {
                     ],
 
                     borderRadius: 8,
-
                     borderSkipped: false
 
                 }]
@@ -222,7 +211,6 @@ document.addEventListener("DOMContentLoaded", function () {
             options: {
 
                 responsive: true,
-
                 maintainAspectRatio: false,
 
                 plugins: {
@@ -243,7 +231,6 @@ document.addEventListener("DOMContentLoaded", function () {
                     y: {
 
                         beginAtZero: true,
-
                         max: 100,
 
                         title: {
@@ -277,8 +264,161 @@ document.addEventListener("DOMContentLoaded", function () {
 
     }
 
+
     // =====================================
-    // 7. NAVIGATION LINK SMOOTH SCROLL
+    // 7. METAL COMPATIBILITY CHECKER
+    // =====================================
+
+    const metalOne = document.getElementById("metalOne");
+    const metalTwo = document.getElementById("metalTwo");
+
+    const checkCompatibility =
+        document.getElementById("checkCompatibility");
+
+    const compatibilityResult =
+        document.getElementById("compatibilityResult");
+
+    if (metalOne && metalTwo && checkCompatibility && compatibilityResult) {
+
+        const metalNames = {
+            zinc: "Zinc",
+            steel: "Carbon Steel",
+            aluminium: "Aluminium",
+            copper: "Copper",
+            stainless: "Passive Stainless Steel"
+        };
+
+        const galvanicPairs = {
+
+            "copper-zinc": {
+                anodic: "Zinc",
+                explanation:
+                    "Zinc is generally more active than copper in common aqueous environments. When electrically connected in an electrolyte, zinc may corrode preferentially.",
+                precaution:
+                    "Consider electrical insulation, compatible material selection, and suitable protective systems."
+            },
+
+            "steel-copper": {
+                anodic: "Carbon Steel",
+                explanation:
+                    "Carbon steel is generally more active than copper in many aqueous environments. The steel may experience accelerated corrosion when the metals are electrically connected.",
+                precaution:
+                    "Consider insulating the connection, applying suitable coatings, and preventing electrolyte accumulation."
+            },
+
+            "aluminium-copper": {
+                anodic: "Aluminium",
+                explanation:
+                    "Aluminium is generally more active than copper. Its protective oxide film can influence the actual behaviour, but galvanic corrosion is a concern in conductive environments.",
+                precaution:
+                    "Consider electrical isolation and protective coatings designed for the environment."
+            },
+
+            "aluminium-steel": {
+                anodic: "Environment dependent",
+                explanation:
+                    "The galvanic behaviour of aluminium and carbon steel depends on the alloys, surface films, electrolyte, and exposure conditions.",
+                precaution:
+                    "Consult material-specific galvanic-series data and consider electrical isolation."
+            },
+
+            "copper-stainless": {
+                anodic: "Environment dependent",
+                explanation:
+                    "Copper and passive stainless steel can have different galvanic behaviour depending on their grades and the electrolyte.",
+                precaution:
+                    "Check the specific stainless-steel grade and environment before selecting the joint design."
+            }
+
+        };
+
+
+        checkCompatibility.addEventListener("click", function () {
+
+            const first = metalOne.value;
+            const second = metalTwo.value;
+
+            const firstName = metalNames[first];
+            const secondName = metalNames[second];
+
+            if (first === second) {
+
+                compatibilityResult.innerHTML = `
+                    <h3>Same Metal Combination</h3>
+
+                    <p>
+                        You selected ${firstName} and ${secondName}.
+                        Since both selections represent the same material,
+                        there is generally no galvanic driving force caused
+                        by coupling two different metals.
+                    </p>
+
+                    <strong>Note:</strong>
+
+                    <p>
+                        Ordinary corrosion can still occur depending on
+                        the environment and material condition.
+                    </p>
+                `;
+
+                return;
+
+            }
+
+            const pairKey = [first, second].sort().join("-");
+
+            const pair = galvanicPairs[pairKey];
+
+            if (pair) {
+
+                compatibilityResult.innerHTML = `
+                    <h3>Galvanic Corrosion: Possible</h3>
+
+                    <p>
+                        <strong>Selected metals:</strong>
+                        ${firstName} + ${secondName}
+                    </p>
+
+                    <p>${pair.explanation}</p>
+
+                    <p>
+                        <strong>Metal that may corrode preferentially:</strong>
+                        ${pair.anodic}
+                    </p>
+
+                    <p>
+                        <strong>Precaution:</strong>
+                        ${pair.precaution}
+                    </p>
+                `;
+
+            } else {
+
+                compatibilityResult.innerHTML = `
+                    <h3>Further Material Information Needed</h3>
+
+                    <p>
+                        You selected ${firstName} and ${secondName}.
+                        Their galvanic behaviour cannot be reliably
+                        determined from these broad material names alone.
+                    </p>
+
+                    <p>
+                        <strong>Precaution:</strong>
+                        Check the exact alloy grades and galvanic-series
+                        data for the electrolyte and operating conditions.
+                    </p>
+                `;
+
+            }
+
+        });
+
+    }
+
+
+    // =====================================
+    // 8. NAVIGATION SMOOTH SCROLL
     // =====================================
 
     document.querySelectorAll('a[href^="#"]').forEach(function (link) {
@@ -303,124 +443,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
     });
 
+
     console.log("CorroGuard initialized successfully!");
 
 });
-```javascript
-// =====================================
-// METAL COMPATIBILITY CHECKER
-// =====================================
-
-const metalOne = document.getElementById("metalOne");
-const metalTwo = document.getElementById("metalTwo");
-const checkCompatibility = document.getElementById("checkCompatibility");
-const compatibilityResult = document.getElementById("compatibilityResult");
-
-if (metalOne && metalTwo && checkCompatibility && compatibilityResult) {
-
-    const metalNames = {
-        zinc: "Zinc",
-        steel: "Carbon Steel",
-        aluminium: "Aluminium",
-        copper: "Copper",
-        stainless: "Passive Stainless Steel"
-    };
-
-    const galvanicPairs = {
-        "copper-zinc": {
-            anodic: "Zinc",
-            explanation: "Zinc is generally more active than copper in common aqueous environments. When electrically connected in an electrolyte, zinc may corrode preferentially.",
-            precaution: "Use electrical insulation between the metals where appropriate, or select compatible materials and suitable protective systems."
-        },
-
-        "steel-copper": {
-            anodic: "Carbon Steel",
-            explanation: "Carbon steel is generally more active than copper in many aqueous environments. The steel may experience accelerated corrosion when the metals are electrically connected.",
-            precaution: "Consider insulating the connection, applying suitable coatings, and preventing electrolyte accumulation."
-        },
-
-        "aluminium-copper": {
-            anodic: "Aluminium",
-            explanation: "Aluminium is generally more active than copper. Its protective oxide film can influence the actual behaviour, but galvanic corrosion is a concern in conductive environments.",
-            precaution: "Use electrical isolation, suitable joint materials, and protective coatings designed for the environment."
-        },
-
-        "aluminium-steel": {
-            anodic: "Environment dependent",
-            explanation: "The galvanic behaviour of aluminium and carbon steel depends on the alloys, surface films, electrolyte, and exposure conditions. A reliable prediction requires the relevant galvanic-series data.",
-            precaution: "Use compatible materials, isolate dissimilar metals where appropriate, and consult material-specific corrosion data."
-        },
-
-        "copper-stainless": {
-            anodic: "Environment dependent",
-            explanation: "Copper and passive stainless steel can have different galvanic behaviour depending on their grades and the electrolyte. A universal prediction is not appropriate.",
-            precaution: "Check the specific stainless-steel grade and environment before selecting the joint design."
-        }
-    };
-
-    checkCompatibility.addEventListener("click", function () {
-
-        const first = metalOne.value;
-        const second = metalTwo.value;
-
-        const firstName = metalNames[first];
-        const secondName = metalNames[second];
-
-        if (first === second) {
-            compatibilityResult.innerHTML = `
-                <h3>Same Metal Combination</h3>
-                <p>
-                    You selected ${firstName} and ${secondName}.
-                    Since both selections represent the same material,
-                    there is generally no galvanic driving force caused
-                    by coupling two different metals.
-                </p>
-                <strong>Note:</strong>
-                <p>
-                    Ordinary corrosion can still occur depending on
-                    the environment and material condition.
-                </p>
-            `;
-            return;
-        }
-
-        const pairKey = [first, second].sort().join("-");
-
-        const pair = galvanicPairs[pairKey];
-
-        if (pair) {
-            compatibilityResult.innerHTML = `
-                <h3>Galvanic Corrosion: Possible</h3>
-                <p>
-                    <strong>Selected metals:</strong>
-                    ${firstName} + ${secondName}
-                </p>
-                <p>${pair.explanation}</p>
-                <p>
-                    <strong>Metal that may corrode preferentially:</strong>
-                    ${pair.anodic}
-                </p>
-                <p>
-                    <strong>Precaution:</strong>
-                    ${pair.precaution}
-                </p>
-            `;
-        } else {
-            compatibilityResult.innerHTML = `
-                <h3>Further Material Information Needed</h3>
-                <p>
-                    You selected ${firstName} and ${secondName}.
-                    Their galvanic behaviour cannot be reliably
-                    determined from these broad material names alone.
-                </p>
-                <p>
-                    <strong>Precaution:</strong>
-                    Check the exact alloy grades and galvanic-series
-                    data for the electrolyte and operating conditions.
-                </p>
-            `;
-        }
-
-    });
-
-}
+```
