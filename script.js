@@ -306,4 +306,122 @@ document.addEventListener("DOMContentLoaded", function () {
     console.log("CorroGuard initialized successfully!");
 
 });
+```javascript
+// =====================================
+// METAL COMPATIBILITY CHECKER
+// =====================================
 
+const metalOne = document.getElementById("metalOne");
+const metalTwo = document.getElementById("metalTwo");
+const checkCompatibility = document.getElementById("checkCompatibility");
+const compatibilityResult = document.getElementById("compatibilityResult");
+
+if (metalOne && metalTwo && checkCompatibility && compatibilityResult) {
+
+    const metalNames = {
+        zinc: "Zinc",
+        steel: "Carbon Steel",
+        aluminium: "Aluminium",
+        copper: "Copper",
+        stainless: "Passive Stainless Steel"
+    };
+
+    const galvanicPairs = {
+        "copper-zinc": {
+            anodic: "Zinc",
+            explanation: "Zinc is generally more active than copper in common aqueous environments. When electrically connected in an electrolyte, zinc may corrode preferentially.",
+            precaution: "Use electrical insulation between the metals where appropriate, or select compatible materials and suitable protective systems."
+        },
+
+        "steel-copper": {
+            anodic: "Carbon Steel",
+            explanation: "Carbon steel is generally more active than copper in many aqueous environments. The steel may experience accelerated corrosion when the metals are electrically connected.",
+            precaution: "Consider insulating the connection, applying suitable coatings, and preventing electrolyte accumulation."
+        },
+
+        "aluminium-copper": {
+            anodic: "Aluminium",
+            explanation: "Aluminium is generally more active than copper. Its protective oxide film can influence the actual behaviour, but galvanic corrosion is a concern in conductive environments.",
+            precaution: "Use electrical isolation, suitable joint materials, and protective coatings designed for the environment."
+        },
+
+        "aluminium-steel": {
+            anodic: "Environment dependent",
+            explanation: "The galvanic behaviour of aluminium and carbon steel depends on the alloys, surface films, electrolyte, and exposure conditions. A reliable prediction requires the relevant galvanic-series data.",
+            precaution: "Use compatible materials, isolate dissimilar metals where appropriate, and consult material-specific corrosion data."
+        },
+
+        "copper-stainless": {
+            anodic: "Environment dependent",
+            explanation: "Copper and passive stainless steel can have different galvanic behaviour depending on their grades and the electrolyte. A universal prediction is not appropriate.",
+            precaution: "Check the specific stainless-steel grade and environment before selecting the joint design."
+        }
+    };
+
+    checkCompatibility.addEventListener("click", function () {
+
+        const first = metalOne.value;
+        const second = metalTwo.value;
+
+        const firstName = metalNames[first];
+        const secondName = metalNames[second];
+
+        if (first === second) {
+            compatibilityResult.innerHTML = `
+                <h3>Same Metal Combination</h3>
+                <p>
+                    You selected ${firstName} and ${secondName}.
+                    Since both selections represent the same material,
+                    there is generally no galvanic driving force caused
+                    by coupling two different metals.
+                </p>
+                <strong>Note:</strong>
+                <p>
+                    Ordinary corrosion can still occur depending on
+                    the environment and material condition.
+                </p>
+            `;
+            return;
+        }
+
+        const pairKey = [first, second].sort().join("-");
+
+        const pair = galvanicPairs[pairKey];
+
+        if (pair) {
+            compatibilityResult.innerHTML = `
+                <h3>Galvanic Corrosion: Possible</h3>
+                <p>
+                    <strong>Selected metals:</strong>
+                    ${firstName} + ${secondName}
+                </p>
+                <p>${pair.explanation}</p>
+                <p>
+                    <strong>Metal that may corrode preferentially:</strong>
+                    ${pair.anodic}
+                </p>
+                <p>
+                    <strong>Precaution:</strong>
+                    ${pair.precaution}
+                </p>
+            `;
+        } else {
+            compatibilityResult.innerHTML = `
+                <h3>Further Material Information Needed</h3>
+                <p>
+                    You selected ${firstName} and ${secondName}.
+                    Their galvanic behaviour cannot be reliably
+                    determined from these broad material names alone.
+                </p>
+                <p>
+                    <strong>Precaution:</strong>
+                    Check the exact alloy grades and galvanic-series
+                    data for the electrolyte and operating conditions.
+                </p>
+            `;
+        }
+
+    });
+
+}
+```
