@@ -1,14 +1,33 @@
-
 /* =========================================
    CORROGUARD - JAVASCRIPT
    Corrosion Risk Analysis Platform
 ========================================= */
 
-document.addEventListener("DOMContentLoaded", function () {
 
-    // =====================================
-    // 1. GET HTML ELEMENTS
-    // =====================================
+/* =========================================
+   MATERIAL DATABASE
+========================================= */
+
+const materialNames = {
+    iron: "Iron",
+    steel: "Carbon Steel",
+    aluminium: "Aluminium",
+    copper: "Copper",
+    stainless304: "Stainless Steel 304",
+    stainless316: "Stainless Steel 316",
+    galvanized: "Galvanized Iron",
+    brass: "Brass",
+    bronze: "Bronze",
+    zinc: "Zinc",
+    titanium: "Titanium"
+};
+
+
+/* =========================================
+   1. MAIN PAGE INITIALIZATION
+========================================= */
+
+document.addEventListener("DOMContentLoaded", function () {
 
     const metal = document.getElementById("metal");
 
@@ -31,15 +50,17 @@ document.addEventListener("DOMContentLoaded", function () {
     const resultMetal = document.getElementById("resultMetal");
 
 
-    // =====================================
-    // 2. UPDATE SLIDER VALUES
-    // =====================================
+    /* =====================================
+       2. UPDATE SLIDER VALUES
+    ===================================== */
 
     function updateSliderValues() {
+
         temperatureValue.textContent = temperature.value + " °C";
         humidityValue.textContent = humidity.value + "%";
         phValue.textContent = Number(ph.value).toFixed(1);
         salinityValue.textContent = salinity.value + "%";
+
     }
 
     temperature.addEventListener("input", updateSliderValues);
@@ -50,9 +71,9 @@ document.addEventListener("DOMContentLoaded", function () {
     updateSliderValues();
 
 
-    // =====================================
-    // 3. CORROSION RISK MODEL
-    // =====================================
+    /* =====================================
+       3. CORROSION RISK MODEL
+    ===================================== */
 
     function calculateCorrosionRisk() {
 
@@ -60,6 +81,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const humid = Number(humidity.value);
         const acidity = Number(ph.value);
         const salt = Number(salinity.value);
+
         const selectedMetal = metal.value;
 
         const humidityRisk = humid;
@@ -67,37 +89,57 @@ document.addEventListener("DOMContentLoaded", function () {
         const saltRisk = salt;
         const phRisk = (Math.abs(acidity - 7) / 7) * 100;
 
-        let environmentalScore =
+        const environmentalScore =
             (humidityRisk * 0.35) +
             (temperatureRisk * 0.20) +
             (saltRisk * 0.30) +
             (phRisk * 0.15);
 
+
+        /*
+           These factors are illustrative multipliers
+           for this educational website.
+
+           They are NOT experimentally validated corrosion
+           resistance rankings.
+        */
+
         const metalFactors = {
+
             iron: 1.00,
             steel: 0.95,
             aluminium: 0.70,
-            copper: 0.75
+            copper: 0.75,
+
+            stainless304: 0.35,
+            stainless316: 0.25,
+            galvanized: 0.45,
+            brass: 0.55,
+            bronze: 0.45,
+            zinc: 0.65,
+            titanium: 0.15
+
         };
 
-        const finalScore = Math.min(
+        const factor = metalFactors[selectedMetal] ?? 1;
+
+        return Math.min(
             100,
-            Math.round(environmentalScore * metalFactors[selectedMetal])
+            Math.round(environmentalScore * factor)
         );
 
-        return finalScore;
     }
 
 
-    // =====================================
-    // 4. DISPLAY RISK RESULT
-    // =====================================
+    /* =====================================
+       4. DISPLAY RISK RESULT
+    ===================================== */
 
     function analyzeCorrosion() {
 
         const score = calculateCorrosionRisk();
 
-        const selectedMetal = metal.options[metal.selectedIndex].text;
+        const selectedMetal = metalNames[metal.value] || metal.value;
 
         riskScore.textContent = score;
         resultMetal.textContent = selectedMetal;
@@ -137,6 +179,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
             description =
                 "The selected conditions produce a very high score. A detailed engineering assessment and suitable protection strategy are recommended.";
+
         }
 
         riskLevel.textContent = level;
@@ -148,8 +191,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
         riskCircle.style.background =
             `conic-gradient(${color} ${degrees}deg, #e7edf4 ${degrees}deg)`;
-       
-        // UPDATE PROJECT DASHBOARD
+
+
+        /* UPDATE PROJECT DASHBOARD */
 
         const dashboardRiskScore =
             document.getElementById("dashboardRiskScore");
@@ -177,9 +221,9 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
 
-    // =====================================
-    // 5. ANALYZE BUTTON
-    // =====================================
+    /* =====================================
+       5. ANALYZE BUTTON
+    ===================================== */
 
     analyzeButton.addEventListener("click", analyzeCorrosion);
 
@@ -188,9 +232,9 @@ document.addEventListener("DOMContentLoaded", function () {
     analyzeCorrosion();
 
 
-    // =====================================
-    // 6. ENVIRONMENTAL IMPACT CHART
-    // =====================================
+    /* =====================================
+       6. ENVIRONMENTAL IMPACT CHART
+    ===================================== */
 
     const chartCanvas = document.getElementById("impactChart");
 
@@ -286,9 +330,9 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
 
-    // =====================================
-    // 7. METAL COMPATIBILITY CHECKER
-    // =====================================
+    /* =====================================
+       7. METAL COMPATIBILITY CHECKER
+    ===================================== */
 
     const metalOne = document.getElementById("metalOne");
     const metalTwo = document.getElementById("metalTwo");
@@ -299,56 +343,99 @@ document.addEventListener("DOMContentLoaded", function () {
     const compatibilityResult =
         document.getElementById("compatibilityResult");
 
-    if (metalOne && metalTwo && checkCompatibility && compatibilityResult) {
 
-        const metalNames = {
-            zinc: "Zinc",
-            steel: "Carbon Steel",
-            aluminium: "Aluminium",
-            copper: "Copper",
-            stainless: "Passive Stainless Steel"
-        };
+    if (metalOne && metalTwo && checkCompatibility && compatibilityResult) {
 
         const galvanicPairs = {
 
             "copper-zinc": {
                 anodic: "Zinc",
+
                 explanation:
                     "Zinc is generally more active than copper in common aqueous environments. When electrically connected in an electrolyte, zinc may corrode preferentially.",
+
                 precaution:
                     "Consider electrical insulation, compatible material selection, and suitable protective systems."
             },
 
-            "steel-copper": {
+            "copper-iron": {
+                anodic: "Iron",
+
+                explanation:
+                    "Iron is generally less noble than copper in many aqueous environments and may corrode preferentially when the metals are electrically connected.",
+
+                precaution:
+                    "Consider electrical isolation and suitable coatings."
+            },
+
+            "copper-steel": {
                 anodic: "Carbon Steel",
+
                 explanation:
                     "Carbon steel is generally more active than copper in many aqueous environments. The steel may experience accelerated corrosion when the metals are electrically connected.",
+
                 precaution:
                     "Consider insulating the connection, applying suitable coatings, and preventing electrolyte accumulation."
             },
 
             "aluminium-copper": {
                 anodic: "Aluminium",
+
                 explanation:
                     "Aluminium is generally more active than copper. Its protective oxide film can influence the actual behaviour, but galvanic corrosion is a concern in conductive environments.",
+
                 precaution:
                     "Consider electrical isolation and protective coatings designed for the environment."
             },
 
             "aluminium-steel": {
                 anodic: "Environment dependent",
+
                 explanation:
                     "The galvanic behaviour of aluminium and carbon steel depends on the alloys, surface films, electrolyte, and exposure conditions.",
+
                 precaution:
                     "Consult material-specific galvanic-series data and consider electrical isolation."
             },
 
-            "copper-stainless": {
+            "copper-stainless304": {
                 anodic: "Environment dependent",
+
                 explanation:
-                    "Copper and passive stainless steel can have different galvanic behaviour depending on their grades and the electrolyte.",
+                    "Copper and passive Stainless Steel 304 can have different galvanic behaviour depending on the electrolyte and surface condition.",
+
                 precaution:
-                    "Check the specific stainless-steel grade and environment before selecting the joint design."
+                    "Check the exact material grade and operating environment before selecting the joint design."
+            },
+
+            "copper-stainless316": {
+                anodic: "Environment dependent",
+
+                explanation:
+                    "Copper and passive Stainless Steel 316 may have different galvanic behaviour depending on the electrolyte, surface condition, and exposed area.",
+
+                precaution:
+                    "Check material-specific galvanic data and consider electrical isolation where appropriate."
+            },
+
+            "aluminium-stainless304": {
+                anodic: "Environment dependent",
+
+                explanation:
+                    "Aluminium and passive stainless steel may form a galvanic couple in conductive environments. Actual behaviour depends on alloy grade and surface condition.",
+
+                precaution:
+                    "Consider electrical isolation and suitable joint protection."
+            },
+
+            "aluminium-stainless316": {
+                anodic: "Environment dependent",
+
+                explanation:
+                    "The behaviour of aluminium coupled with Stainless Steel 316 depends on the environment, surface films, and relative exposed areas.",
+
+                precaution:
+                    "Consult material-specific galvanic data before selecting the combination."
             }
 
         };
@@ -359,20 +446,23 @@ document.addEventListener("DOMContentLoaded", function () {
             const first = metalOne.value;
             const second = metalTwo.value;
 
-            const firstName = metalNames[first];
-            const secondName = metalNames[second];
+            const firstName = materialNames[first];
+            const secondName = materialNames[second];
 
             if (first === second) {
 
                 compatibilityResult.innerHTML = `
                     <h3>Same Metal Combination</h3>
+
                     <p>
                         You selected ${firstName} and ${secondName}.
                         Since both selections represent the same material,
                         there is generally no galvanic driving force caused
                         by coupling two different metals.
                     </p>
+
                     <strong>Note:</strong>
+
                     <p>
                         Ordinary corrosion can still occur depending on
                         the environment and material condition.
@@ -380,7 +470,9 @@ document.addEventListener("DOMContentLoaded", function () {
                 `;
 
                 return;
+
             }
+
 
             const pairKey = [first, second].sort().join("-");
 
@@ -426,6 +518,7 @@ document.addEventListener("DOMContentLoaded", function () {
                         data for the electrolyte and operating conditions.
                     </p>
                 `;
+
             }
 
         });
@@ -433,15 +526,16 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
 
-    // =====================================
-    // 8. CORROSION PREVENTION RECOMMENDATIONS
-    // =====================================
+    /* =====================================
+       8. CORROSION PREVENTION RECOMMENDATIONS
+    ===================================== */
 
     const getRecommendations =
         document.getElementById("getRecommendations");
 
     const recommendationResult =
         document.getElementById("recommendationResult");
+
 
     if (getRecommendations && recommendationResult) {
 
@@ -454,8 +548,7 @@ document.addEventListener("DOMContentLoaded", function () {
             const acidity = Number(ph.value);
             const salt = Number(salinity.value);
 
-            const selectedMetalName =
-                metal.options[metal.selectedIndex].text;
+            const selectedMetalName = materialNames[selectedMetal];
 
             let recommendations = [];
 
@@ -466,6 +559,7 @@ document.addEventListener("DOMContentLoaded", function () {
             recommendations.push(
                 "Keep surfaces clean and avoid unnecessary moisture accumulation."
             );
+
 
             if (selectedMetal === "iron" || selectedMetal === "steel") {
 
@@ -487,7 +581,11 @@ document.addEventListener("DOMContentLoaded", function () {
                     "Evaluate electrical isolation when aluminium is joined to dissimilar metals."
                 );
 
-            } else if (selectedMetal === "copper") {
+            } else if (
+                selectedMetal === "copper" ||
+                selectedMetal === "brass" ||
+                selectedMetal === "bronze"
+            ) {
 
                 recommendations.push(
                     "Select a suitable protective coating when the service environment requires additional protection."
@@ -496,13 +594,63 @@ document.addEventListener("DOMContentLoaded", function () {
                 recommendations.push(
                     "Check connections with dissimilar metals for possible galvanic corrosion."
                 );
+
+            } else if (
+                selectedMetal === "stainless304" ||
+                selectedMetal === "stainless316"
+            ) {
+
+                recommendations.push(
+                    "Maintain the passive surface film and avoid unnecessary surface contamination."
+                );
+
+                recommendations.push(
+                    "Consider chloride exposure carefully, particularly for Stainless Steel 304."
+                );
+
+                recommendations.push(
+                    "Select the stainless-steel grade based on the actual chemical environment."
+                );
+
+            } else if (selectedMetal === "galvanized") {
+
+                recommendations.push(
+                    "Inspect the zinc coating for scratches, wear, and exposed steel."
+                );
+
+                recommendations.push(
+                    "Avoid damaging the protective coating during installation and maintenance."
+                );
+
+            } else if (selectedMetal === "zinc") {
+
+                recommendations.push(
+                    "Monitor zinc surfaces for coating consumption and deterioration."
+                );
+
+                recommendations.push(
+                    "Consider the surrounding metals and electrolyte when zinc is used as a sacrificial material."
+                );
+
+            } else if (selectedMetal === "titanium") {
+
+                recommendations.push(
+                    "Check chemical and temperature compatibility for the specific titanium grade."
+                );
+
+                recommendations.push(
+                    "Avoid assuming that titanium is resistant to every chemical environment."
+                );
+
             }
+
 
             if (humid >= 70) {
 
                 recommendations.push(
                     "High humidity detected: improve drainage and ventilation where possible to reduce moisture accumulation."
                 );
+
             }
 
             if (temp >= 40) {
@@ -510,6 +658,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 recommendations.push(
                     "Elevated temperature detected: verify that the selected material and coating are suitable for the operating temperature."
                 );
+
             }
 
             if (salt >= 50) {
@@ -517,6 +666,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 recommendations.push(
                     "High salt exposure detected: consider suitable marine-environment protective systems and regular removal of salt deposits."
                 );
+
             }
 
             if (acidity < 5 || acidity > 9) {
@@ -524,7 +674,9 @@ document.addEventListener("DOMContentLoaded", function () {
                 recommendations.push(
                     "The selected pH is outside the near-neutral range: verify chemical compatibility and consider suitable corrosion-resistant materials."
                 );
+
             }
+
 
             recommendationResult.replaceChildren();
 
@@ -558,6 +710,7 @@ document.addEventListener("DOMContentLoaded", function () {
             });
 
             const note = document.createElement("p");
+
             note.textContent =
                 "These suggestions are preliminary educational guidance, not a validated engineering design. Actual corrosion-control decisions require material specifications and professional assessment.";
 
@@ -575,9 +728,9 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
 
-    // =====================================
-    // 9. NAVIGATION SMOOTH SCROLL
-    // =====================================
+    /* =====================================
+       9. NAVIGATION SMOOTH SCROLL
+    ===================================== */
 
     document.querySelectorAll('a[href^="#"]').forEach(function (link) {
 
@@ -602,12 +755,9 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
 
-    console.log("CorroGuard initialized successfully!");
-
-
-    // =====================================
-    // 10. CORROSION RATE ESTIMATOR
-    // =====================================
+    /* =====================================
+       10. CORROSION RATE ESTIMATOR
+    ===================================== */
 
     const calculateRate = document.getElementById("calculateRate");
     const rateResult = document.getElementById("rateResult");
@@ -616,33 +766,30 @@ document.addEventListener("DOMContentLoaded", function () {
 
         calculateRate.addEventListener("click", function () {
 
-            const initialWeight = Number(
-                document.getElementById("initialWeight").value
-            );
+            const initialInput = document.getElementById("initialWeight");
+            const finalInput = document.getElementById("finalWeight");
+            const areaInput = document.getElementById("surfaceArea");
+            const timeInput = document.getElementById("exposureTime");
 
-            const finalWeight = Number(
-                document.getElementById("finalWeight").value
-            );
-
-            const surfaceArea = Number(
-                document.getElementById("surfaceArea").value
-            );
-
-            const exposureTime = Number(
-                document.getElementById("exposureTime").value
-            );
+            const initialWeight = Number(initialInput.value);
+            const finalWeight = Number(finalInput.value);
+            const surfaceArea = Number(areaInput.value);
+            const exposureTime = Number(timeInput.value);
 
             if (
-                document.getElementById("initialWeight").value === "" ||
-                document.getElementById("finalWeight").value === "" ||
-                document.getElementById("surfaceArea").value === "" ||
-                document.getElementById("exposureTime").value === ""
+                initialInput.value === "" ||
+                finalInput.value === "" ||
+                areaInput.value === "" ||
+                timeInput.value === ""
             ) {
+
                 rateResult.innerHTML = `
                     <h3>⚠️ Missing Measurements</h3>
                     <p>Please fill in all four fields before calculating.</p>
                 `;
+
                 return;
+
             }
 
             if (
@@ -651,19 +798,25 @@ document.addEventListener("DOMContentLoaded", function () {
                 surfaceArea <= 0 ||
                 exposureTime <= 0
             ) {
+
                 rateResult.innerHTML = `
                     <h3>⚠️ Invalid Measurements</h3>
                     <p>Weights, surface area, and exposure time must be valid positive measurements. Final weight cannot be negative.</p>
                 `;
+
                 return;
+
             }
 
             if (finalWeight > initialWeight) {
+
                 rateResult.innerHTML = `
                     <h3>⚠️ Check Your Weights</h3>
                     <p>Final weight is greater than initial weight. Check your measurements before calculating weight loss.</p>
                 `;
+
                 return;
+
             }
 
             const weightLoss = initialWeight - finalWeight;
@@ -674,30 +827,11 @@ document.addEventListener("DOMContentLoaded", function () {
             rateResult.innerHTML = `
                 <h3>✅ Corrosion Rate Result</h3>
 
-                <p>
-                    <strong>Initial Weight:</strong>
-                    ${initialWeight} g
-                </p>
-
-                <p>
-                    <strong>Final Weight:</strong>
-                    ${finalWeight} g
-                </p>
-
-                <p>
-                    <strong>Total Weight Loss:</strong>
-                    ${weightLoss.toFixed(4)} g
-                </p>
-
-                <p>
-                    <strong>Surface Area:</strong>
-                    ${surfaceArea} cm²
-                </p>
-
-                <p>
-                    <strong>Exposure Time:</strong>
-                    ${exposureTime} hours
-                </p>
+                <p><strong>Initial Weight:</strong> ${initialWeight} g</p>
+                <p><strong>Final Weight:</strong> ${finalWeight} g</p>
+                <p><strong>Total Weight Loss:</strong> ${weightLoss.toFixed(4)} g</p>
+                <p><strong>Surface Area:</strong> ${surfaceArea} cm²</p>
+                <p><strong>Exposure Time:</strong> ${exposureTime} hours</p>
 
                 <h3>
                     Estimated Mass Loss Rate:
@@ -716,12 +850,15 @@ document.addEventListener("DOMContentLoaded", function () {
 
     }
 
+
+    console.log("CorroGuard initialized successfully!");
+
 });
 
 
-// ==========================================
-// CORROGUARD - VIRTUAL EXPERIMENTAL LAB
-// ==========================================
+/* ==========================================
+   CORROGUARD - VIRTUAL EXPERIMENTAL LAB
+========================================== */
 
 function openExperiment(type) {
 
@@ -730,7 +867,9 @@ function openExperiment(type) {
     const controls = document.getElementById("experimentControls");
     const result = document.getElementById("experimentResult");
 
-    result.innerHTML = "Adjust the experiment settings and click Run Experiment.";
+    result.innerHTML =
+        "Adjust the experiment settings and click Run Experiment.";
+
 
     if (type === "rust") {
 
@@ -741,12 +880,14 @@ function openExperiment(type) {
 
         controls.innerHTML = `
             <label for="rustWater">Water availability</label>
+
             <select id="rustWater">
                 <option value="1">Present</option>
                 <option value="0">Absent</option>
             </select>
 
             <label for="rustOxygen">Oxygen availability</label>
+
             <select id="rustOxygen">
                 <option value="1">Present</option>
                 <option value="0">Absent</option>
@@ -754,9 +895,8 @@ function openExperiment(type) {
 
             <button onclick="runRustExperiment()">Run Experiment</button>
         `;
-    }
 
-    else if (type === "salt") {
+    } else if (type === "salt") {
 
         title.textContent = "Experiment 02: Effect of Salt";
 
@@ -765,6 +905,7 @@ function openExperiment(type) {
 
         controls.innerHTML = `
             <label for="saltLevel">Environment</label>
+
             <select id="saltLevel">
                 <option value="0">Fresh Water</option>
                 <option value="1">Salt Water</option>
@@ -772,9 +913,8 @@ function openExperiment(type) {
 
             <button onclick="runSaltExperiment()">Run Experiment</button>
         `;
-    }
 
-    else if (type === "galvanic") {
+    } else if (type === "galvanic") {
 
         title.textContent = "Experiment 03: Galvanic Corrosion";
 
@@ -783,14 +923,22 @@ function openExperiment(type) {
 
         controls.innerHTML = `
             <label for="metalPair">Metal combination</label>
+
             <select id="metalPair">
                 <option value="iron-copper">Iron + Copper</option>
                 <option value="zinc-copper">Zinc + Copper</option>
                 <option value="iron-zinc">Iron + Zinc</option>
+                <option value="aluminium-copper">Aluminium + Copper</option>
+                <option value="steel-copper">Carbon Steel + Copper</option>
+                <option value="stainless316-copper">Stainless Steel 316 + Copper</option>
+                <option value="brass-steel">Brass + Carbon Steel</option>
+                <option value="bronze-zinc">Bronze + Zinc</option>
+                <option value="titanium-aluminium">Titanium + Aluminium</option>
             </select>
 
             <button onclick="runGalvanicExperiment()">Run Experiment</button>
         `;
+
     }
 
     document.getElementById("experimentDisplay").scrollIntoView({
@@ -801,131 +949,207 @@ function openExperiment(type) {
 }
 
 
-// ==========================================
-// EXPERIMENT 01: RUSTING OF IRON
-// ==========================================
+/* ==========================================
+   EXPERIMENT 01: RUSTING OF IRON
+========================================== */
 
 function runRustExperiment() {
 
     const water = Number(document.getElementById("rustWater").value);
     const oxygen = Number(document.getElementById("rustOxygen").value);
+
     const result = document.getElementById("experimentResult");
 
     if (water && oxygen) {
 
         result.innerHTML = `
             <h4>Result: Rusting Conditions Present</h4>
+
             <p>
                 Both water and oxygen are available. Iron can undergo
                 electrochemical corrosion and form rust over time.
             </p>
-            <strong>Observation:</strong> Rust formation is possible.
+
+            <strong>Observation:</strong>
+            Rust formation is possible.
         `;
 
     } else {
 
         result.innerHTML = `
             <h4>Result: Rusting Conditions Limited</h4>
+
             <p>
                 One of the essential conditions is absent in this simplified
                 model, so ordinary rust formation is greatly restricted.
             </p>
-            <strong>Observation:</strong> Water and oxygen are important
-            for ordinary iron rusting.
+
+            <strong>Observation:</strong>
+            Water and oxygen are important for ordinary iron rusting.
         `;
+
     }
 
 }
 
 
-// ==========================================
-// EXPERIMENT 02: EFFECT OF SALT
-// ==========================================
+/* ==========================================
+   EXPERIMENT 02: EFFECT OF SALT
+========================================== */
 
 function runSaltExperiment() {
 
     const salt = Number(document.getElementById("saltLevel").value);
+
     const result = document.getElementById("experimentResult");
 
     if (salt === 1) {
 
         result.innerHTML = `
             <h4>Result: Higher Corrosion Tendency</h4>
+
             <p>
                 Salt water generally increases the electrical conductivity
                 of the electrolyte, which can accelerate electrochemical
                 corrosion of iron.
             </p>
-            <strong>Observation:</strong> Salt water generally promotes
-            faster corrosion than fresh water under comparable conditions.
+
+            <strong>Observation:</strong>
+            Salt water generally promotes faster corrosion than fresh water
+            under comparable conditions.
         `;
 
     } else {
 
         result.innerHTML = `
             <h4>Result: Fresh Water Environment</h4>
+
             <p>
                 Fresh water can still support corrosion when oxygen and
                 other conditions are present. Its corrosion behaviour depends
                 on water chemistry and environmental conditions.
             </p>
-            <strong>Observation:</strong> Fresh water does not mean
-            corrosion-free.
+
+            <strong>Observation:</strong>
+            Fresh water does not mean corrosion-free.
         `;
+
     }
 
 }
 
 
-// ==========================================
-// EXPERIMENT 03: GALVANIC CORROSION
-// ==========================================
+/* ==========================================
+   EXPERIMENT 03: GALVANIC CORROSION
+========================================== */
 
 function runGalvanicExperiment() {
 
     const pair = document.getElementById("metalPair").value;
+
     const result = document.getElementById("experimentResult");
 
     const explanations = {
 
         "iron-copper": `
-            <h4>Result: Iron is generally the anode</h4>
+            <h4>Result: Iron may act as the anode</h4>
             <p>
-                When electrically connected in an electrolyte, iron is
-                generally less noble than copper and is more likely to corrode.
+                Iron is generally less noble than copper in many aqueous
+                environments and may corrode preferentially when electrically
+                connected to copper.
             </p>
         `,
 
         "zinc-copper": `
-            <h4>Result: Zinc is generally the anode</h4>
+            <h4>Result: Zinc may act as the anode</h4>
             <p>
-                Zinc is less noble than copper and tends to corrode
+                Zinc is generally less noble than copper and may corrode
                 preferentially in this galvanic couple.
             </p>
         `,
 
         "iron-zinc": `
-            <h4>Result: Zinc is generally the anode</h4>
+            <h4>Result: Zinc may act as the anode</h4>
             <p>
                 Zinc is generally less noble than iron and can provide
                 sacrificial protection to iron when properly connected.
+            </p>
+        `,
+
+        "aluminium-copper": `
+            <h4>Result: Environment-dependent galvanic behaviour</h4>
+            <p>
+                Aluminium is generally more active than copper, but its oxide
+                film and the environment influence the actual behaviour.
+            </p>
+        `,
+
+        "steel-copper": `
+            <h4>Result: Carbon steel may corrode preferentially</h4>
+            <p>
+                Carbon steel is generally more active than copper in many
+                aqueous environments. Actual behaviour depends on the
+                electrolyte and surface conditions.
+            </p>
+        `,
+
+        "stainless316-copper": `
+            <h4>Result: Grade and environment matter</h4>
+            <p>
+                Passive Stainless Steel 316 and copper may form a galvanic
+                couple. The actual corrosion behaviour depends on the
+                electrolyte, surface condition, and exposed areas.
+            </p>
+        `,
+
+        "brass-steel": `
+            <h4>Result: Material details are important</h4>
+            <p>
+                Brass and carbon steel can have different electrochemical
+                behaviour. The exact brass composition and environment
+                influence which material corrodes preferentially.
+            </p>
+        `,
+
+        "bronze-zinc": `
+            <h4>Result: Zinc may corrode preferentially</h4>
+            <p>
+                Zinc is generally more active than many copper-based alloys.
+                However, the exact bronze composition and electrolyte
+                influence galvanic behaviour.
+            </p>
+        `,
+
+        "titanium-aluminium": `
+            <h4>Result: Environment-dependent galvanic behaviour</h4>
+            <p>
+                Titanium and aluminium have different passive-film
+                characteristics. Their galvanic behaviour depends on the
+                alloy grades, electrolyte, and surface conditions.
             </p>
         `
 
     };
 
-    result.innerHTML = explanations[pair] + `
-        <strong>Observation:</strong> Galvanic corrosion requires
-        electrical contact between dissimilar metals and an electrolyte.
-        Actual behaviour depends on the environment and metal conditions.
+    result.innerHTML = (explanations[pair] || `
+        <h4>Result: Further Information Needed</h4>
+        <p>
+            The galvanic behaviour of this material combination requires
+            material-specific data and environmental details.
+        </p>
+    `) + `
+        <strong>Observation:</strong>
+        Galvanic corrosion requires electrical contact between dissimilar
+        metals and an electrolyte. Actual behaviour depends on the
+        environment and metal conditions.
     `;
 
 }
 
 
-// ==========================================
-// CORROGUARD KNOWLEDGE QUIZ
-// ==========================================
+/* ==========================================
+   CORROGUARD KNOWLEDGE QUIZ
+========================================== */
 
 const quizQuestions = [
 
@@ -1042,18 +1266,18 @@ const quizQuestions = [
 ];
 
 
-// ==========================================
-// QUIZ VARIABLES
-// ==========================================
+/* ==========================================
+   QUIZ VARIABLES
+========================================== */
 
 let currentQuizQuestion = 0;
 let quizTotalScore = 0;
 let quizAnswered = false;
 
 
-// ==========================================
-// LOAD QUIZ QUESTION
-// ==========================================
+/* ==========================================
+   LOAD QUIZ QUESTION
+========================================== */
 
 function loadQuizQuestion() {
 
@@ -1102,9 +1326,9 @@ function loadQuizQuestion() {
 }
 
 
-// ==========================================
-// SELECT QUIZ ANSWER
-// ==========================================
+/* ==========================================
+   SELECT QUIZ ANSWER
+========================================== */
 
 function selectQuizAnswer(selectedIndex) {
 
@@ -1150,9 +1374,9 @@ function selectQuizAnswer(selectedIndex) {
 }
 
 
-// ==========================================
-// NEXT QUIZ QUESTION
-// ==========================================
+/* ==========================================
+   NEXT QUIZ QUESTION
+========================================== */
 
 function nextQuizQuestion() {
 
@@ -1173,9 +1397,9 @@ function nextQuizQuestion() {
 }
 
 
-// ==========================================
-// SHOW FINAL QUIZ RESULT
-// ==========================================
+/* ==========================================
+   SHOW FINAL QUIZ RESULT
+========================================== */
 
 function showQuizResult() {
 
@@ -1192,11 +1416,9 @@ function showQuizResult() {
 
     document.getElementById("quizFeedback").textContent = "";
 
-    document.getElementById("nextQuestion").style.display =
-        "none";
+    document.getElementById("nextQuestion").style.display = "none";
 
-    document.getElementById("restartQuiz").style.display =
-        "inline-block";
+    document.getElementById("restartQuiz").style.display = "inline-block";
 
     const percentage = Math.round(
         (quizTotalScore / quizQuestions.length) * 100
@@ -1230,9 +1452,9 @@ function showQuizResult() {
 }
 
 
-// ==========================================
-// RESTART QUIZ
-// ==========================================
+/* ==========================================
+   RESTART QUIZ
+========================================== */
 
 function restartQuiz() {
 
@@ -1245,9 +1467,9 @@ function restartQuiz() {
 }
 
 
-// ==========================================
-// START QUIZ AFTER PAGE LOAD
-// ==========================================
+/* ==========================================
+   START QUIZ AFTER PAGE LOAD
+========================================== */
 
 document.addEventListener("DOMContentLoaded", function () {
 
@@ -1259,9 +1481,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
 });
 
-// ==========================================
-// CORROGUARD - PDF REPORT GENERATOR
-// ==========================================
+
+/* ==========================================
+   CORROGUARD - PDF REPORT GENERATOR
+========================================== */
 
 document.addEventListener("DOMContentLoaded", function () {
 
@@ -1272,8 +1495,11 @@ document.addEventListener("DOMContentLoaded", function () {
     downloadButton.addEventListener("click", function () {
 
         if (!window.jspdf || !window.jspdf.jsPDF) {
+
             alert("PDF library is not available. Please refresh the page and try again.");
+
             return;
+
         }
 
         const { jsPDF } = window.jspdf;
@@ -1306,7 +1532,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
         const date = new Date().toLocaleDateString();
 
-        // PDF Header
+
+        /* PDF HEADER */
 
         pdf.setFillColor(16, 45, 80);
         pdf.rect(0, 0, 210, 38, "F");
@@ -1322,7 +1549,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
         pdf.text("Corrosion Analysis Report", 15, 28);
 
-        // Report Information
+
+        /* REPORT INFORMATION */
 
         pdf.setTextColor(30, 45, 65);
 
@@ -1337,7 +1565,8 @@ document.addEventListener("DOMContentLoaded", function () {
         pdf.text("Report Date: " + date, 15, 64);
         pdf.text("Selected Metal: " + selectedMetal, 15, 74);
 
-        // Environmental Conditions
+
+        /* ENVIRONMENTAL CONDITIONS */
 
         pdf.setFontSize(15);
         pdf.setFont("helvetica", "bold");
@@ -1352,7 +1581,8 @@ document.addEventListener("DOMContentLoaded", function () {
         pdf.text("pH Level: " + ph, 15, 126);
         pdf.text("Salinity: " + salinity + "%", 15, 136);
 
-        // Risk Assessment
+
+        /* RISK ASSESSMENT */
 
         pdf.setFontSize(15);
         pdf.setFont("helvetica", "bold");
@@ -1362,7 +1592,6 @@ document.addEventListener("DOMContentLoaded", function () {
         pdf.setFontSize(13);
 
         pdf.text("Risk Score: " + riskScore + " / 100", 15, 170);
-
         pdf.text("Risk Level: " + riskLevel, 15, 181);
 
         pdf.setFontSize(10);
@@ -1375,7 +1604,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
         pdf.text(descriptionLines, 15, 194);
 
-        // Disclaimer
+
+        /* DISCLAIMER */
 
         pdf.setFontSize(13);
         pdf.setFont("helvetica", "bold");
@@ -1392,7 +1622,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
         pdf.text(disclaimer, 15, 235);
 
-        // Footer
+
+        /* FOOTER */
 
         pdf.setFontSize(9);
         pdf.setTextColor(110, 120, 130);
@@ -1403,7 +1634,8 @@ document.addEventListener("DOMContentLoaded", function () {
             280
         );
 
-        // Save PDF
+
+        /* SAVE PDF */
 
         pdf.save("CorroGuard_Corrosion_Report.pdf");
 
