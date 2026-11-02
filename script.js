@@ -148,6 +148,32 @@ document.addEventListener("DOMContentLoaded", function () {
 
         riskCircle.style.background =
             `conic-gradient(${color} ${degrees}deg, #e7edf4 ${degrees}deg)`;
+       
+        // UPDATE PROJECT DASHBOARD
+
+        const dashboardRiskScore =
+            document.getElementById("dashboardRiskScore");
+
+        const dashboardRiskLevel =
+            document.getElementById("dashboardRiskLevel");
+
+        const dashboardMetal =
+            document.getElementById("dashboardMetal");
+
+        if (dashboardRiskScore) {
+            dashboardRiskScore.textContent = score + " / 100";
+        }
+
+        if (dashboardRiskLevel) {
+            dashboardRiskLevel.textContent = level;
+            dashboardRiskLevel.style.color = color;
+        }
+
+        if (dashboardMetal) {
+            dashboardMetal.textContent =
+                "Selected material: " + selectedMetal;
+        }
+
     }
 
 
