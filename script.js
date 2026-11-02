@@ -1,3 +1,16 @@
+const metalNames = {
+    iron: "Iron",
+    steel: "Carbon Steel",
+    aluminium: "Aluminium",
+    copper: "Copper",
+    stainless304: "Stainless Steel 304",
+    stainless316: "Stainless Steel 316",
+    galvanized: "Galvanized Iron",
+    brass: "Brass",
+    bronze: "Bronze",
+    zinc: "Zinc",
+    titanium: "Titanium"
+};
 /* =========================================
    CORROGUARD - JAVASCRIPT
    Corrosion Risk Analysis Platform
