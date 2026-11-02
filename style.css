@@ -1508,3 +1508,219 @@ button, input, select {
         left: 0;
     }
 }
+
+/* ==========================================
+   CORROGUARD - EXPERIMENTAL LAB
+========================================== */
+
+.lab-section {
+    background: #f4f8fc;
+}
+
+.lab-intro {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 25px;
+    padding: 30px;
+    margin-bottom: 35px;
+    background: linear-gradient(120deg, #102d50, #1769aa);
+    color: white;
+    border-radius: 18px;
+}
+
+.lab-intro h3 {
+    font-size: 23px;
+    margin-bottom: 12px;
+}
+
+.lab-intro p {
+    line-height: 1.7;
+    max-width: 650px;
+    color: #e5f2ff;
+}
+
+.lab-icon {
+    font-size: 65px;
+}
+
+.experiment-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 22px;
+    margin-bottom: 35px;
+}
+
+.experiment-card {
+    background: white;
+    padding: 28px;
+    border-radius: 16px;
+    border: 1px solid #e1eaf3;
+    box-shadow: 0 8px 25px rgba(16, 45, 80, 0.06);
+    transition: 0.3s ease;
+}
+
+.experiment-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 14px 30px rgba(16, 45, 80, 0.12);
+}
+
+.experiment-number {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    color: #17aaa3;
+}
+
+.experiment-icon {
+    font-size: 42px;
+    margin: 22px 0 15px;
+}
+
+.experiment-card h3 {
+    color: #102d50;
+    margin-bottom: 12px;
+    font-size: 21px;
+}
+
+.experiment-card p {
+    color: #64758a;
+    line-height: 1.7;
+    min-height: 75px;
+    margin-bottom: 20px;
+}
+
+.experiment-card button {
+    width: 100%;
+    padding: 13px 16px;
+    border: none;
+    border-radius: 9px;
+    background: #1769aa;
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.experiment-card button:hover {
+    background: #102d50;
+}
+
+.experiment-display {
+    padding: 32px;
+    background: white;
+    border-radius: 18px;
+    border: 1px solid #e1eaf3;
+    box-shadow: 0 8px 25px rgba(16, 45, 80, 0.06);
+    scroll-margin-top: 100px;
+}
+
+.experiment-display-heading {
+    margin-bottom: 25px;
+}
+
+.experiment-display-heading h3 {
+    color: #102d50;
+    font-size: 25px;
+    margin: 12px 0;
+}
+
+.experiment-display-heading p {
+    color: #64758a;
+    line-height: 1.7;
+}
+
+.experiment-controls {
+    display: grid;
+    gap: 14px;
+    margin-bottom: 22px;
+}
+
+.experiment-controls label {
+    color: #23384e;
+    font-weight: 600;
+}
+
+.experiment-controls select {
+    width: 100%;
+    padding: 13px;
+    border: 1px solid #d5e1ec;
+    border-radius: 8px;
+    background: #f8fbfe;
+    color: #23384e;
+    font-size: 15px;
+}
+
+.experiment-controls button {
+    padding: 14px 20px;
+    background: #17aaa3;
+    color: white;
+    border: none;
+    border-radius: 9px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.experiment-controls button:hover {
+    background: #128780;
+}
+
+.experiment-result {
+    padding: 22px;
+    background: #eaf4fc;
+    border-left: 4px solid #17aaa3;
+    border-radius: 10px;
+    line-height: 1.7;
+    color: #23384e;
+}
+
+.experiment-result h4 {
+    color: #102d50;
+    font-size: 19px;
+    margin-bottom: 10px;
+}
+
+.experiment-result p {
+    margin-bottom: 10px;
+}
+
+.lab-disclaimer {
+    color: #64758a;
+    font-size: 13px;
+    line-height: 1.7;
+    margin-top: 22px;
+}
+
+
+/* RESPONSIVE LAB DESIGN */
+
+@media (max-width: 900px) {
+    .experiment-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 600px) {
+    .experiment-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .lab-intro {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 23px;
+    }
+
+    .lab-icon {
+        font-size: 45px;
+    }
+
+    .experiment-display {
+        padding: 22px;
+    }
+
+    .experiment-card p {
+        min-height: auto;
+    }
+}
