@@ -878,3 +878,225 @@ function runGalvanicExperiment() {
         Actual behaviour depends on the environment and metal conditions.
     `;
 }
+```javascript
+// CORROGUARD KNOWLEDGE QUIZ
+
+const quizQuestions = [
+    {
+        question: "What is corrosion?",
+        options: [
+            "Melting of metals",
+            "Deterioration of materials due to chemical reactions",
+            "Cooling of metals",
+            "Polishing of metals"
+        ],
+        answer: 1,
+        explanation: "Corrosion is the gradual deterioration of a material due to reactions with its environment."
+    },
+    {
+        question: "Which metal is commonly used to protect iron through galvanization?",
+        options: ["Copper", "Silver", "Zinc", "Gold"],
+        answer: 2,
+        explanation: "Zinc provides a protective coating and helps protect iron from corrosion."
+    },
+    {
+        question: "What is the common name for iron corrosion?",
+        options: ["Rusting", "Scaling", "Cracking", "Melting"],
+        answer: 0,
+        explanation: "Rusting is the corrosion process that affects iron and many iron-based materials."
+    },
+    {
+        question: "Which conditions are generally needed for ordinary iron rusting?",
+        options: [
+            "Only sunlight",
+            "Water and oxygen",
+            "Only nitrogen",
+            "Only heat"
+        ],
+        answer: 1,
+        explanation: "Water and oxygen are both important for ordinary rust formation."
+    },
+    {
+        question: "Which of these is a method of corrosion prevention?",
+        options: [
+            "Painting",
+            "Adding moisture",
+            "Removing protective coatings",
+            "Increasing exposure to salt"
+        ],
+        answer: 0,
+        explanation: "Paint creates a barrier that helps prevent the environment from reaching the metal."
+    },
+    {
+        question: "What does pH measure?",
+        options: [
+            "Metal thickness",
+            "Electrical resistance",
+            "Acidity or alkalinity",
+            "Temperature"
+        ],
+        answer: 2,
+        explanation: "pH indicates how acidic or alkaline a solution is."
+    },
+    {
+        question: "Which type of corrosion occurs when two dissimilar metals are electrically connected in an electrolyte?",
+        options: [
+            "Galvanic corrosion",
+            "Uniform corrosion",
+            "Dry corrosion",
+            "Erosion"
+        ],
+        answer: 0,
+        explanation: "Galvanic corrosion can occur when dissimilar metals are electrically connected in an electrolyte."
+    },
+    {
+        question: "Which material is commonly used for corrosion-resistant applications?",
+        options: [
+            "Ordinary untreated iron",
+            "Stainless steel",
+            "Uncoated carbon steel",
+            "Pure iron"
+        ],
+        answer: 1,
+        explanation: "Stainless steel contains chromium, which helps form a protective passive layer."
+    },
+    {
+        question: "What is a corrosion inhibitor?",
+        options: [
+            "A substance that increases corrosion",
+            "A substance that slows corrosion",
+            "A type of metal",
+            "A measuring instrument"
+        ],
+        answer: 1,
+        explanation: "Corrosion inhibitors are substances that reduce the rate of corrosion."
+    },
+    {
+        question: "What does corrosion rate describe?",
+        options: [
+            "How quickly a material corrodes",
+            "The colour of a metal",
+            "The weight of a metal only",
+            "The melting point of a metal"
+        ],
+        answer: 0,
+        explanation: "Corrosion rate describes how quickly material deterioration occurs."
+    }
+];
+
+let currentQuizQuestion = 0;
+let quizTotalScore = 0;
+let quizAnswered = false;
+
+function loadQuizQuestion() {
+    const question = quizQuestions[currentQuizQuestion];
+
+    document.getElementById("quizProgress").textContent =
+        `Question ${currentQuizQuestion + 1} of ${quizQuestions.length}`;
+
+    document.getElementById("quizScore").textContent =
+        `Score: ${quizTotalScore}`;
+
+    document.getElementById("quizProgressFill").style.width =
+        `${(currentQuizQuestion / quizQuestions.length) * 100}%`;
+
+    document.getElementById("quizQuestion").textContent = question.question;
+
+    const optionsContainer = document.getElementById("quizOptions");
+    optionsContainer.innerHTML = "";
+
+    question.options.forEach((option, index) => {
+        const button = document.createElement("button");
+        button.className = "quiz-option";
+        button.textContent = option;
+        button.onclick = () => selectQuizAnswer(index);
+        optionsContainer.appendChild(button);
+    });
+
+    document.getElementById("quizFeedback").textContent = "";
+    document.getElementById("nextQuestion").disabled = true;
+    document.getElementById("nextQuestion").style.display = "inline-block";
+    document.getElementById("restartQuiz").style.display = "none";
+    document.getElementById("quizFinalResult").textContent = "";
+
+    quizAnswered = false;
+}
+
+function selectQuizAnswer(selectedIndex) {
+    if (quizAnswered) return;
+
+    quizAnswered = true;
+
+    const question = quizQuestions[currentQuizQuestion];
+    const options = document.querySelectorAll(".quiz-option");
+    const feedback = document.getElementById("quizFeedback");
+
+    options.forEach(button => button.disabled = true);
+
+    if (selectedIndex === question.answer) {
+        quizTotalScore++;
+        options[selectedIndex].classList.add("correct");
+        feedback.textContent = "Correct! " + question.explanation;
+    } else {
+        options[selectedIndex].classList.add("incorrect");
+        options[question.answer].classList.add("correct");
+        feedback.textContent = "Not quite. " + question.explanation;
+    }
+
+    document.getElementById("quizScore").textContent =
+        `Score: ${quizTotalScore}`;
+
+    document.getElementById("nextQuestion").disabled = false;
+}
+
+function nextQuizQuestion() {
+    if (!quizAnswered) return;
+
+    currentQuizQuestion++;
+
+    if (currentQuizQuestion < quizQuestions.length) {
+        loadQuizQuestion();
+    } else {
+        showQuizResult();
+    }
+}
+
+function showQuizResult() {
+    document.getElementById("quizProgress").textContent = "Quiz completed!";
+    document.getElementById("quizProgressFill").style.width = "100%";
+    document.getElementById("quizQuestion").textContent = "Your Results";
+    document.getElementById("quizOptions").innerHTML = "";
+    document.getElementById("quizFeedback").textContent = "";
+    document.getElementById("nextQuestion").style.display = "none";
+    document.getElementById("restartQuiz").style.display = "inline-block";
+
+    const percentage = Math.round(
+        (quizTotalScore / quizQuestions.length) * 100
+    );
+
+    let message;
+
+    if (percentage >= 80) {
+        message = "Excellent work! You have a strong understanding of corrosion.";
+    } else if (percentage >= 50) {
+        message = "Good effort! Keep learning and improving.";
+    } else {
+        message = "Keep practising! Review the CorroGuard learning sections and try again.";
+    }
+
+    document.getElementById("quizFinalResult").innerHTML =
+        `<h3>${quizTotalScore} / ${quizQuestions.length}</h3>
+         <h4>${percentage}%</h4>
+         <p>${message}</p>`;
+}
+
+function restartQuiz() {
+    currentQuizQuestion = 0;
+    quizTotalScore = 0;
+    quizAnswered = false;
+    loadQuizQuestion();
+}
+
+// Start the quiz when the page loads
+loadQuizQuestion();
+```
