@@ -1,4 +1,4 @@
-```html
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="style.css">
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" defer></script>
     <script src="script.js" defer></script>
 </head>
 
@@ -305,6 +306,19 @@
                     Note: This is an illustrative scoring model, not
                     a scientifically validated corrosion prediction.
                 </p>
+
+                <!-- PDF REPORT GENERATOR -->
+                <div class="report-button-container">
+
+                    <button type="button" id="downloadReport">
+                        📄 Download PDF Report
+                    </button>
+
+                    <p>
+                        Download your corrosion analysis as a PDF document.
+                    </p>
+
+                </div>
 
             </div>
 
@@ -1006,4 +1020,3 @@
 
 </body>
 </html>
-```
