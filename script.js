@@ -600,4 +600,125 @@ document.addEventListener("DOMContentLoaded", function () {
 
     console.log("CorroGuard initialized successfully!");
 
+    // =====================================
+    // 10. CORROSION RATE ESTIMATOR
+    // =====================================
+
+    const calculateRate = document.getElementById("calculateRate");
+    const rateResult = document.getElementById("rateResult");
+
+    if (calculateRate && rateResult) {
+
+        calculateRate.addEventListener("click", function () {
+
+            const initialWeight = Number(
+                document.getElementById("initialWeight").value
+            );
+
+            const finalWeight = Number(
+                document.getElementById("finalWeight").value
+            );
+
+            const surfaceArea = Number(
+                document.getElementById("surfaceArea").value
+            );
+
+            const exposureTime = Number(
+                document.getElementById("exposureTime").value
+            );
+
+            // Validate inputs
+
+            if (
+                document.getElementById("initialWeight").value === "" ||
+                document.getElementById("finalWeight").value === "" ||
+                document.getElementById("surfaceArea").value === "" ||
+                document.getElementById("exposureTime").value === ""
+            ) {
+                rateResult.innerHTML = `
+                    <h3>⚠️ Missing Measurements</h3>
+                    <p>Please fill in all four fields before calculating.</p>
+                `;
+                return;
+            }
+
+            if (
+                initialWeight <= 0 ||
+                finalWeight < 0 ||
+                surfaceArea <= 0 ||
+                exposureTime <= 0
+            ) {
+                rateResult.innerHTML = `
+                    <h3>⚠️ Invalid Measurements</h3>
+                    <p>Weights, surface area, and exposure time must be valid positive measurements. Final weight cannot be negative.</p>
+                `;
+                return;
+            }
+
+            if (finalWeight > initialWeight) {
+                rateResult.innerHTML = `
+                    <h3>⚠️ Check Your Weights</h3>
+                    <p>Final weight is greater than initial weight. Check your measurements before calculating weight loss.</p>
+                `;
+                return;
+            }
+
+            // Calculate weight loss
+
+            const weightLoss = initialWeight - finalWeight;
+
+            // Calculate mass loss rate
+
+            const corrosionRate =
+                weightLoss / (surfaceArea * exposureTime);
+
+            // Display result
+
+            rateResult.innerHTML = `
+                <h3>✅ Corrosion Rate Result</h3>
+
+                <p>
+                    <strong>Initial Weight:</strong>
+                    ${initialWeight} g
+                </p>
+
+                <p>
+                    <strong>Final Weight:</strong>
+                    ${finalWeight} g
+                </p>
+
+                <p>
+                    <strong>Total Weight Loss:</strong>
+                    ${weightLoss.toFixed(4)} g
+                </p>
+
+                <p>
+                    <strong>Surface Area:</strong>
+                    ${surfaceArea} cm²
+                </p>
+
+                <p>
+                    <strong>Exposure Time:</strong>
+                    ${exposureTime} hours
+                </p>
+
+                <h3>
+                    Estimated Mass Loss Rate:
+                    <span>${corrosionRate.toFixed(6)}</span>
+                </h3>
+
+                <p>
+                    Unit: g/cm²/hour
+                </p>
+
+                <p>
+                    This is an average mass loss rate based on
+                    the measurements entered.
+                </p>
+            `;
+
+        });
+
+    }
+
 });
