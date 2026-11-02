@@ -1,4 +1,4 @@
- 
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,7 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="CorroGuard - Interactive corrosion risk analysis and prevention platform.">
     <title>CorroGuard | Corrosion Analysis Platform</title>
+
     <link rel="stylesheet" href="style.css">
+
     <script src="script.js" defer></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js" defer></script>
 </head>
@@ -25,15 +27,18 @@
             <a href="#about">About</a>
             <a href="#calculator">Risk Calculator</a>
             <a href="#materials">Materials</a>
+            <a href="#corrosion-types">Corrosion Types</a>
             <a href="#prevention">Prevention</a>
         </nav>
 
         <a href="#calculator" class="nav-button">Analyze Risk ↗</a>
     </header>
 
+
     <!-- HERO SECTION -->
     <section class="hero" id="home">
         <div class="hero-content">
+
             <div class="eyebrow">
                 <span class="live-dot"></span>
                 ENGINEERING CHEMISTRY PROJECT
@@ -54,6 +59,7 @@
                 <a href="#calculator" class="primary-button">
                     Explore Risk Calculator →
                 </a>
+
                 <a href="#about" class="secondary-button">
                     Discover the Science
                 </a>
@@ -64,19 +70,23 @@
                     <h3>04+</h3>
                     <p>Metal Materials</p>
                 </div>
+
                 <div>
                     <h3>05</h3>
                     <p>Environmental Factors</p>
                 </div>
+
                 <div>
                     <h3>03</h3>
                     <p>Protection Methods</p>
                 </div>
             </div>
+
         </div>
 
         <div class="hero-visual">
             <div class="visual-card">
+
                 <div class="visual-top">
                     <span>⚙ MATERIAL ANALYSIS</span>
                     <span class="status">● SYSTEM READY</span>
@@ -91,6 +101,7 @@
                     <span>Environmental analysis</span>
                     <span>Active</span>
                 </div>
+
                 <div class="progress-track">
                     <div class="progress-fill"></div>
                 </div>
@@ -100,15 +111,19 @@
                     <span>ENGINEERING</span>
                     <span>ANALYTICS</span>
                 </div>
+
             </div>
         </div>
     </section>
 
+
     <!-- ABOUT -->
     <section class="section about-section" id="about">
+
         <div class="section-heading">
             <span class="section-tag">INTRODUCTION</span>
             <h2>What is Corrosion?</h2>
+
             <p>
                 Corrosion is the gradual deterioration of metals due to
                 chemical or electrochemical reactions with their environment.
@@ -116,6 +131,7 @@
         </div>
 
         <div class="about-grid">
+
             <div class="about-card">
                 <div class="card-icon">⚗️</div>
                 <h3>Electrochemical Reactions</h3>
@@ -142,14 +158,18 @@
                     techniques help reduce corrosion.
                 </p>
             </div>
+
         </div>
     </section>
 
+
     <!-- RISK CALCULATOR -->
     <section class="section calculator-section" id="calculator">
+
         <div class="section-heading">
             <span class="section-tag">INTERACTIVE ANALYSIS</span>
             <h2>Corrosion Risk Calculator</h2>
+
             <p>
                 Adjust environmental conditions and explore their
                 influence on the estimated corrosion risk.
@@ -159,12 +179,15 @@
         <div class="calculator-layout">
 
             <div class="calculator-panel">
+
                 <h3>Environmental Parameters</h3>
+
                 <p class="panel-description">
                     Configure the following conditions.
                 </p>
 
                 <label for="metal">Select Metal</label>
+
                 <select id="metal">
                     <option value="iron">Iron</option>
                     <option value="steel">Carbon Steel</option>
@@ -177,6 +200,7 @@
                         <label for="temperature">Temperature</label>
                         <span id="temperatureValue">30 °C</span>
                     </div>
+
                     <input type="range" id="temperature"
                         min="0" max="60" value="30">
                 </div>
@@ -186,6 +210,7 @@
                         <label for="humidity">Relative Humidity</label>
                         <span id="humidityValue">60%</span>
                     </div>
+
                     <input type="range" id="humidity"
                         min="0" max="100" value="60">
                 </div>
@@ -195,6 +220,7 @@
                         <label for="ph">Environmental pH</label>
                         <span id="phValue">7.0</span>
                     </div>
+
                     <input type="range" id="ph"
                         min="1" max="14" step="0.5" value="7">
                 </div>
@@ -204,6 +230,7 @@
                         <label for="salinity">Salt Exposure</label>
                         <span id="salinityValue">30%</span>
                     </div>
+
                     <input type="range" id="salinity"
                         min="0" max="100" value="30">
                 </div>
@@ -211,10 +238,14 @@
                 <button class="analyze-button" id="analyzeButton">
                     Analyze Corrosion Risk →
                 </button>
+
             </div>
 
+
             <div class="result-panel">
+
                 <span class="section-tag">ANALYSIS RESULT</span>
+
                 <h3>Estimated Risk Level</h3>
 
                 <div class="risk-circle" id="riskCircle">
@@ -225,41 +256,51 @@
                 </div>
 
                 <h3 id="riskLevel">Awaiting Analysis</h3>
+
                 <p id="riskDescription">
                     Adjust the parameters and click Analyze to view
                     the educational risk estimate.
                 </p>
 
                 <div class="result-details">
+
                     <div>
                         <span>Selected Material</span>
                         <strong id="resultMetal">Iron</strong>
                     </div>
+
                     <div>
                         <span>Analysis Type</span>
                         <strong>Educational Estimate</strong>
                     </div>
+
                 </div>
 
                 <p class="disclaimer">
                     Note: This is an illustrative scoring model, not
                     a scientifically validated corrosion prediction.
                 </p>
+
             </div>
+
         </div>
     </section>
 
+
     <!-- MATERIALS -->
     <section class="section materials-section" id="materials">
+
         <div class="section-heading">
             <span class="section-tag">MATERIAL EXPLORER</span>
             <h2>Explore Different Metals</h2>
+
             <p>
                 Discover how different metals behave in corrosive environments.
             </p>
         </div>
 
         <div class="materials-grid">
+
             <div class="material-card">
                 <div class="material-icon">🔩</div>
                 <h3>Iron</h3>
@@ -287,14 +328,122 @@
                 <p>Can develop a protective patina over time.</p>
                 <span>Corrosion: Environment dependent</span>
             </div>
+
         </div>
     </section>
 
+
+    <!-- CORROSION TYPES EXPLORER -->
+    <section class="section corrosion-types" id="corrosion-types">
+
+        <div class="section-heading">
+            <span class="section-tag">LEARN THE SCIENCE</span>
+            <h2>Explore Types of Corrosion</h2>
+
+            <p>
+                Discover the different ways metals deteriorate
+                and understand the science behind each process.
+            </p>
+        </div>
+
+        <div class="corrosion-grid">
+
+            <div class="corrosion-card">
+                <div class="corrosion-icon">🔩</div>
+                <h3>Uniform Corrosion</h3>
+
+                <p>
+                    Corrosion occurs relatively evenly across the
+                    exposed metal surface.
+                </p>
+
+                <strong>Example:</strong>
+
+                <p>
+                    Rust forming across an unprotected iron sheet.
+                </p>
+            </div>
+
+
+            <div class="corrosion-card">
+                <div class="corrosion-icon">⚡</div>
+                <h3>Galvanic Corrosion</h3>
+
+                <p>
+                    Occurs when two different metals are electrically
+                    connected in the presence of an electrolyte.
+                </p>
+
+                <strong>Example:</strong>
+
+                <p>
+                    Dissimilar metal components connected in a wet environment.
+                </p>
+            </div>
+
+
+            <div class="corrosion-card">
+                <div class="corrosion-icon">🕳️</div>
+                <h3>Pitting Corrosion</h3>
+
+                <p>
+                    Localized corrosion creates small cavities or pits
+                    on a metal surface.
+                </p>
+
+                <strong>Example:</strong>
+
+                <p>
+                    Pitting on stainless steel exposed to chloride-rich water.
+                </p>
+            </div>
+
+
+            <div class="corrosion-card">
+                <div class="corrosion-icon">💧</div>
+                <h3>Crevice Corrosion</h3>
+
+                <p>
+                    Develops in narrow gaps where stagnant liquid
+                    can accumulate.
+                </p>
+
+                <strong>Example:</strong>
+
+                <p>
+                    Corrosion beneath washers, joints, and metal fittings.
+                </p>
+            </div>
+
+
+            <div class="corrosion-card">
+                <div class="corrosion-icon">🏗️</div>
+                <h3>Stress Corrosion Cracking</h3>
+
+                <p>
+                    Cracking can develop through the combined effects
+                    of tensile stress and a specific corrosive environment.
+                </p>
+
+                <strong>Example:</strong>
+
+                <p>
+                    Cracking in stressed metal components exposed
+                    to certain chemicals.
+                </p>
+            </div>
+
+        </div>
+    </section>
+
+
     <!-- PREVENTION -->
     <section class="section prevention-section" id="prevention">
+
         <div class="section-heading">
             <span class="section-tag">CORROSION CONTROL</span>
             <h2>Prevention Technologies</h2>
+
             <p>
                 Explore engineering techniques used to protect
                 metals against corrosion.
@@ -302,9 +451,11 @@
         </div>
 
         <div class="prevention-grid">
+
             <div class="prevention-card">
                 <div class="prevention-icon">🎨</div>
                 <h3>Protective Coatings</h3>
+
                 <p>
                     Paints and protective coatings create barriers
                     that reduce contact between metal and corrosive environments.
@@ -314,6 +465,7 @@
             <div class="prevention-card">
                 <div class="prevention-icon">🛡️</div>
                 <h3>Galvanization</h3>
+
                 <p>
                     Zinc coating provides barrier protection and
                     sacrificial protection to steel.
@@ -323,19 +475,24 @@
             <div class="prevention-card">
                 <div class="prevention-icon">🔋</div>
                 <h3>Cathodic Protection</h3>
+
                 <p>
                     Electrochemical protection methods help make
                     the metal structure act as the cathode.
                 </p>
             </div>
+
         </div>
     </section>
 
+
     <!-- GRAPH -->
     <section class="section graph-section" id="insights">
+
         <div class="section-heading">
             <span class="section-tag">DATA VISUALIZATION</span>
             <h2>Environmental Impact</h2>
+
             <p>
                 Explore the relative influence of different
                 environmental factors in our illustrative model.
@@ -345,22 +502,28 @@
         <div class="chart-panel">
             <canvas id="impactChart"></canvas>
         </div>
+
     </section>
+
 
     <!-- FOOTER -->
     <footer class="footer">
+
         <div class="footer-logo">⚙ CorroGuard</div>
+
         <p>
             An Interactive Corrosion Risk Analysis and Prevention Platform.
         </p>
+
         <p class="footer-note">
             Engineering Chemistry Capstone Project | 2026
         </p>
+
         <p class="copyright">
             © 2026 CorroGuard. Educational project.
         </p>
+
     </footer>
 
 </body>
 </html>
-
