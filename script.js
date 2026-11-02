@@ -36,12 +36,10 @@ document.addEventListener("DOMContentLoaded", function () {
     // =====================================
 
     function updateSliderValues() {
-
         temperatureValue.textContent = temperature.value + " °C";
         humidityValue.textContent = humidity.value + "%";
         phValue.textContent = Number(ph.value).toFixed(1);
         salinityValue.textContent = salinity.value + "%";
-
     }
 
     temperature.addEventListener("input", updateSliderValues);
@@ -88,7 +86,6 @@ document.addEventListener("DOMContentLoaded", function () {
         );
 
         return finalScore;
-
     }
 
 
@@ -140,7 +137,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
             description =
                 "The selected conditions produce a very high score. A detailed engineering assessment and suitable protection strategy are recommended.";
-
         }
 
         riskLevel.textContent = level;
@@ -152,7 +148,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
         riskCircle.style.background =
             `conic-gradient(${color} ${degrees}deg, #e7edf4 ${degrees}deg)`;
-
     }
 
 
@@ -345,16 +340,13 @@ document.addEventListener("DOMContentLoaded", function () {
 
                 compatibilityResult.innerHTML = `
                     <h3>Same Metal Combination</h3>
-
                     <p>
                         You selected ${firstName} and ${secondName}.
                         Since both selections represent the same material,
                         there is generally no galvanic driving force caused
                         by coupling two different metals.
                     </p>
-
                     <strong>Note:</strong>
-
                     <p>
                         Ordinary corrosion can still occur depending on
                         the environment and material condition.
@@ -362,7 +354,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 `;
 
                 return;
-
             }
 
             const pairKey = [first, second].sort().join("-");
@@ -409,7 +400,6 @@ document.addEventListener("DOMContentLoaded", function () {
                         data for the electrolyte and operating conditions.
                     </p>
                 `;
-
             }
 
         });
@@ -443,7 +433,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
             let recommendations = [];
 
-            // General recommendations
             recommendations.push(
                 "Inspect the material regularly for visible corrosion and coating damage."
             );
@@ -452,8 +441,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 "Keep surfaces clean and avoid unnecessary moisture accumulation."
             );
 
-
-            // Material-specific recommendations
             if (selectedMetal === "iron" || selectedMetal === "steel") {
 
                 recommendations.push(
@@ -483,17 +470,13 @@ document.addEventListener("DOMContentLoaded", function () {
                 recommendations.push(
                     "Check connections with dissimilar metals for possible galvanic corrosion."
                 );
-
             }
 
-
-            // Environmental recommendations
             if (humid >= 70) {
 
                 recommendations.push(
                     "High humidity detected: improve drainage and ventilation where possible to reduce moisture accumulation."
                 );
-
             }
 
             if (temp >= 40) {
@@ -501,7 +484,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 recommendations.push(
                     "Elevated temperature detected: verify that the selected material and coating are suitable for the operating temperature."
                 );
-
             }
 
             if (salt >= 50) {
@@ -509,7 +491,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 recommendations.push(
                     "High salt exposure detected: consider suitable marine-environment protective systems and regular removal of salt deposits."
                 );
-
             }
 
             if (acidity < 5 || acidity > 9) {
@@ -517,11 +498,8 @@ document.addEventListener("DOMContentLoaded", function () {
                 recommendations.push(
                     "The selected pH is outside the near-neutral range: verify chemical compatibility and consider suitable corrosion-resistant materials."
                 );
-
             }
 
-
-            // Build recommendation list safely
             recommendationResult.replaceChildren();
 
             const heading = document.createElement("h3");
@@ -600,6 +578,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     console.log("CorroGuard initialized successfully!");
 
+
     // =====================================
     // 10. CORROSION RATE ESTIMATOR
     // =====================================
@@ -626,8 +605,6 @@ document.addEventListener("DOMContentLoaded", function () {
             const exposureTime = Number(
                 document.getElementById("exposureTime").value
             );
-
-            // Validate inputs
 
             if (
                 document.getElementById("initialWeight").value === "" ||
@@ -663,16 +640,10 @@ document.addEventListener("DOMContentLoaded", function () {
                 return;
             }
 
-            // Calculate weight loss
-
             const weightLoss = initialWeight - finalWeight;
-
-            // Calculate mass loss rate
 
             const corrosionRate =
                 weightLoss / (surfaceArea * exposureTime);
-
-            // Display result
 
             rateResult.innerHTML = `
                 <h3>✅ Corrosion Rate Result</h3>
@@ -707,9 +678,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     <span>${corrosionRate.toFixed(6)}</span>
                 </h3>
 
-                <p>
-                    Unit: g/cm²/hour
-                </p>
+                <p>Unit: g/cm²/hour</p>
 
                 <p>
                     This is an average mass loss rate based on
@@ -723,11 +692,13 @@ document.addEventListener("DOMContentLoaded", function () {
 
 });
 
+
 // ==========================================
 // CORROGUARD - VIRTUAL EXPERIMENTAL LAB
 // ==========================================
 
 function openExperiment(type) {
+
     const title = document.getElementById("experimentTitle");
     const description = document.getElementById("experimentDescription");
     const controls = document.getElementById("experimentControls");
@@ -736,7 +707,9 @@ function openExperiment(type) {
     result.innerHTML = "Adjust the experiment settings and click Run Experiment.";
 
     if (type === "rust") {
+
         title.textContent = "Experiment 01: Rusting of Iron";
+
         description.textContent =
             "Explore how the presence of water and oxygen affects iron corrosion.";
 
@@ -758,7 +731,9 @@ function openExperiment(type) {
     }
 
     else if (type === "salt") {
+
         title.textContent = "Experiment 02: Effect of Salt";
+
         description.textContent =
             "Compare the simulated corrosion tendency of iron in different water conditions.";
 
@@ -774,7 +749,9 @@ function openExperiment(type) {
     }
 
     else if (type === "galvanic") {
+
         title.textContent = "Experiment 03: Galvanic Corrosion";
+
         description.textContent =
             "Explore the effect of connecting two different metals in an electrolyte.";
 
@@ -794,82 +771,121 @@ function openExperiment(type) {
         behavior: "smooth",
         block: "start"
     });
+
 }
 
 
-// EXPERIMENT 01
+// ==========================================
+// EXPERIMENT 01: RUSTING OF IRON
+// ==========================================
+
 function runRustExperiment() {
+
     const water = Number(document.getElementById("rustWater").value);
     const oxygen = Number(document.getElementById("rustOxygen").value);
     const result = document.getElementById("experimentResult");
 
     if (water && oxygen) {
+
         result.innerHTML = `
             <h4>Result: Rusting Conditions Present</h4>
-            <p>Both water and oxygen are available. Iron can undergo
-            electrochemical corrosion and form rust over time.</p>
+            <p>
+                Both water and oxygen are available. Iron can undergo
+                electrochemical corrosion and form rust over time.
+            </p>
             <strong>Observation:</strong> Rust formation is possible.
         `;
+
     } else {
+
         result.innerHTML = `
             <h4>Result: Rusting Conditions Limited</h4>
-            <p>One of the essential conditions is absent in this simplified
-            model, so ordinary rust formation is greatly restricted.</p>
+            <p>
+                One of the essential conditions is absent in this simplified
+                model, so ordinary rust formation is greatly restricted.
+            </p>
             <strong>Observation:</strong> Water and oxygen are important
             for ordinary iron rusting.
         `;
     }
+
 }
 
 
-// EXPERIMENT 02
+// ==========================================
+// EXPERIMENT 02: EFFECT OF SALT
+// ==========================================
+
 function runSaltExperiment() {
+
     const salt = Number(document.getElementById("saltLevel").value);
     const result = document.getElementById("experimentResult");
 
     if (salt === 1) {
+
         result.innerHTML = `
             <h4>Result: Higher Corrosion Tendency</h4>
-            <p>Salt water generally increases the electrical conductivity
-            of the electrolyte, which can accelerate electrochemical
-            corrosion of iron.</p>
+            <p>
+                Salt water generally increases the electrical conductivity
+                of the electrolyte, which can accelerate electrochemical
+                corrosion of iron.
+            </p>
             <strong>Observation:</strong> Salt water generally promotes
             faster corrosion than fresh water under comparable conditions.
         `;
+
     } else {
+
         result.innerHTML = `
             <h4>Result: Fresh Water Environment</h4>
-            <p>Fresh water can still support corrosion when oxygen and
-            other conditions are present. Its corrosion behaviour depends
-            on water chemistry and environmental conditions.</p>
+            <p>
+                Fresh water can still support corrosion when oxygen and
+                other conditions are present. Its corrosion behaviour depends
+                on water chemistry and environmental conditions.
+            </p>
             <strong>Observation:</strong> Fresh water does not mean
             corrosion-free.
         `;
     }
+
 }
 
 
-// EXPERIMENT 03
+// ==========================================
+// EXPERIMENT 03: GALVANIC CORROSION
+// ==========================================
+
 function runGalvanicExperiment() {
+
     const pair = document.getElementById("metalPair").value;
     const result = document.getElementById("experimentResult");
 
     const explanations = {
+
         "iron-copper": `
             <h4>Result: Iron is generally the anode</h4>
-            <p>When electrically connected in an electrolyte, iron is
-            generally less noble than copper and is more likely to corrode.</p>
+            <p>
+                When electrically connected in an electrolyte, iron is
+                generally less noble than copper and is more likely to corrode.
+            </p>
         `,
+
         "zinc-copper": `
             <h4>Result: Zinc is generally the anode</h4>
-            <p>Zinc is less noble than copper and tends to corrode
-            preferentially in this galvanic couple.</p>
+            <p>
+                Zinc is less noble than copper and tends to corrode
+                preferentially in this galvanic couple.
+            </p>
         `,
+
         "iron-zinc": `
             <h4>Result: Zinc is generally the anode</h4>
-            <p>Zinc is generally less noble than iron and can provide
-            sacrificial protection to iron when properly connected.</p>
+            <p>
+                Zinc is generally less noble than iron and can provide
+                sacrificial protection to iron when properly connected.
+            </p>
         `
+
     };
 
     result.innerHTML = explanations[pair] + `
@@ -877,11 +893,16 @@ function runGalvanicExperiment() {
         electrical contact between dissimilar metals and an electrolyte.
         Actual behaviour depends on the environment and metal conditions.
     `;
+
 }
-```javascript
+
+
+// ==========================================
 // CORROGUARD KNOWLEDGE QUIZ
+// ==========================================
 
 const quizQuestions = [
+
     {
         question: "What is corrosion?",
         options: [
@@ -893,18 +914,21 @@ const quizQuestions = [
         answer: 1,
         explanation: "Corrosion is the gradual deterioration of a material due to reactions with its environment."
     },
+
     {
         question: "Which metal is commonly used to protect iron through galvanization?",
         options: ["Copper", "Silver", "Zinc", "Gold"],
         answer: 2,
         explanation: "Zinc provides a protective coating and helps protect iron from corrosion."
     },
+
     {
         question: "What is the common name for iron corrosion?",
         options: ["Rusting", "Scaling", "Cracking", "Melting"],
         answer: 0,
         explanation: "Rusting is the corrosion process that affects iron and many iron-based materials."
     },
+
     {
         question: "Which conditions are generally needed for ordinary iron rusting?",
         options: [
@@ -916,6 +940,7 @@ const quizQuestions = [
         answer: 1,
         explanation: "Water and oxygen are both important for ordinary rust formation."
     },
+
     {
         question: "Which of these is a method of corrosion prevention?",
         options: [
@@ -927,6 +952,7 @@ const quizQuestions = [
         answer: 0,
         explanation: "Paint creates a barrier that helps prevent the environment from reaching the metal."
     },
+
     {
         question: "What does pH measure?",
         options: [
@@ -938,6 +964,7 @@ const quizQuestions = [
         answer: 2,
         explanation: "pH indicates how acidic or alkaline a solution is."
     },
+
     {
         question: "Which type of corrosion occurs when two dissimilar metals are electrically connected in an electrolyte?",
         options: [
@@ -949,6 +976,7 @@ const quizQuestions = [
         answer: 0,
         explanation: "Galvanic corrosion can occur when dissimilar metals are electrically connected in an electrolyte."
     },
+
     {
         question: "Which material is commonly used for corrosion-resistant applications?",
         options: [
@@ -960,6 +988,7 @@ const quizQuestions = [
         answer: 1,
         explanation: "Stainless steel contains chromium, which helps form a protective passive layer."
     },
+
     {
         question: "What is a corrosion inhibitor?",
         options: [
@@ -971,6 +1000,7 @@ const quizQuestions = [
         answer: 1,
         explanation: "Corrosion inhibitors are substances that reduce the rate of corrosion."
     },
+
     {
         question: "What does corrosion rate describe?",
         options: [
@@ -982,13 +1012,25 @@ const quizQuestions = [
         answer: 0,
         explanation: "Corrosion rate describes how quickly material deterioration occurs."
     }
+
 ];
+
+
+// ==========================================
+// QUIZ VARIABLES
+// ==========================================
 
 let currentQuizQuestion = 0;
 let quizTotalScore = 0;
 let quizAnswered = false;
 
+
+// ==========================================
+// LOAD QUIZ QUESTION
+// ==========================================
+
 function loadQuizQuestion() {
+
     const question = quizQuestions[currentQuizQuestion];
 
     document.getElementById("quizProgress").textContent =
@@ -997,78 +1039,138 @@ function loadQuizQuestion() {
     document.getElementById("quizScore").textContent =
         `Score: ${quizTotalScore}`;
 
-   document.getElementById("quizProgressFill").style.width =
+    document.getElementById("quizProgressFill").style.width =
         `${(currentQuizQuestion / quizQuestions.length) * 100}%`;
 
-    document.getElementById("quizQuestion").textContent = question.question;
+    document.getElementById("quizQuestion").textContent =
+        question.question;
 
     const optionsContainer = document.getElementById("quizOptions");
+
     optionsContainer.innerHTML = "";
 
     question.options.forEach((option, index) => {
+
         const button = document.createElement("button");
+
         button.className = "quiz-option";
         button.textContent = option;
+
         button.onclick = () => selectQuizAnswer(index);
+
         optionsContainer.appendChild(button);
+
     });
 
     document.getElementById("quizFeedback").textContent = "";
+
     document.getElementById("nextQuestion").disabled = true;
     document.getElementById("nextQuestion").style.display = "inline-block";
+
     document.getElementById("restartQuiz").style.display = "none";
+
     document.getElementById("quizFinalResult").textContent = "";
 
     quizAnswered = false;
+
 }
 
+
+// ==========================================
+// SELECT QUIZ ANSWER
+// ==========================================
+
 function selectQuizAnswer(selectedIndex) {
+
     if (quizAnswered) return;
 
     quizAnswered = true;
 
     const question = quizQuestions[currentQuizQuestion];
+
     const options = document.querySelectorAll(".quiz-option");
+
     const feedback = document.getElementById("quizFeedback");
 
-    options.forEach(button => button.disabled = true);
+    options.forEach(button => {
+        button.disabled = true;
+    });
 
     if (selectedIndex === question.answer) {
+
         quizTotalScore++;
+
         options[selectedIndex].classList.add("correct");
-        feedback.textContent = "Correct! " + question.explanation;
+
+        feedback.textContent =
+            "Correct! " + question.explanation;
+
     } else {
+
         options[selectedIndex].classList.add("incorrect");
+
         options[question.answer].classList.add("correct");
-        feedback.textContent = "Not quite. " + question.explanation;
+
+        feedback.textContent =
+            "Not quite. " + question.explanation;
+
     }
 
     document.getElementById("quizScore").textContent =
         `Score: ${quizTotalScore}`;
 
     document.getElementById("nextQuestion").disabled = false;
+
 }
 
+
+// ==========================================
+// NEXT QUIZ QUESTION
+// ==========================================
+
 function nextQuizQuestion() {
+
     if (!quizAnswered) return;
 
     currentQuizQuestion++;
 
     if (currentQuizQuestion < quizQuestions.length) {
+
         loadQuizQuestion();
+
     } else {
+
         showQuizResult();
+
     }
+
 }
 
+
+// ==========================================
+// SHOW FINAL QUIZ RESULT
+// ==========================================
+
 function showQuizResult() {
-    document.getElementById("quizProgress").textContent = "Quiz completed!";
-    document.getElementById("quizProgressFill").style.width = "100%";
-    document.getElementById("quizQuestion").textContent = "Your Results";
+
+    document.getElementById("quizProgress").textContent =
+        "Quiz completed!";
+
+    document.getElementById("quizProgressFill").style.width =
+        "100%";
+
+    document.getElementById("quizQuestion").textContent =
+        "Your Results";
+
     document.getElementById("quizOptions").innerHTML = "";
+
     document.getElementById("quizFeedback").textContent = "";
-    document.getElementById("nextQuestion").style.display = "none";
-    document.getElementById("restartQuiz").style.display = "inline-block";
+
+    document.getElementById("nextQuestion").style.display =
+        "none";
+
+    document.getElementById("restartQuiz").style.display =
+        "inline-block";
 
     const percentage = Math.round(
         (quizTotalScore / quizQuestions.length) * 100
@@ -1077,26 +1179,56 @@ function showQuizResult() {
     let message;
 
     if (percentage >= 80) {
-        message = "Excellent work! You have a strong understanding of corrosion.";
+
+        message =
+            "Excellent work! You have a strong understanding of corrosion.";
+
     } else if (percentage >= 50) {
-        message = "Good effort! Keep learning and improving.";
+
+        message =
+            "Good effort! Keep learning and improving.";
+
     } else {
-        message = "Keep practising! Review the CorroGuard learning sections and try again.";
+
+        message =
+            "Keep practising! Review the CorroGuard learning sections and try again.";
+
     }
 
-    document.getElementById("quizFinalResult").innerHTML =
-        `<h3>${quizTotalScore} / ${quizQuestions.length}</h3>
-         <h4>${percentage}%</h4>
-         <p>${message}</p>`;
+    document.getElementById("quizFinalResult").innerHTML = `
+        <h3>${quizTotalScore} / ${quizQuestions.length}</h3>
+        <h4>${percentage}%</h4>
+        <p>${message}</p>
+    `;
+
 }
 
+
+// ==========================================
+// RESTART QUIZ
+// ==========================================
+
 function restartQuiz() {
+
     currentQuizQuestion = 0;
     quizTotalScore = 0;
     quizAnswered = false;
+
     loadQuizQuestion();
+
 }
 
-// Start the quiz when the page loads
-loadQuizQuestion();
-```
+
+// ==========================================
+// START QUIZ AFTER PAGE LOAD
+// ==========================================
+
+document.addEventListener("DOMContentLoaded", function () {
+
+    const quizSection = document.getElementById("quiz");
+
+    if (quizSection) {
+        loadQuizQuestion();
+    }
+
+});
