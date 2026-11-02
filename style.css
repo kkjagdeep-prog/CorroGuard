@@ -1274,3 +1274,137 @@ button, input, select {
         grid-template-columns: 1fr;
     }
 }
+
+/* =====================================
+   CORROSION RATE ESTIMATOR
+===================================== */
+
+.rate-estimator-section {
+    background: #f4f7fb;
+}
+
+.rate-estimator-panel {
+    max-width: 850px;
+    margin: 0 auto;
+    padding: 35px;
+    background: #ffffff;
+    border: 1px solid #e2eaf3;
+    border-radius: 18px;
+    box-shadow: 0 12px 35px rgba(16, 36, 62, 0.07);
+}
+
+.rate-estimator-intro {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    margin-bottom: 30px;
+}
+
+.rate-estimator-intro h3 {
+    color: #10243e;
+    margin-bottom: 7px;
+}
+
+.rate-estimator-intro p {
+    color: #718096;
+    line-height: 1.6;
+}
+
+.rate-input-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 22px;
+    margin-bottom: 25px;
+}
+
+.rate-input-grid .input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+}
+
+.rate-input-grid label {
+    color: #25384c;
+    font-weight: 600;
+}
+
+.rate-input-grid input {
+    width: 100%;
+    padding: 13px 15px;
+    border: 1px solid #d8e2ed;
+    border-radius: 9px;
+    background: #f8fafc;
+    color: #25384c;
+    font: inherit;
+    outline: none;
+    transition: 0.2s ease;
+}
+
+.rate-input-grid input:focus {
+    border-color: #2476bd;
+    box-shadow: 0 0 0 3px rgba(36, 118, 189, 0.12);
+}
+
+.rate-estimator-panel .analyze-button {
+    width: 100%;
+    margin-top: 5px;
+}
+
+.rate-result {
+    margin-top: 25px;
+    padding: 24px;
+    background: #eaf3fc;
+    border: 1px solid #d6e7f7;
+    border-radius: 12px;
+    line-height: 1.7;
+}
+
+.rate-result h3 {
+    color: #10243e;
+    margin-bottom: 10px;
+}
+
+.rate-result p {
+    color: #52677d;
+}
+
+.rate-result strong {
+    color: #1769aa;
+}
+
+.rate-formula {
+    margin-top: 25px;
+    padding: 22px;
+    background: #f8fafc;
+    border-left: 4px solid #26b6c9;
+    border-radius: 8px;
+    line-height: 1.8;
+}
+
+.rate-formula h3 {
+    color: #10243e;
+    margin-bottom: 10px;
+}
+
+.rate-formula p {
+    color: #52677d;
+}
+
+.rate-formula strong {
+    color: #1769aa;
+}
+
+@media (max-width: 600px) {
+    .rate-estimator-panel {
+        padding: 22px;
+    }
+
+    .rate-input-grid {
+        grid-template-columns: 1fr;
+        gap: 17px;
+    }
+
+    .rate-estimator-intro {
+        align-items: flex-start;
+    }
+}
