@@ -424,4 +424,3 @@ if (metalOne && metalTwo && checkCompatibility && compatibilityResult) {
     });
 
 }
-```
