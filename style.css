@@ -2081,3 +2081,25 @@ button, input, select {
     font-size: 13px;
     margin-top: 10px;
 }
+.report-button-container {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    margin: 25px auto;
+    text-align: center;
+    position: relative;
+    z-index: 10;
+}
+
+#downloadReport {
+    display: inline-block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    background: #1769aa;
+    color: white;
+    padding: 14px 25px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 15px;
+}
