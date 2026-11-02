@@ -2052,3 +2052,32 @@ button, input, select {
 
 }
 ```
+/* PDF REPORT BUTTON */
+
+.report-button-container {
+    margin-top: 25px;
+    text-align: center;
+}
+
+#downloadReport {
+    background: linear-gradient(120deg, #102d50, #1769aa);
+    color: white;
+    border: none;
+    padding: 14px 25px;
+    border-radius: 10px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+#downloadReport:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(16, 45, 80, 0.2);
+}
+
+.report-button-container p {
+    color: #718096;
+    font-size: 13px;
+    margin-top: 10px;
+}
