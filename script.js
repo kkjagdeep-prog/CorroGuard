@@ -722,3 +722,159 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
 });
+
+// ==========================================
+// CORROGUARD - VIRTUAL EXPERIMENTAL LAB
+// ==========================================
+
+function openExperiment(type) {
+    const title = document.getElementById("experimentTitle");
+    const description = document.getElementById("experimentDescription");
+    const controls = document.getElementById("experimentControls");
+    const result = document.getElementById("experimentResult");
+
+    result.innerHTML = "Adjust the experiment settings and click Run Experiment.";
+
+    if (type === "rust") {
+        title.textContent = "Experiment 01: Rusting of Iron";
+        description.textContent =
+            "Explore how the presence of water and oxygen affects iron corrosion.";
+
+        controls.innerHTML = `
+            <label for="rustWater">Water availability</label>
+            <select id="rustWater">
+                <option value="1">Present</option>
+                <option value="0">Absent</option>
+            </select>
+
+            <label for="rustOxygen">Oxygen availability</label>
+            <select id="rustOxygen">
+                <option value="1">Present</option>
+                <option value="0">Absent</option>
+            </select>
+
+            <button onclick="runRustExperiment()">Run Experiment</button>
+        `;
+    }
+
+    else if (type === "salt") {
+        title.textContent = "Experiment 02: Effect of Salt";
+        description.textContent =
+            "Compare the simulated corrosion tendency of iron in different water conditions.";
+
+        controls.innerHTML = `
+            <label for="saltLevel">Environment</label>
+            <select id="saltLevel">
+                <option value="0">Fresh Water</option>
+                <option value="1">Salt Water</option>
+            </select>
+
+            <button onclick="runSaltExperiment()">Run Experiment</button>
+        `;
+    }
+
+    else if (type === "galvanic") {
+        title.textContent = "Experiment 03: Galvanic Corrosion";
+        description.textContent =
+            "Explore the effect of connecting two different metals in an electrolyte.";
+
+        controls.innerHTML = `
+            <label for="metalPair">Metal combination</label>
+            <select id="metalPair">
+                <option value="iron-copper">Iron + Copper</option>
+                <option value="zinc-copper">Zinc + Copper</option>
+                <option value="iron-zinc">Iron + Zinc</option>
+            </select>
+
+            <button onclick="runGalvanicExperiment()">Run Experiment</button>
+        `;
+    }
+
+    document.getElementById("experimentDisplay").scrollIntoView({
+        behavior: "smooth",
+        block: "start"
+    });
+}
+
+
+// EXPERIMENT 01
+function runRustExperiment() {
+    const water = Number(document.getElementById("rustWater").value);
+    const oxygen = Number(document.getElementById("rustOxygen").value);
+    const result = document.getElementById("experimentResult");
+
+    if (water && oxygen) {
+        result.innerHTML = `
+            <h4>Result: Rusting Conditions Present</h4>
+            <p>Both water and oxygen are available. Iron can undergo
+            electrochemical corrosion and form rust over time.</p>
+            <strong>Observation:</strong> Rust formation is possible.
+        `;
+    } else {
+        result.innerHTML = `
+            <h4>Result: Rusting Conditions Limited</h4>
+            <p>One of the essential conditions is absent in this simplified
+            model, so ordinary rust formation is greatly restricted.</p>
+            <strong>Observation:</strong> Water and oxygen are important
+            for ordinary iron rusting.
+        `;
+    }
+}
+
+
+// EXPERIMENT 02
+function runSaltExperiment() {
+    const salt = Number(document.getElementById("saltLevel").value);
+    const result = document.getElementById("experimentResult");
+
+    if (salt === 1) {
+        result.innerHTML = `
+            <h4>Result: Higher Corrosion Tendency</h4>
+            <p>Salt water generally increases the electrical conductivity
+            of the electrolyte, which can accelerate electrochemical
+            corrosion of iron.</p>
+            <strong>Observation:</strong> Salt water generally promotes
+            faster corrosion than fresh water under comparable conditions.
+        `;
+    } else {
+        result.innerHTML = `
+            <h4>Result: Fresh Water Environment</h4>
+            <p>Fresh water can still support corrosion when oxygen and
+            other conditions are present. Its corrosion behaviour depends
+            on water chemistry and environmental conditions.</p>
+            <strong>Observation:</strong> Fresh water does not mean
+            corrosion-free.
+        `;
+    }
+}
+
+
+// EXPERIMENT 03
+function runGalvanicExperiment() {
+    const pair = document.getElementById("metalPair").value;
+    const result = document.getElementById("experimentResult");
+
+    const explanations = {
+        "iron-copper": `
+            <h4>Result: Iron is generally the anode</h4>
+            <p>When electrically connected in an electrolyte, iron is
+            generally less noble than copper and is more likely to corrode.</p>
+        `,
+        "zinc-copper": `
+            <h4>Result: Zinc is generally the anode</h4>
+            <p>Zinc is less noble than copper and tends to corrode
+            preferentially in this galvanic couple.</p>
+        `,
+        "iron-zinc": `
+            <h4>Result: Zinc is generally the anode</h4>
+            <p>Zinc is generally less noble than iron and can provide
+            sacrificial protection to iron when properly connected.</p>
+        `
+    };
+
+    result.innerHTML = explanations[pair] + `
+        <strong>Observation:</strong> Galvanic corrosion requires
+        electrical contact between dissimilar metals and an electrolyte.
+        Actual behaviour depends on the environment and metal conditions.
+    `;
+}
