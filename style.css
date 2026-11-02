@@ -1,4 +1,4 @@
- 
+
 /* =====================================
    CORROGUARD - MAIN STYLESHEET
    ===================================== */
@@ -238,8 +238,13 @@ button, input, select {
 }
 
 @keyframes floating {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-12px); }
+    0%, 100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-12px);
+    }
 }
 
 .visual-top,
@@ -750,133 +755,8 @@ button, input, select {
 }
 
 /* =====================================
-   RESPONSIVE DESIGN
+   CORROSION TYPES EXPLORER
    ===================================== */
-
-@media (max-width: 1050px) {
-    .navbar {
-        padding: 0 4%;
-    }
-
-    .navbar nav {
-        gap: 15px;
-    }
-
-    .navbar nav a {
-        font-size: 11px;
-    }
-
-    .hero {
-        padding: 75px 5%;
-        gap: 30px;
-    }
-
-    .section {
-        padding: 75px 5%;
-    }
-}
-
-@media (max-width: 800px) {
-    .navbar {
-        height: auto;
-        min-height: 70px;
-        padding: 17px 5%;
-        flex-wrap: wrap;
-        gap: 15px;
-    }
-
-    .navbar nav {
-        order: 3;
-        width: 100%;
-        overflow-x: auto;
-        padding-bottom: 5px;
-    }
-
-    .navbar nav a {
-        white-space: nowrap;
-    }
-
-    .hero {
-        grid-template-columns: 1fr;
-        text-align: center;
-        padding: 65px 7%;
-    }
-
-    .hero-content > p {
-        margin: auto;
-    }
-
-    .hero-buttons,
-    .hero-stats {
-        justify-content: center;
-    }
-
-    .hero-visual {
-        margin-top: 25px;
-    }
-
-    .about-grid,
-    .prevention-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-
-    .materials-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-
-    .calculator-layout {
-        grid-template-columns: 1fr;
-    }
-}
-
-@media (max-width: 520px) {
-    .nav-button {
-        padding: 9px 12px;
-        font-size: 11px;
-    }
-
-    .logo {
-        font-size: 21px;
-    }
-
-    .hero h1 {
-        font-size: 39px;
-    }
-
-    .hero-stats {
-        gap: 23px;
-    }
-
-    .hero-stats h3 {
-        font-size: 22px;
-    }
-
-    .hero-stats p {
-        font-size: 9px;
-    }
-
-    .about-grid,
-    .materials-grid,
-    .prevention-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .section {
-        padding: 65px 6%;
-    }
-
-    .calculator-panel,
-    .result-panel {
-        padding: 23px 18px;
-    }
-
-    .chart-panel {
-        height: 300px;
-        padding: 12px;
-    }
-}
-
-/* CORROSION TYPES EXPLORER */
 
 .corrosion-types {
     padding: 80px 7%;
@@ -924,19 +804,9 @@ button, input, select {
     color: #1769aa;
 }
 
-@media (max-width: 800px) {
-    .corrosion-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-}
-
-@media (max-width: 520px) {
-    .corrosion-grid {
-        grid-template-columns: 1fr;
-    }
-}
-
-/* REAL-WORLD CASE STUDIES */
+/* =====================================
+   REAL-WORLD CASE STUDIES
+   ===================================== */
 
 .case-studies {
     background: #ffffff;
@@ -1022,15 +892,9 @@ button, input, select {
     font-size: 13px;
 }
 
-@media (max-width: 700px) {
-    .case-grid {
-        grid-template-columns: 1fr;
-    }
-}
-```css
 /* =====================================
    METAL COMPATIBILITY CHECKER
-===================================== */
+   ===================================== */
 
 .compatibility {
     background: #f4f8fc;
@@ -1150,36 +1014,9 @@ button, input, select {
     text-align: center;
 }
 
-/* MOBILE RESPONSIVENESS */
-
-@media (max-width: 600px) {
-
-    .compatibility-panel {
-        padding: 22px 16px;
-    }
-
-    .metal-selectors {
-        grid-template-columns: 1fr;
-        gap: 15px;
-    }
-
-    .compatibility-symbol {
-        margin: 0 auto;
-    }
-
-    .compatibility-result {
-        padding: 18px;
-    }
-
-    .compatibility-result h3 {
-        font-size: 18px;
-    }
-}
-```
-
 /* =====================================
    CORROSION PREVENTION RECOMMENDATIONS
-===================================== */
+   ===================================== */
 
 .prevention-recommendations {
     background: #eaf4fc;
@@ -1261,7 +1098,112 @@ button, input, select {
     text-align: center;
 }
 
+/* =====================================
+   RESPONSIVE DESIGN
+   ===================================== */
+
+@media (max-width: 1050px) {
+    .navbar {
+        padding: 0 4%;
+    }
+
+    .navbar nav {
+        gap: 15px;
+    }
+
+    .navbar nav a {
+        font-size: 11px;
+    }
+
+    .hero {
+        padding: 75px 5%;
+        gap: 30px;
+    }
+
+    .section {
+        padding: 75px 5%;
+    }
+}
+
+@media (max-width: 800px) {
+    .navbar {
+        height: auto;
+        min-height: 70px;
+        padding: 17px 5%;
+        flex-wrap: wrap;
+        gap: 15px;
+    }
+
+    .navbar nav {
+        order: 3;
+        width: 100%;
+        overflow-x: auto;
+        padding-bottom: 5px;
+    }
+
+    .navbar nav a {
+        white-space: nowrap;
+    }
+
+    .hero {
+        grid-template-columns: 1fr;
+        text-align: center;
+        padding: 65px 7%;
+    }
+
+    .hero-content > p {
+        margin: auto;
+    }
+
+    .hero-buttons,
+    .hero-stats {
+        justify-content: center;
+    }
+
+    .hero-visual {
+        margin-top: 25px;
+    }
+
+    .about-grid,
+    .prevention-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .materials-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .calculator-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .corrosion-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .case-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
 @media (max-width: 600px) {
+    .compatibility-panel {
+        padding: 22px 16px;
+    }
+
+    .metal-selectors {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+
+    .compatibility-symbol {
+        margin: 0 auto;
+    }
+
+    .compatibility-result {
+        padding: 18px;
+    }
+
     .recommendation-panel {
         padding: 22px 16px;
     }
@@ -1272,5 +1214,63 @@ button, input, select {
 
     .recommendation-result {
         padding: 18px;
+    }
+
+    .recommendation-result h3 {
+        font-size: 18px;
+    }
+}
+
+@media (max-width: 520px) {
+    .nav-button {
+        padding: 9px 12px;
+        font-size: 11px;
+    }
+
+    .logo {
+        font-size: 21px;
+    }
+
+    .hero h1 {
+        font-size: 39px;
+    }
+
+    .hero-stats {
+        gap: 23px;
+    }
+
+    .hero-stats h3 {
+        font-size: 22px;
+    }
+
+    .hero-stats p {
+        font-size: 9px;
+    }
+
+    .about-grid,
+    .materials-grid,
+    .prevention-grid,
+    .corrosion-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .section {
+        padding: 65px 6%;
+    }
+
+    .calculator-panel,
+    .result-panel {
+        padding: 23px 18px;
+    }
+
+    .chart-panel {
+        height: 300px;
+        padding: 12px;
+    }
+}
+
+@media (max-width: 700px) {
+    .case-grid {
+        grid-template-columns: 1fr;
     }
 }
