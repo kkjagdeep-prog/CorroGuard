@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <meta name="description" content="CorroGuard - Interactive corrosion risk analysis, metal compatibility, and prevention recommendation platform.">
+    <meta name="description" content="CorroGuard - Interactive corrosion risk analysis, metal compatibility, corrosion rate estimation, and prevention recommendation platform.">
 
     <meta name="theme-color" content="#102d50">
 
@@ -19,9 +19,7 @@
 
 <body>
 
-    <!-- =====================================
-         NAVIGATION
-    ====================================== -->
+    <!-- NAVIGATION -->
 
     <header class="navbar">
 
@@ -34,6 +32,7 @@
             <a href="#home">Home</a>
             <a href="#about">About</a>
             <a href="#calculator">Risk Calculator</a>
+            <a href="#rate-estimator">Rate Estimator</a>
             <a href="#materials">Materials</a>
             <a href="#compatibility">Metal Compatibility</a>
             <a href="#recommendations">Recommendations</a>
@@ -47,9 +46,7 @@
     </header>
 
 
-    <!-- =====================================
-         HERO SECTION
-    ====================================== -->
+    <!-- HERO SECTION -->
 
     <section class="hero" id="home">
 
@@ -104,7 +101,6 @@
 
         </div>
 
-
         <div class="hero-visual">
 
             <div class="visual-card">
@@ -142,64 +138,47 @@
     </section>
 
 
-    <!-- =====================================
-         ABOUT SECTION
-    ====================================== -->
+    <!-- ABOUT SECTION -->
 
     <section class="section about-section" id="about">
 
         <div class="section-heading">
-
             <span class="section-tag">INTRODUCTION</span>
-
             <h2>What is Corrosion?</h2>
 
             <p>
                 Corrosion is the gradual deterioration of metals due to
                 chemical or electrochemical reactions with their environment.
             </p>
-
         </div>
 
         <div class="about-grid">
 
             <div class="about-card">
-
                 <div class="card-icon">⚗️</div>
-
                 <h3>Electrochemical Reactions</h3>
-
                 <p>
                     Understand how oxidation and reduction reactions
                     contribute to the deterioration of metals.
                 </p>
-
             </div>
 
             <div class="about-card">
-
                 <div class="card-icon">🌧️</div>
-
                 <h3>Environmental Effects</h3>
-
                 <p>
                     Explore the influence of humidity, temperature,
                     pH, and salt exposure on corrosion.
                 </p>
-
             </div>
 
             <div class="about-card">
-
                 <div class="card-icon">🛡️</div>
-
                 <h3>Metal Protection</h3>
-
                 <p>
                     Learn how protective coatings and electrochemical
                     techniques help reduce corrosion.
                 </p>
-
             </div>
 
         </div>
@@ -207,23 +186,18 @@
     </section>
 
 
-    <!-- =====================================
-         CORROSION RISK CALCULATOR
-    ====================================== -->
+    <!-- CORROSION RISK CALCULATOR -->
 
     <section class="section calculator-section" id="calculator">
 
         <div class="section-heading">
-
             <span class="section-tag">INTERACTIVE ANALYSIS</span>
-
             <h2>Corrosion Risk Calculator</h2>
 
             <p>
                 Adjust environmental conditions and explore their
                 influence on the estimated corrosion risk.
             </p>
-
         </div>
 
         <div class="calculator-layout">
@@ -245,65 +219,43 @@
                     <option value="copper">Copper</option>
                 </select>
 
-
                 <div class="input-group">
-
                     <div class="input-heading">
                         <label for="temperature">Temperature</label>
                         <span id="temperatureValue">30 °C</span>
                     </div>
-
-                    <input type="range" id="temperature"
-                        min="0" max="60" value="30">
-
+                    <input type="range" id="temperature" min="0" max="60" value="30">
                 </div>
 
-
                 <div class="input-group">
-
                     <div class="input-heading">
                         <label for="humidity">Relative Humidity</label>
                         <span id="humidityValue">60%</span>
                     </div>
-
-                    <input type="range" id="humidity"
-                        min="0" max="100" value="60">
-
+                    <input type="range" id="humidity" min="0" max="100" value="60">
                 </div>
 
-
                 <div class="input-group">
-
                     <div class="input-heading">
                         <label for="ph">Environmental pH</label>
                         <span id="phValue">7.0</span>
                     </div>
-
-                    <input type="range" id="ph"
-                        min="1" max="14" step="0.5" value="7">
-
+                    <input type="range" id="ph" min="1" max="14" step="0.5" value="7">
                 </div>
 
-
                 <div class="input-group">
-
                     <div class="input-heading">
                         <label for="salinity">Salt Exposure</label>
                         <span id="salinityValue">30%</span>
                     </div>
-
-                    <input type="range" id="salinity"
-                        min="0" max="100" value="30">
-
+                    <input type="range" id="salinity" min="0" max="100" value="30">
                 </div>
-
 
                 <button class="analyze-button" id="analyzeButton">
                     Analyze Corrosion Risk →
                 </button>
 
             </div>
-
 
             <div class="result-panel">
 
@@ -312,12 +264,10 @@
                 <h3>Estimated Risk Level</h3>
 
                 <div class="risk-circle" id="riskCircle">
-
                     <div>
                         <h2 id="riskScore">--</h2>
                         <p>/ 100</p>
                     </div>
-
                 </div>
 
                 <h3 id="riskLevel">Awaiting Analysis</h3>
@@ -327,9 +277,7 @@
                     the educational risk estimate.
                 </p>
 
-
                 <div class="result-details">
-
                     <div>
                         <span>Selected Material</span>
                         <strong id="resultMetal">Iron</strong>
@@ -339,7 +287,6 @@
                         <span>Analysis Type</span>
                         <strong>Educational Estimate</strong>
                     </div>
-
                 </div>
 
                 <p class="disclaimer">
@@ -354,22 +301,123 @@
     </section>
 
 
-    <!-- =====================================
-         MATERIAL EXPLORER
-    ====================================== -->
+    <!-- CORROSION RATE ESTIMATOR - NEW FEATURE -->
+
+    <section class="section rate-estimator-section" id="rate-estimator">
+
+        <div class="section-heading">
+
+            <span class="section-tag">WEIGHT LOSS ANALYSIS</span>
+
+            <h2>Corrosion Rate Estimator</h2>
+
+            <p>
+                Estimate the average mass loss rate of a metal sample
+                using the weight-loss method.
+            </p>
+
+        </div>
+
+        <div class="rate-estimator-panel">
+
+            <div class="rate-estimator-intro">
+
+                <div class="recommendation-icon">⚖️</div>
+
+                <div>
+                    <h3>Metal Weight Loss Analysis</h3>
+                    <p>
+                        Enter the measurements of your metal sample
+                        before and after exposure to a corrosive environment.
+                    </p>
+                </div>
+
+            </div>
+
+            <div class="rate-input-grid">
+
+                <div class="input-group">
+                    <label for="initialWeight">Initial Metal Weight (g)</label>
+                    <input type="number" id="initialWeight"
+                           placeholder="Example: 50" min="0" step="any">
+                </div>
+
+                <div class="input-group">
+                    <label for="finalWeight">Final Metal Weight (g)</label>
+                    <input type="number" id="finalWeight"
+                           placeholder="Example: 48" min="0" step="any">
+                </div>
+
+                <div class="input-group">
+                    <label for="surfaceArea">Exposed Surface Area (cm²)</label>
+                    <input type="number" id="surfaceArea"
+                           placeholder="Example: 10" min="0" step="any">
+                </div>
+
+                <div class="input-group">
+                    <label for="exposureTime">Exposure Time (hours)</label>
+                    <input type="number" id="exposureTime"
+                           placeholder="Example: 24" min="0" step="any">
+                </div>
+
+            </div>
+
+            <button class="analyze-button" id="calculateRate">
+                Calculate Corrosion Rate →
+            </button>
+
+            <div class="rate-result" id="rateResult" aria-live="polite">
+
+                <h3>Awaiting Measurements</h3>
+
+                <p>
+                    Enter your sample measurements and calculate
+                    the estimated mass loss rate.
+                </p>
+
+            </div>
+
+            <div class="rate-formula">
+
+                <h3>Calculation Formula</h3>
+
+                <p>
+                    Mass Loss = Initial Weight − Final Weight
+                </p>
+
+                <p>
+                    Mass Loss Rate = Mass Loss ÷ (Surface Area × Exposure Time)
+                </p>
+
+                <strong>
+                    Unit: g/cm²/hour
+                </strong>
+
+            </div>
+
+            <p class="recommendation-note">
+                Educational estimate using the weight-loss method.
+                This result is a mass loss rate, not a standardized
+                penetration rate such as mm/year. Accurate corrosion
+                testing requires controlled sample preparation,
+                cleaning, and measurement procedures.
+            </p>
+
+        </div>
+
+    </section>
+
+
+    <!-- MATERIAL EXPLORER -->
 
     <section class="section materials-section" id="materials">
 
         <div class="section-heading">
-
             <span class="section-tag">MATERIAL EXPLORER</span>
-
             <h2>Explore Different Metals</h2>
-
             <p>
                 Discover how different metals behave in corrosive environments.
             </p>
-
         </div>
 
         <div class="materials-grid">
@@ -407,23 +455,17 @@
     </section>
 
 
-    <!-- =====================================
-         METAL COMPATIBILITY CHECKER
-    ====================================== -->
+    <!-- METAL COMPATIBILITY CHECKER -->
 
     <section class="section compatibility" id="compatibility">
 
         <div class="section-heading">
-
             <span class="section-tag">INTERACTIVE TOOL</span>
-
             <h2>Metal Compatibility Checker</h2>
-
             <p>
                 Explore how contact between different metals can influence
                 galvanic corrosion in the presence of an electrolyte.
             </p>
-
         </div>
 
         <div class="compatibility-panel">
@@ -431,9 +473,7 @@
             <div class="metal-selectors">
 
                 <div class="input-group">
-
                     <label for="metalOne">First Metal</label>
-
                     <select id="metalOne">
                         <option value="zinc">Zinc</option>
                         <option value="steel">Carbon Steel</option>
@@ -441,15 +481,12 @@
                         <option value="copper">Copper</option>
                         <option value="stainless">Stainless Steel (Passive)</option>
                     </select>
-
                 </div>
 
                 <div class="compatibility-symbol">+</div>
 
                 <div class="input-group">
-
                     <label for="metalTwo">Second Metal</label>
-
                     <select id="metalTwo">
                         <option value="copper">Copper</option>
                         <option value="zinc">Zinc</option>
@@ -457,7 +494,6 @@
                         <option value="aluminium">Aluminium</option>
                         <option value="stainless">Stainless Steel (Passive)</option>
                     </select>
-
                 </div>
 
             </div>
@@ -485,41 +521,31 @@
     </section>
 
 
-    <!-- =====================================
-         CORROSION PREVENTION RECOMMENDATIONS
-    ====================================== -->
+    <!-- CORROSION PREVENTION RECOMMENDATIONS -->
 
-    <section class="section prevention-recommendations"
-             id="recommendations">
+    <section class="section prevention-recommendations" id="recommendations">
 
         <div class="section-heading">
-
             <span class="section-tag">SMART PROTECTION</span>
-
             <h2>Corrosion Prevention Recommendations</h2>
-
             <p>
                 Get educational prevention suggestions based on your
                 selected material and environmental conditions.
             </p>
-
         </div>
 
         <div class="recommendation-panel">
 
             <div class="recommendation-intro">
-
                 <div class="recommendation-icon">🛡️</div>
 
                 <div>
                     <h3>Your Protection Strategy</h3>
-
                     <p>
                         Analyse your current Risk Calculator settings to
                         receive suitable prevention suggestions.
                     </p>
                 </div>
-
             </div>
 
             <button id="getRecommendations" class="analyze-button">
@@ -531,7 +557,6 @@
                  aria-live="polite">
 
                 <h3>Ready to Analyse</h3>
-
                 <p>
                     Click the button above to generate your recommendations.
                 </p>
@@ -548,114 +573,74 @@
     </section>
 
 
-    <!-- =====================================
-         CORROSION TYPES EXPLORER
-    ====================================== -->
+    <!-- CORROSION TYPES EXPLORER -->
 
     <section class="section corrosion-types" id="corrosion-types">
 
         <div class="section-heading">
-
             <span class="section-tag">LEARN THE SCIENCE</span>
-
             <h2>Explore Types of Corrosion</h2>
-
             <p>
                 Discover the different ways metals deteriorate
                 and understand the science behind each process.
             </p>
-
         </div>
 
         <div class="corrosion-grid">
 
             <div class="corrosion-card">
-
                 <div class="corrosion-icon">🔩</div>
-
                 <h3>Uniform Corrosion</h3>
-
                 <p>
                     Corrosion occurs relatively evenly across the
                     exposed metal surface.
                 </p>
-
                 <strong>Example:</strong>
-
                 <p>Rust forming across an unprotected iron sheet.</p>
-
             </div>
 
-
             <div class="corrosion-card">
-
                 <div class="corrosion-icon">⚡</div>
-
                 <h3>Galvanic Corrosion</h3>
-
                 <p>
                     Occurs when two different metals are electrically
                     connected in the presence of an electrolyte.
                 </p>
-
                 <strong>Example:</strong>
-
                 <p>Dissimilar metal components connected in a wet environment.</p>
-
             </div>
 
-
             <div class="corrosion-card">
-
                 <div class="corrosion-icon">🕳️</div>
-
                 <h3>Pitting Corrosion</h3>
-
                 <p>
                     Localized corrosion creates small cavities or pits
                     on a metal surface.
                 </p>
-
                 <strong>Example:</strong>
-
                 <p>Pitting on stainless steel exposed to chloride-rich water.</p>
-
             </div>
 
-
             <div class="corrosion-card">
-
                 <div class="corrosion-icon">💧</div>
-
                 <h3>Crevice Corrosion</h3>
-
                 <p>
                     Develops in narrow gaps where stagnant liquid
                     can accumulate.
                 </p>
-
                 <strong>Example:</strong>
-
                 <p>Corrosion beneath washers, joints, and metal fittings.</p>
-
             </div>
 
-
             <div class="corrosion-card">
-
                 <div class="corrosion-icon">🏗️</div>
-
                 <h3>Stress Corrosion Cracking</h3>
-
                 <p>
                     Cracking can develop through the combined effects
                     of tensile stress and a specific corrosive environment.
                 </p>
-
                 <strong>Example:</strong>
-
                 <p>Cracking in stressed metal components exposed to certain chemicals.</p>
-
             </div>
 
         </div>
@@ -663,149 +648,104 @@
     </section>
 
 
-    <!-- =====================================
-         REAL-WORLD CASE STUDIES
-    ====================================== -->
+    <!-- REAL-WORLD CASE STUDIES -->
 
     <section class="section case-studies" id="case-studies">
 
         <div class="section-heading">
-
             <span class="section-tag">ENGINEERING IN THE REAL WORLD</span>
-
             <h2>Real-World Corrosion Case Studies</h2>
-
             <p>
                 Understand how corrosion affects infrastructure,
                 industries, and engineering structures.
             </p>
-
         </div>
 
         <div class="case-grid">
 
             <div class="case-card">
-
                 <div class="case-image case-bridge">🌉</div>
-
                 <div class="case-content">
-
                     <span class="case-category">CIVIL ENGINEERING</span>
-
                     <h3>Coastal Bridge Corrosion</h3>
-
                     <p>
                         Bridges near coastal areas are exposed to
                         moisture and airborne chloride salts.
                         These conditions can accelerate corrosion
                         of steel components.
                     </p>
-
                     <div class="case-detail">
                         <strong>Main cause:</strong>
                         <span>Salt exposure and moisture</span>
                     </div>
-
                     <div class="case-detail">
                         <strong>Possible solution:</strong>
                         <span>Protective coatings and suitable material selection</span>
                     </div>
-
                 </div>
-
             </div>
 
-
             <div class="case-card">
-
                 <div class="case-image case-pipeline">🏭</div>
-
                 <div class="case-content">
-
                     <span class="case-category">INDUSTRIAL ENGINEERING</span>
-
                     <h3>Industrial Pipeline Corrosion</h3>
-
                     <p>
                         Metal pipelines carrying water or industrial
                         fluids can experience internal and external
                         corrosion depending on their environment.
                     </p>
-
                     <div class="case-detail">
                         <strong>Main cause:</strong>
                         <span>Water, dissolved oxygen, and chemicals</span>
                     </div>
-
                     <div class="case-detail">
                         <strong>Possible solution:</strong>
                         <span>Internal coatings and corrosion monitoring</span>
                     </div>
-
                 </div>
-
             </div>
 
-
             <div class="case-card">
-
                 <div class="case-image case-ship">🚢</div>
-
                 <div class="case-content">
-
                     <span class="case-category">MARINE ENGINEERING</span>
-
                     <h3>Ship Hull Corrosion</h3>
-
                     <p>
                         Ships operate in seawater containing dissolved
                         salts. Their metal surfaces require protection
                         against marine corrosion.
                     </p>
-
                     <div class="case-detail">
                         <strong>Main cause:</strong>
                         <span>Seawater and dissolved salts</span>
                     </div>
-
                     <div class="case-detail">
                         <strong>Possible solution:</strong>
                         <span>Marine coatings and cathodic protection</span>
                     </div>
-
                 </div>
-
             </div>
 
-
             <div class="case-card">
-
                 <div class="case-image case-concrete">🏗️</div>
-
                 <div class="case-content">
-
                     <span class="case-category">STRUCTURAL ENGINEERING</span>
-
                     <h3>Reinforced Concrete Corrosion</h3>
-
                     <p>
                         Steel reinforcement inside concrete can corrode
                         when protective conditions are lost, including
                         through chloride ingress or carbonation.
                     </p>
-
                     <div class="case-detail">
                         <strong>Main cause:</strong>
                         <span>Chloride ingress and carbonation</span>
                     </div>
-
                     <div class="case-detail">
                         <strong>Possible solution:</strong>
                         <span>Good concrete cover and suitable protective systems</span>
                     </div>
-
                 </div>
-
             </div>
 
         </div>
@@ -818,66 +758,46 @@
     </section>
 
 
-    <!-- =====================================
-         PREVENTION TECHNOLOGIES
-    ====================================== -->
+    <!-- PREVENTION TECHNOLOGIES -->
 
     <section class="section prevention-section" id="prevention">
 
         <div class="section-heading">
-
             <span class="section-tag">CORROSION CONTROL</span>
-
             <h2>Prevention Technologies</h2>
-
             <p>
                 Explore engineering techniques used to protect
                 metals against corrosion.
             </p>
-
         </div>
 
         <div class="prevention-grid">
 
             <div class="prevention-card">
-
                 <div class="prevention-icon">🎨</div>
-
                 <h3>Protective Coatings</h3>
-
                 <p>
                     Paints and protective coatings create barriers
                     that reduce contact between metal and corrosive environments.
                 </p>
-
             </div>
 
-
             <div class="prevention-card">
-
                 <div class="prevention-icon">🛡️</div>
-
                 <h3>Galvanization</h3>
-
                 <p>
                     Zinc coating provides barrier protection and
                     sacrificial protection to steel.
                 </p>
-
             </div>
 
-
             <div class="prevention-card">
-
                 <div class="prevention-icon">🔋</div>
-
                 <h3>Cathodic Protection</h3>
-
                 <p>
                     Electrochemical protection methods help make
                     the metal structure act as the cathode.
                 </p>
-
             </div>
 
         </div>
@@ -885,23 +805,17 @@
     </section>
 
 
-    <!-- =====================================
-         ENVIRONMENTAL IMPACT CHART
-    ====================================== -->
+    <!-- ENVIRONMENTAL IMPACT CHART -->
 
     <section class="section graph-section" id="insights">
 
         <div class="section-heading">
-
             <span class="section-tag">DATA VISUALIZATION</span>
-
             <h2>Environmental Impact</h2>
-
             <p>
                 Explore the relative influence of different
                 environmental factors in our illustrative model.
             </p>
-
         </div>
 
         <div class="chart-panel">
@@ -911,9 +825,7 @@
     </section>
 
 
-    <!-- =====================================
-         FOOTER
-    ====================================== -->
+    <!-- FOOTER -->
 
     <footer class="footer">
 
