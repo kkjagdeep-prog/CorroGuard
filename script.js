@@ -150,7 +150,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
         const degrees = score * 3.6;
 
-        // CORRECTED RISK CIRCLE GRADIENT
         riskCircle.style.background =
             `conic-gradient(${color} ${degrees}deg, #e7edf4 ${degrees}deg)`;
 
@@ -419,7 +418,161 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
     // =====================================
-    // 8. NAVIGATION SMOOTH SCROLL
+    // 8. CORROSION PREVENTION RECOMMENDATIONS
+    // =====================================
+
+    const getRecommendations =
+        document.getElementById("getRecommendations");
+
+    const recommendationResult =
+        document.getElementById("recommendationResult");
+
+    if (getRecommendations && recommendationResult) {
+
+        getRecommendations.addEventListener("click", function () {
+
+            const selectedMetal = metal.value;
+
+            const humid = Number(humidity.value);
+            const temp = Number(temperature.value);
+            const acidity = Number(ph.value);
+            const salt = Number(salinity.value);
+
+            const selectedMetalName =
+                metal.options[metal.selectedIndex].text;
+
+            let recommendations = [];
+
+            // General recommendations
+            recommendations.push(
+                "Inspect the material regularly for visible corrosion and coating damage."
+            );
+
+            recommendations.push(
+                "Keep surfaces clean and avoid unnecessary moisture accumulation."
+            );
+
+
+            // Material-specific recommendations
+            if (selectedMetal === "iron" || selectedMetal === "steel") {
+
+                recommendations.push(
+                    "Consider suitable protective coatings or painting systems to reduce direct environmental exposure."
+                );
+
+                recommendations.push(
+                    "Evaluate galvanization where appropriate for the application."
+                );
+
+            } else if (selectedMetal === "aluminium") {
+
+                recommendations.push(
+                    "Preserve the protective oxide layer and consider suitable anodizing or coating systems."
+                );
+
+                recommendations.push(
+                    "Evaluate electrical isolation when aluminium is joined to dissimilar metals."
+                );
+
+            } else if (selectedMetal === "copper") {
+
+                recommendations.push(
+                    "Select a suitable protective coating when the service environment requires additional protection."
+                );
+
+                recommendations.push(
+                    "Check connections with dissimilar metals for possible galvanic corrosion."
+                );
+
+            }
+
+
+            // Environmental recommendations
+            if (humid >= 70) {
+
+                recommendations.push(
+                    "High humidity detected: improve drainage and ventilation where possible to reduce moisture accumulation."
+                );
+
+            }
+
+            if (temp >= 40) {
+
+                recommendations.push(
+                    "Elevated temperature detected: verify that the selected material and coating are suitable for the operating temperature."
+                );
+
+            }
+
+            if (salt >= 50) {
+
+                recommendations.push(
+                    "High salt exposure detected: consider suitable marine-environment protective systems and regular removal of salt deposits."
+                );
+
+            }
+
+            if (acidity < 5 || acidity > 9) {
+
+                recommendations.push(
+                    "The selected pH is outside the near-neutral range: verify chemical compatibility and consider suitable corrosion-resistant materials."
+                );
+
+            }
+
+
+            // Build recommendation list safely
+            recommendationResult.replaceChildren();
+
+            const heading = document.createElement("h3");
+            heading.textContent = "🛡️ Recommended Protection Measures";
+
+            const materialInfo = document.createElement("p");
+            materialInfo.textContent =
+                "Selected material: " + selectedMetalName;
+
+            const environmentInfo = document.createElement("p");
+            environmentInfo.textContent =
+                "Environmental conditions: " +
+                humid + "% humidity, " +
+                temp + " °C, pH " +
+                acidity.toFixed(1) + ", " +
+                salt + "% salinity.";
+
+            const listHeading = document.createElement("h4");
+            listHeading.textContent = "Suggested Actions";
+
+            const list = document.createElement("ul");
+
+            recommendations.forEach(function (item) {
+
+                const listItem = document.createElement("li");
+                listItem.textContent = item;
+
+                list.appendChild(listItem);
+
+            });
+
+            const note = document.createElement("p");
+            note.textContent =
+                "These suggestions are preliminary educational guidance, not a validated engineering design. Actual corrosion-control decisions require material specifications and professional assessment.";
+
+            recommendationResult.append(
+                heading,
+                materialInfo,
+                environmentInfo,
+                listHeading,
+                list,
+                note
+            );
+
+        });
+
+    }
+
+
+    // =====================================
+    // 9. NAVIGATION SMOOTH SCROLL
     // =====================================
 
     document.querySelectorAll('a[href^="#"]').forEach(function (link) {
