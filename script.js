@@ -98,13 +98,6 @@ document.addEventListener("DOMContentLoaded", function () {
             (saltRisk * 0.30) +
             (phRisk * 0.15);
 
-
-        /*
-           Educational multipliers only.
-           These are not experimentally validated
-           corrosion resistance rankings.
-        */
-
         const metalFactors = {
 
             iron: 1.00,
@@ -346,11 +339,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
     if (metalOne && metalTwo && checkCompatibility && compatibilityResult) {
 
-        /*
-           Pair keys are sorted alphabetically.
-           This makes the selection order irrelevant.
-        */
-
         const galvanicPairs = {
 
             "copper-iron": {
@@ -436,13 +424,20 @@ document.addEventListener("DOMContentLoaded", function () {
         };
 
 
-        checkCompatibility.addEventListener("click", function () {
+        /* =====================================
+           REFRESH COMPATIBILITY RESULT
+        ===================================== */
+
+        function updateCompatibilityResult() {
 
             const first = metalOne.value;
             const second = metalTwo.value;
 
             const firstName = materialNames[first] || first;
             const secondName = materialNames[second] || second;
+
+            /* Always clear the previous result first */
+            compatibilityResult.replaceChildren();
 
             if (!first || !second) {
 
@@ -518,11 +513,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
             } else {
 
-                /*
-                   For combinations without a specific database
-                   entry, display a useful condition-dependent result
-                   instead of a blank or error-like message.
-                */
+                /* GENERAL RESULT FOR OTHER COMBINATIONS */
 
                 compatibilityResult.innerHTML = `
                     <h3>Condition-Dependent Compatibility</h3>
@@ -567,7 +558,33 @@ document.addEventListener("DOMContentLoaded", function () {
 
             compatibilityResult.appendChild(note);
 
-        });
+        }
+
+
+        /* UPDATE WHEN EITHER DROPDOWN CHANGES */
+
+        metalOne.addEventListener(
+            "change",
+            updateCompatibilityResult
+        );
+
+        metalTwo.addEventListener(
+            "change",
+            updateCompatibilityResult
+        );
+
+
+        /* UPDATE WHEN BUTTON IS CLICKED */
+
+        checkCompatibility.addEventListener(
+            "click",
+            updateCompatibilityResult
+        );
+
+
+        /* SHOW INITIAL RESULT */
+
+        updateCompatibilityResult();
 
     }
 
