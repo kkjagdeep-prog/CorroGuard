@@ -1,4 +1,4 @@
-```javascript
+
 /* =========================================
    CORROGUARD - JAVASCRIPT
    Corrosion Risk Analysis Platform
@@ -150,8 +150,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
         const degrees = score * 3.6;
 
+        // CORRECTED RISK CIRCLE GRADIENT
         riskCircle.style.background =
- circle.style.background = `conic-gradient($DIL0 $DIL1deg, #e7edf4 $DIL2deg)`;
+            `conic-gradient(${color} ${degrees}deg, #e7edf4 ${degrees}deg)`;
 
     }
 
@@ -447,4 +448,3 @@ document.addEventListener("DOMContentLoaded", function () {
     console.log("CorroGuard initialized successfully!");
 
 });
-```
