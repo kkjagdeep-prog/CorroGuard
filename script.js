@@ -997,7 +997,7 @@ function loadQuizQuestion() {
     document.getElementById("quizScore").textContent =
         `Score: ${quizTotalScore}`;
 
-    document.getElementById("quizProgressFill").style.width =
+   document.getElementById("quizProgressFill").style.width =
         `${(currentQuizQuestion / quizQuestions.length) * 100}%`;
 
     document.getElementById("quizQuestion").textContent = question.question;
