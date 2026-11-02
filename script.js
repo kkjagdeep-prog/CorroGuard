@@ -151,7 +151,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const degrees = score * 3.6;
 
         riskCircle.style.background =
-            `conic-gradient(${color} ${degrees}deg, #e7edf4 ${degrees}deg)`;
+ circle.style.background = `conic-gradient($DIL0 $DIL1deg, #e7edf4 $DIL2deg)`;
 
     }
 
