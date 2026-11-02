@@ -1,4 +1,4 @@
-
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -27,6 +27,7 @@
             <a href="#about">About</a>
             <a href="#calculator">Risk Calculator</a>
             <a href="#materials">Materials</a>
+            <a href="#compatibility">Metal Compatibility</a>
             <a href="#corrosion-types">Corrosion Types</a>
             <a href="#case-studies">Case Studies</a>
             <a href="#prevention">Prevention</a>
@@ -334,6 +335,70 @@
     </section>
 
 
+    <!-- METAL COMPATIBILITY CHECKER -->
+    <section class="section compatibility" id="compatibility">
+
+        <div class="section-heading">
+            <span class="section-tag">INTERACTIVE TOOL</span>
+            <h2>Metal Compatibility Checker</h2>
+
+            <p>
+                Explore how contact between different metals can influence
+                galvanic corrosion in the presence of an electrolyte.
+            </p>
+        </div>
+
+        <div class="compatibility-panel">
+
+            <div class="metal-selectors">
+
+                <div class="input-group">
+                    <label for="metalOne">First Metal</label>
+
+                    <select id="metalOne">
+                        <option value="zinc">Zinc</option>
+                        <option value="steel">Carbon Steel</option>
+                        <option value="aluminium">Aluminium</option>
+                        <option value="copper">Copper</option>
+                        <option value="stainless">Stainless Steel (Passive)</option>
+                    </select>
+                </div>
+
+                <div class="compatibility-symbol">+</div>
+
+                <div class="input-group">
+                    <label for="metalTwo">Second Metal</label>
+
+                    <select id="metalTwo">
+                        <option value="copper">Copper</option>
+                        <option value="zinc">Zinc</option>
+                        <option value="steel">Carbon Steel</option>
+                        <option value="aluminium">Aluminium</option>
+                        <option value="stainless">Stainless Steel (Passive)</option>
+                    </select>
+                </div>
+
+            </div>
+
+            <button class="analyze-button" id="checkCompatibility">
+                Check Compatibility →
+            </button>
+
+            <div class="compatibility-result" id="compatibilityResult" aria-live="polite">
+                <h3>Select two metals to begin</h3>
+                <p>Your result will appear here.</p>
+            </div>
+
+            <p class="compatibility-note">
+                Educational estimate only. Actual galvanic corrosion depends
+                on the specific alloys, electrolyte, temperature, surface
+                condition, and relative exposed areas.
+            </p>
+
+        </div>
+    </section>
+
+
     <!-- CORROSION TYPES EXPLORER -->
     <section class="section corrosion-types" id="corrosion-types">
 
@@ -449,7 +514,6 @@
                 </div>
             </div>
 
-
             <div class="case-card">
                 <div class="case-image case-pipeline">🏭</div>
 
@@ -475,7 +539,6 @@
                 </div>
             </div>
 
-
             <div class="case-card">
                 <div class="case-image case-ship">🚢</div>
 
@@ -500,7 +563,6 @@
                     </div>
                 </div>
             </div>
-
 
             <div class="case-card">
                 <div class="case-image case-concrete">🏗️</div>
@@ -624,3 +686,4 @@
 
 </body>
 </html>
+```
