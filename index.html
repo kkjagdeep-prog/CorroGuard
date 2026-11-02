@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <meta name="description" content="CorroGuard - Interactive corrosion risk analysis, metal compatibility, corrosion rate estimation, and prevention recommendation platform.">
+    <meta name="description" content="CorroGuard - Interactive corrosion risk analysis, metal compatibility, corrosion rate estimation, virtual experiments, and prevention recommendations.">
 
     <meta name="theme-color" content="#102d50">
 
@@ -28,7 +28,7 @@
             Corro<span>Guard</span>
         </a>
 
-        <nav class="main-nav">
+        <nav class="main-nav" aria-label="Main navigation">
 
             <a href="#home">Home</a>
             <a href="#about">About</a>
@@ -50,6 +50,7 @@
                     <a href="#case-studies">Case Studies</a>
                     <a href="#prevention">Prevention</a>
                     <a href="#insights">Environmental Impact</a>
+                    <a href="#experimental-lab">Experimental Lab</a>
 
                 </div>
 
@@ -877,6 +878,152 @@
         <div class="chart-panel">
             <canvas id="impactChart"></canvas>
         </div>
+
+    </section>
+
+
+    <!-- EXPERIMENTAL LAB -->
+
+    <section class="section lab-section" id="experimental-lab">
+
+        <div class="section-heading">
+
+            <span class="section-tag">INTERACTIVE LEARNING</span>
+
+            <h2>CorroGuard Experimental Lab</h2>
+
+            <p>
+                Explore the science of corrosion through interactive
+                educational experiments and simulations.
+            </p>
+
+        </div>
+
+        <div class="lab-intro">
+
+            <div>
+                <h3>Welcome to the Virtual Lab 🧪</h3>
+
+                <p>
+                    Investigate how environmental conditions affect metals.
+                    Select an experiment, adjust the conditions, and observe
+                    the scientific explanation of the results.
+                </p>
+            </div>
+
+            <div class="lab-icon">🔬</div>
+
+        </div>
+
+
+        <!-- EXPERIMENT CARDS -->
+
+        <div class="experiment-grid">
+
+            <div class="experiment-card">
+
+                <span class="experiment-number">EXPERIMENT 01</span>
+
+                <div class="experiment-icon">🔩</div>
+
+                <h3>Rusting of Iron</h3>
+
+                <p>
+                    Understand how water and oxygen contribute
+                    to the rusting of iron.
+                </p>
+
+                <button type="button" onclick="openExperiment('rust')">
+                    Start Experiment →
+                </button>
+
+            </div>
+
+
+            <div class="experiment-card">
+
+                <span class="experiment-number">EXPERIMENT 02</span>
+
+                <div class="experiment-icon">🧂</div>
+
+                <h3>Effect of Salt</h3>
+
+                <p>
+                    Compare the influence of fresh water and
+                    salt water on the corrosion tendency of iron.
+                </p>
+
+                <button type="button" onclick="openExperiment('salt')">
+                    Start Experiment →
+                </button>
+
+            </div>
+
+
+            <div class="experiment-card">
+
+                <span class="experiment-number">EXPERIMENT 03</span>
+
+                <div class="experiment-icon">⚡</div>
+
+                <h3>Galvanic Corrosion</h3>
+
+                <p>
+                    Learn how electrical contact between different
+                    metals can influence corrosion.
+                </p>
+
+                <button type="button" onclick="openExperiment('galvanic')">
+                    Start Experiment →
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <!-- INTERACTIVE EXPERIMENT DISPLAY -->
+
+        <div class="experiment-display" id="experimentDisplay">
+
+            <div class="experiment-display-heading">
+
+                <span class="section-tag">VIRTUAL EXPERIMENT</span>
+
+                <h3 id="experimentTitle">Choose an Experiment</h3>
+
+                <p id="experimentDescription">
+                    Select one of the experiments above to begin.
+                </p>
+
+            </div>
+
+            <div class="experiment-controls" id="experimentControls">
+
+                <p>
+                    Your experiment controls will appear here.
+                </p>
+
+            </div>
+
+            <div class="experiment-result" id="experimentResult" aria-live="polite">
+
+                <h4>Awaiting Experiment</h4>
+
+                <p>
+                    Run an experiment to view its result and scientific explanation.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <p class="lab-disclaimer">
+            Note: These are simplified educational simulations.
+            They do not represent measured laboratory results or
+            scientifically validated predictions of corrosion rates.
+        </p>
 
     </section>
 
