@@ -1917,3 +1917,415 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
 });
+// ==========================================
+// PROTECTIVE COATING SELECTOR
+// ==========================================
+
+const coatingRecommendations = {
+    iron: {
+        indoor: {
+            name: "Epoxy Primer with Protective Topcoat",
+            mechanism: "Creates a barrier between iron and moisture or oxygen.",
+            advantages: "Good adhesion and protection in indoor environments.",
+            limitations: "Surface preparation is important.",
+            applications: "Indoor iron structures and equipment."
+        },
+        outdoor: {
+            name: "Zinc-Rich Primer with Epoxy and PU Topcoat",
+            mechanism: "Provides barrier protection and sacrificial zinc protection.",
+            advantages: "Suitable for many outdoor atmospheric conditions.",
+            limitations: "Requires proper surface preparation and maintenance.",
+            applications: "Outdoor iron structures and machinery."
+        },
+        coastal: {
+            name: "Marine-Grade Epoxy Coating System",
+            mechanism: "Forms a protective barrier against moisture and salt.",
+            advantages: "Designed for demanding marine exposure.",
+            limitations: "Application quality and coating inspection are essential.",
+            applications: "Coastal iron structures and marine equipment."
+        },
+        industrial: {
+            name: "Chemical-Resistant Epoxy Coating",
+            mechanism: "Provides a barrier against selected industrial chemicals.",
+            advantages: "Can offer good chemical resistance when correctly specified.",
+            limitations: "Must be matched to the exact chemical exposure.",
+            applications: "Industrial iron equipment and structures."
+        }
+    },
+
+    steel: {
+        indoor: {
+            name: "Epoxy Primer and Protective Topcoat",
+            mechanism: "Separates steel from moisture and oxygen.",
+            advantages: "Good general-purpose protection.",
+            limitations: "Damaged coating areas may need repair.",
+            applications: "Indoor steel frames and equipment."
+        },
+        outdoor: {
+            name: "Zinc-Rich Epoxy Primer and PU Topcoat",
+            mechanism: "Combines sacrificial and barrier protection.",
+            advantages: "Useful for outdoor structural steel.",
+            limitations: "Requires correct preparation and application.",
+            applications: "Bridges, railings and structural steel."
+        },
+        coastal: {
+            name: "Marine Protective Epoxy System",
+            mechanism: "Creates a barrier against saltwater and humidity.",
+            advantages: "Suitable for properly specified marine systems.",
+            limitations: "Needs regular inspection and maintenance.",
+            applications: "Marine steel structures."
+        },
+        industrial: {
+            name: "Chemical-Resistant Epoxy System",
+            mechanism: "Limits contact between steel and corrosive substances.",
+            advantages: "Can protect against selected chemicals.",
+            limitations: "Chemical compatibility must be checked.",
+            applications: "Industrial tanks and steel equipment."
+        }
+    },
+
+    aluminium: {
+        indoor: {
+            name: "Clear Protective Anodizing",
+            mechanism: "Thickens the naturally occurring aluminium oxide layer.",
+            advantages: "Improves surface durability.",
+            limitations: "Not suitable for every chemical environment.",
+            applications: "Indoor aluminium components."
+        },
+        outdoor: {
+            name: "Anodizing or Exterior-Grade Powder Coating",
+            mechanism: "Provides a durable protective surface layer.",
+            advantages: "Good weathering performance when properly applied.",
+            limitations: "Coating selection depends on the aluminium alloy.",
+            applications: "Window frames and outdoor aluminium panels."
+        },
+        coastal: {
+            name: "Marine-Grade Anodizing or Suitable Protective Coating",
+            mechanism: "Reduces direct exposure of aluminium to the environment.",
+            advantages: "Can improve resistance in coastal conditions.",
+            limitations: "Edges, joints and damaged areas need attention.",
+            applications: "Coastal aluminium structures."
+        },
+        industrial: {
+            name: "Chemically Compatible Protective Coating",
+            mechanism: "Separates aluminium from selected corrosive chemicals.",
+            advantages: "Can provide protection for compatible chemical exposures.",
+            limitations: "Aluminium can react with some chemicals; compatibility testing is essential.",
+            applications: "Industrial aluminium components."
+        }
+    },
+
+    copper: {
+        indoor: {
+            name: "Clear Anti-Tarnish Coating",
+            mechanism: "Limits contact with air and moisture.",
+            advantages: "Helps preserve the surface appearance.",
+            limitations: "Coating condition must be maintained.",
+            applications: "Indoor copper fittings and decorative items."
+        },
+        outdoor: {
+            name: "Exterior-Grade Protective Clear Coating",
+            mechanism: "Provides a barrier against atmospheric exposure.",
+            advantages: "Can slow unwanted surface changes.",
+            limitations: "Weathering may require recoating.",
+            applications: "Outdoor copper surfaces."
+        },
+        coastal: {
+            name: "Marine-Compatible Protective Coating",
+            mechanism: "Reduces direct contact with salt and moisture.",
+            advantages: "Can reduce surface deterioration.",
+            limitations: "Must be selected for the specific copper alloy and exposure.",
+            applications: "Coastal copper components."
+        },
+        industrial: {
+            name: "Chemical-Compatible Polymer Coating",
+            mechanism: "Acts as a barrier against selected chemicals.",
+            advantages: "Provides targeted protection.",
+            limitations: "Must be checked against the actual chemical.",
+            applications: "Industrial copper equipment."
+        }
+    },
+
+    stainless304: {
+        indoor: {
+            name: "Passivation Treatment",
+            mechanism: "Supports formation of the protective chromium-rich passive film.",
+            advantages: "Maintains the natural corrosion resistance of stainless steel.",
+            limitations: "Does not prevent every type of corrosion.",
+            applications: "Indoor stainless steel equipment."
+        },
+        outdoor: {
+            name: "Passivation and Suitable Surface Finish",
+            mechanism: "Supports the passive surface layer.",
+            advantages: "Helps maintain atmospheric corrosion resistance.",
+            limitations: "Chloride exposure can still cause corrosion.",
+            applications: "Outdoor stainless steel components."
+        },
+        coastal: {
+            name: "Protective Coating or Upgrade to a More Suitable Alloy",
+            mechanism: "A coating can reduce direct chloride contact.",
+            advantages: "May reduce exposure-related corrosion.",
+            limitations: "Grade 304 can be vulnerable to chloride environments.",
+            applications: "Coastal equipment after engineering assessment."
+        },
+        industrial: {
+            name: "Chemical-Compatible Protective Coating",
+            mechanism: "Provides a barrier against selected chemicals.",
+            advantages: "Can extend service life in compatible environments.",
+            limitations: "Chemical compatibility must be verified.",
+            applications: "Industrial stainless steel equipment."
+        }
+    },
+
+    stainless316: {
+        indoor: {
+            name: "Passivation Treatment",
+            mechanism: "Supports the protective chromium-rich passive film.",
+            advantages: "Maintains the natural corrosion resistance of the alloy.",
+            limitations: "Surface contamination should be avoided.",
+            applications: "Indoor stainless steel equipment."
+        },
+        outdoor: {
+            name: "Passivation and Suitable Surface Finish",
+            mechanism: "Supports the passive surface layer.",
+            advantages: "Good general atmospheric corrosion resistance.",
+            limitations: "Severe exposure may still require additional protection.",
+            applications: "Outdoor stainless steel structures."
+        },
+        coastal: {
+            name: "Passivation with Marine-Compatible Protection if Needed",
+            mechanism: "Maintains the passive film and can add a protective barrier.",
+            advantages: "Molybdenum improves resistance to chloride-related corrosion compared with 304.",
+            limitations: "316 is not immune to seawater corrosion.",
+            applications: "Marine fittings and coastal equipment."
+        },
+        industrial: {
+            name: "Chemical-Compatible Protective System",
+            mechanism: "Uses the passive alloy surface and, where needed, a compatible barrier coating.",
+            advantages: "Can provide protection in selected industrial environments.",
+            limitations: "Resistance depends on chemical concentration and temperature.",
+            applications: "Industrial stainless steel equipment."
+        }
+    },
+
+    galvanized: {
+        indoor: {
+            name: "Compatible Clear Sealer",
+            mechanism: "Adds a barrier over the zinc coating.",
+            advantages: "Can reduce exposure to moisture and contaminants.",
+            limitations: "Must be compatible with galvanized surfaces.",
+            applications: "Indoor galvanized components."
+        },
+        outdoor: {
+            name: "Duplex System: Zinc Coating with Compatible Paint",
+            mechanism: "Combines sacrificial zinc protection with a paint barrier.",
+            advantages: "Can provide extended protection when properly designed.",
+            limitations: "Surface preparation and paint compatibility are important.",
+            applications: "Outdoor galvanized steel."
+        },
+        coastal: {
+            name: "Marine-Compatible Duplex Coating",
+            mechanism: "Combines zinc protection with an additional barrier.",
+            advantages: "Can improve protection in salt-rich environments.",
+            limitations: "Requires a coating system designed for galvanized surfaces.",
+            applications: "Coastal galvanized structures."
+        },
+        industrial: {
+            name: "Chemical-Compatible Sealer or Topcoat",
+            mechanism: "Adds a barrier against selected industrial substances.",
+            advantages: "Can protect the zinc layer in compatible environments.",
+            limitations: "Some chemicals attack zinc; compatibility must be checked.",
+            applications: "Industrial galvanized components."
+        }
+    },
+
+    brass: {
+        indoor: {
+            name: "Clear Anti-Tarnish Lacquer",
+            mechanism: "Reduces contact with air and moisture.",
+            advantages: "Helps preserve appearance.",
+            limitations: "May wear or require maintenance.",
+            applications: "Indoor brass fittings and decorative components."
+        },
+        outdoor: {
+            name: "Exterior-Grade Clear Protective Coating",
+            mechanism: "Forms a barrier against atmospheric exposure.",
+            advantages: "Can slow tarnishing and surface deterioration.",
+            limitations: "Requires periodic inspection.",
+            applications: "Outdoor brass fixtures."
+        },
+        coastal: {
+            name: "Marine-Compatible Protective Coating",
+            mechanism: "Reduces direct exposure to salt and moisture.",
+            advantages: "Can help protect suitable brass alloys.",
+            limitations: "Alloy composition and exposure conditions matter.",
+            applications: "Coastal brass fittings."
+        },
+        industrial: {
+            name: "Chemical-Compatible Polymer Coating",
+            mechanism: "Separates brass from selected chemicals.",
+            advantages: "Provides targeted barrier protection.",
+            limitations: "Must be checked for chemical compatibility.",
+            applications: "Industrial brass components."
+        }
+    },
+
+    bronze: {
+        indoor: {
+            name: "Clear Protective Wax or Lacquer",
+            mechanism: "Limits contact with moisture and air.",
+            advantages: "Helps preserve surface appearance.",
+            limitations: "May need periodic renewal.",
+            applications: "Indoor bronze objects and fittings."
+        },
+        outdoor: {
+            name: "Exterior-Grade Protective Coating",
+            mechanism: "Provides a barrier against atmospheric exposure.",
+            advantages: "Can reduce unwanted surface deterioration.",
+            limitations: "Maintenance depends on weather exposure.",
+            applications: "Outdoor bronze fittings."
+        },
+        coastal: {
+            name: "Marine-Compatible Protective Coating",
+            mechanism: "Reduces contact with saltwater and moisture.",
+            advantages: "Can provide additional protection.",
+            limitations: "Bronze alloy type and service conditions must be assessed.",
+            applications: "Marine bronze components."
+        },
+        industrial: {
+            name: "Chemical-Compatible Barrier Coating",
+            mechanism: "Limits exposure to selected industrial chemicals.",
+            advantages: "Offers targeted protection.",
+            limitations: "Requires compatibility verification.",
+            applications: "Industrial bronze equipment."
+        }
+    },
+
+    zinc: {
+        indoor: {
+            name: "Compatible Clear Sealer",
+            mechanism: "Adds a barrier over the zinc surface.",
+            advantages: "Can reduce staining and surface exposure.",
+            limitations: "Must be compatible with zinc.",
+            applications: "Indoor zinc components."
+        },
+        outdoor: {
+            name: "Zinc-Compatible Exterior Coating",
+            mechanism: "Provides additional barrier protection.",
+            advantages: "Can reduce atmospheric exposure.",
+            limitations: "Correct preparation is essential.",
+            applications: "Outdoor zinc surfaces."
+        },
+        coastal: {
+            name: "Marine-Compatible Protective Sealer",
+            mechanism: "Reduces direct salt and moisture contact.",
+            advantages: "Can provide additional protection.",
+            limitations: "Zinc can be consumed over time as a sacrificial coating.",
+            applications: "Coastal zinc-coated components."
+        },
+        industrial: {
+            name: "Chemical-Compatible Protective Coating",
+            mechanism: "Separates zinc from selected corrosive substances.",
+            advantages: "Provides targeted barrier protection.",
+            limitations: "Zinc is incompatible with some acidic and alkaline environments.",
+            applications: "Industrial zinc components."
+        }
+    },
+
+    titanium: {
+        indoor: {
+            name: "Natural Oxide Film / Passivation",
+            mechanism: "Maintains the stable titanium oxide surface layer.",
+            advantages: "Titanium has excellent natural corrosion resistance in many environments.",
+            limitations: "Not immune to every chemical or service condition.",
+            applications: "Indoor titanium components."
+        },
+        outdoor: {
+            name: "Natural Oxide Film / Passivation",
+            mechanism: "Relies on titanium's protective oxide layer.",
+            advantages: "Usually does not require a conventional corrosion coating.",
+            limitations: "Specific environments may require additional assessment.",
+            applications: "Outdoor titanium components."
+        },
+        coastal: {
+            name: "Natural Oxide Film / Passivation",
+            mechanism: "The stable oxide film protects titanium in many marine conditions.",
+            advantages: "Excellent resistance in many seawater applications.",
+            limitations: "Crevices and unusual chemical conditions need assessment.",
+            applications: "Marine titanium equipment."
+        },
+        industrial: {
+            name: "Chemical-Specific Protective System if Required",
+            mechanism: "Uses titanium's passive film or a compatible additional barrier.",
+            advantages: "Titanium resists many industrial chemicals.",
+            limitations: "Suitability depends on the exact chemical and temperature.",
+            applications: "Industrial titanium equipment."
+        }
+    }
+};
+
+const coatingButton = document.getElementById("findCoating");
+
+if (coatingButton) {
+    coatingButton.addEventListener("click", function () {
+        const metal = document.getElementById("coatingMetal").value;
+        const environment = document.getElementById("coatingEnvironment").value;
+        const concern = document.getElementById("coatingConcern").value;
+        const resultBox = document.getElementById("coatingResult");
+
+        if (!metal || !environment || !concern) {
+            resultBox.innerHTML = `
+                <span class="section-tag">MISSING INFORMATION</span>
+                <h3>Complete Your Selection</h3>
+                <p>Please select a material, environment, and corrosion concern before requesting a recommendation.</p>
+            `;
+            return;
+        }
+
+        const recommendation = coatingRecommendations[metal]?.[environment];
+
+        if (!recommendation) {
+            resultBox.innerHTML = `
+                <h3>No Recommendation Available</h3>
+                <p>Please try another selection.</p>
+            `;
+            return;
+        }
+
+        const concernNames = {
+            moisture: "Moisture",
+            salt: "Salt Exposure",
+            chemical: "Chemical Exposure",
+            general: "General Corrosion"
+        };
+
+        resultBox.innerHTML = `
+            <span class="section-tag">COATING RECOMMENDATION</span>
+            <h3>${recommendation.name}</h3>
+
+            <p><strong>Selected Material:</strong> ${document.getElementById("coatingMetal").selectedOptions[0].text}</p>
+            <p><strong>Environment:</strong> ${document.getElementById("coatingEnvironment").selectedOptions[0].text}</p>
+            <p><strong>Main Concern:</strong> ${concernNames[concern]}</p>
+
+            <div class="coating-detail">
+                <h4>How It Works</h4>
+                <p>${recommendation.mechanism}</p>
+            </div>
+
+            <div class="coating-detail">
+                <h4>Advantages</h4>
+                <p>${recommendation.advantages}</p>
+            </div>
+
+            <div class="coating-detail">
+                <h4>Limitations</h4>
+                <p>${recommendation.limitations}</p>
+            </div>
+
+            <div class="coating-detail">
+                <h4>Typical Applications</h4>
+                <p>${recommendation.applications}</p>
+            </div>
+        `;
+    });
+}
