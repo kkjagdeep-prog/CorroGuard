@@ -324,103 +324,311 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
     /* =====================================
-       7. METAL COMPATIBILITY CHECKER
-    ===================================== */
+   7. METAL COMPATIBILITY CHECKER
+===================================== */
 
-    const metalOne = document.getElementById("metalOne");
-    const metalTwo = document.getElementById("metalTwo");
+const metalOne = document.getElementById("metalOne");
+const metalTwo = document.getElementById("metalTwo");
 
-    const checkCompatibility =
-        document.getElementById("checkCompatibility");
+const checkCompatibility =
+    document.getElementById("checkCompatibility");
 
-    const compatibilityResult =
-        document.getElementById("compatibilityResult");
+const compatibilityResult =
+    document.getElementById("compatibilityResult");
 
 
-    if (metalOne && metalTwo && checkCompatibility && compatibilityResult) {
+if (metalOne && metalTwo && checkCompatibility && compatibilityResult) {
 
-        const galvanicPairs = {
+    const galvanicPairs = {
 
-            "copper-iron": {
-                anodic: "Iron may corrode preferentially",
-                explanation:
-                    "Iron is generally less noble than copper in many aqueous environments and may corrode preferentially when electrically connected to copper.",
-                precaution:
-                    "Consider electrical isolation and suitable protective coatings."
-            },
+        "copper-iron": {
+            anodic: "Iron may corrode preferentially",
+            explanation:
+                "Iron is generally less noble than copper in many aqueous environments and may corrode preferentially when electrically connected to copper.",
+            precaution:
+                "Consider electrical isolation and suitable protective coatings."
+        },
 
-            "copper-steel": {
-                anodic: "Carbon Steel may corrode preferentially",
-                explanation:
-                    "Carbon steel is generally more active than copper in many aqueous environments.",
-                precaution:
-                    "Consider insulating the connection, applying suitable coatings, and preventing electrolyte accumulation."
-            },
+        "copper-steel": {
+            anodic: "Carbon Steel may corrode preferentially",
+            explanation:
+                "Carbon steel is generally more active than copper in many aqueous environments.",
+            precaution:
+                "Consider insulating the connection, applying suitable coatings, and preventing electrolyte accumulation."
+        },
 
-            "copper-zinc": {
-                anodic: "Zinc may corrode preferentially",
-                explanation:
-                    "Zinc is generally more active than copper in many aqueous environments. When electrically connected in an electrolyte, zinc may corrode preferentially.",
-                precaution:
-                    "Consider electrical insulation, compatible material selection, and suitable protective systems."
-            },
+        "copper-zinc": {
+            anodic: "Zinc may corrode preferentially",
+            explanation:
+                "Zinc is generally more active than copper in many aqueous environments.",
+            precaution:
+                "Consider electrical insulation, compatible material selection, and suitable protective systems."
+        },
 
-            "aluminium-copper": {
-                anodic: "Aluminium may corrode preferentially",
-                explanation:
-                    "Aluminium is generally more active than copper. Its protective oxide film and the environment influence actual behaviour.",
-                precaution:
-                    "Consider electrical isolation and suitable protective coatings."
-            },
+        "aluminium-copper": {
+            anodic: "Aluminium may corrode preferentially",
+            explanation:
+                "Aluminium is generally more active than copper. Its protective oxide film and the environment influence actual behaviour.",
+            precaution:
+                "Consider electrical isolation and suitable protective coatings."
+        },
 
-            "aluminium-steel": {
-                anodic: "Environment dependent",
-                explanation:
-                    "The galvanic behaviour of aluminium and carbon steel depends on alloy grades, surface films, electrolyte, and exposed areas.",
-                precaution:
-                    "Consult material-specific galvanic-series data and consider electrical isolation."
-            },
+        "aluminium-steel": {
+            anodic: "Environment dependent",
+            explanation:
+                "The galvanic behaviour of aluminium and carbon steel depends on alloy grades, surface films, electrolyte, and exposed areas.",
+            precaution:
+                "Consult material-specific galvanic-series data and consider electrical isolation."
+        },
 
-            "iron-zinc": {
-                anodic: "Zinc may corrode preferentially",
-                explanation:
-                    "Zinc is generally more active than iron and can provide sacrificial protection to iron when properly connected.",
-                precaution:
-                    "Monitor zinc consumption and inspect the protective system."
-            },
+        "iron-zinc": {
+            anodic: "Zinc may corrode preferentially",
+            explanation:
+                "Zinc is generally more active than iron and can provide sacrificial protection to iron when properly connected.",
+            precaution:
+                "Monitor zinc consumption and inspect the protective system."
+        },
 
-            "aluminium-stainless304": {
-                anodic: "Environment dependent",
-                explanation:
-                    "Aluminium and passive Stainless Steel 304 may form a galvanic couple in conductive environments. Surface condition and electrolyte influence the result.",
-                precaution:
-                    "Consider electrical isolation and suitable joint protection."
-            },
+        "aluminium-stainless304": {
+            anodic: "Environment dependent",
+            explanation:
+                "Aluminium and passive Stainless Steel 304 may form a galvanic couple in conductive environments.",
+            precaution:
+                "Consider electrical isolation and suitable joint protection."
+        },
 
-            "aluminium-stainless316": {
-                anodic: "Environment dependent",
-                explanation:
-                    "The behaviour of aluminium coupled with Stainless Steel 316 depends on alloy grades, passive films, electrolyte, and exposed areas.",
-                precaution:
-                    "Consult material-specific galvanic data before selecting the combination."
-            },
+        "aluminium-stainless316": {
+            anodic: "Environment dependent",
+            explanation:
+                "The behaviour of aluminium coupled with Stainless Steel 316 depends on alloy grades, passive films, electrolyte, and exposed areas.",
+            precaution:
+                "Consult material-specific galvanic data before selecting the combination."
+        },
 
-            "copper-stainless304": {
-                anodic: "Environment dependent",
-                explanation:
-                    "Copper and passive Stainless Steel 304 may have different galvanic behaviour depending on electrolyte and surface condition.",
-                precaution:
-                    "Check the exact material grade and operating environment."
-            },
+        "copper-stainless304": {
+            anodic: "Environment dependent",
+            explanation:
+                "Copper and passive Stainless Steel 304 may have different galvanic behaviour depending on electrolyte and surface condition.",
+            precaution:
+                "Check the exact material grade and operating environment."
+        },
 
-            "copper-stainless316": {
-                anodic: "Environment dependent",
-                explanation:
-                    "Copper and passive Stainless Steel 316 may have different galvanic behaviour depending on electrolyte, surface condition, and exposed areas.",
-                precaution:
-                    "Check material-specific galvanic data and consider electrical isolation where appropriate."
+        "copper-stainless316": {
+            anodic: "Environment dependent",
+            explanation:
+                "Copper and passive Stainless Steel 316 may have different galvanic behaviour depending on electrolyte, surface condition, and exposed areas.",
+            precaution:
+                "Check material-specific galvanic data and consider electrical isolation where appropriate."
+        }
+
+    };
+
+
+    /* NORMALIZE MATERIAL VALUES */
+
+    function normalizeMaterial(value) {
+
+        const rawValue = String(value || "").trim().toLowerCase();
+
+        for (const [key, name] of Object.entries(materialNames)) {
+
+            if (
+                key.toLowerCase() === rawValue ||
+                name.trim().toLowerCase() === rawValue
+            ) {
+                return key;
             }
 
+        }
+
+        return rawValue.replace(/\s+/g, "");
+
+    }
+
+
+    /* GET MATERIAL DISPLAY NAME */
+
+    function getMaterialName(value, key) {
+
+        return materialNames[key] ||
+               materialNames[value] ||
+               String(value).trim();
+
+    }
+
+
+    /* UPDATE COMPATIBILITY RESULT */
+
+    function updateCompatibilityResult() {
+
+        const firstValue = metalOne.value;
+        const secondValue = metalTwo.value;
+
+        const first = normalizeMaterial(firstValue);
+        const second = normalizeMaterial(secondValue);
+
+        const firstName = getMaterialName(firstValue, first);
+        const secondName = getMaterialName(secondValue, second);
+
+        compatibilityResult.replaceChildren();
+
+
+        /* CHECK EMPTY SELECTION */
+
+        if (!firstValue || !secondValue) {
+
+            compatibilityResult.textContent =
+                "Please select both materials.";
+
+            return;
+
+        }
+
+
+        /* CHECK SAME MATERIAL */
+
+        if (first === second) {
+
+            compatibilityResult.innerHTML = `
+
+                <h3>Same Material Combination</h3>
+
+                <p>
+                    <strong>Selected materials:</strong>
+                    ${firstName} + ${secondName}
+                </p>
+
+                <p>
+                    Coupling identical material grades generally
+                    does not create a galvanic driving force
+                    between two dissimilar metals.
+                </p>
+
+                <p>
+                    <strong>Important:</strong>
+                    Ordinary corrosion can still occur depending
+                    on environmental conditions.
+                </p>
+
+            `;
+
+            return;
+
+        }
+
+
+        /* SORT PAIR FOR LOOKUP */
+
+        const pairKey = [first, second].sort().join("-");
+
+        const pair = galvanicPairs[pairKey];
+
+
+        /* KNOWN COMBINATIONS */
+
+        if (pair) {
+
+            compatibilityResult.innerHTML = `
+
+                <h3>Galvanic Compatibility Information</h3>
+
+                <p>
+                    <strong>Selected materials:</strong>
+                    ${firstName} + ${secondName}
+                </p>
+
+                <p>${pair.explanation}</p>
+
+                <p>
+                    <strong>Possible preferentially corroding material:</strong>
+                    ${pair.anodic}
+                </p>
+
+                <p>
+                    <strong>Recommended precaution:</strong>
+                    ${pair.precaution}
+                </p>
+
+            `;
+
+        } else {
+
+            /* OTHER COMBINATIONS */
+
+            compatibilityResult.innerHTML = `
+
+                <h3>Condition-Dependent Compatibility</h3>
+
+                <p>
+                    <strong>Selected materials:</strong>
+                    ${firstName} + ${secondName}
+                </p>
+
+                <p>
+                    These materials may behave differently when
+                    electrically connected in a conductive
+                    environment. Their galvanic behaviour depends
+                    on their exact alloy grades, surface films,
+                    electrolyte chemistry, and exposed surface areas.
+                </p>
+
+                <p>
+                    <strong>Possible corrosion concern:</strong>
+                    Galvanic corrosion should be evaluated before
+                    using these materials together in a wet or
+                    conductive environment.
+                </p>
+
+                <p>
+                    <strong>Recommended precautions:</strong>
+                    Check material-specific galvanic-series data,
+                    consider electrical isolation, and use suitable
+                    protective systems where appropriate.
+                </p>
+
+            `;
+
+        }
+
+
+        /* SCIENTIFIC DISCLAIMER */
+
+        const note = document.createElement("p");
+
+        note.textContent =
+            "Educational estimate only. Galvanic corrosion requires electrical contact and an electrolyte. Actual behaviour also depends on alloy grade, surface condition, electrolyte chemistry, and the relative exposed areas.";
+
+        compatibilityResult.appendChild(note);
+
+    }
+
+
+    /* UPDATE WHEN DROPDOWNS CHANGE */
+
+    metalOne.addEventListener(
+        "change",
+        updateCompatibilityResult
+    );
+
+    metalTwo.addEventListener(
+        "change",
+        updateCompatibilityResult
+    );
+
+
+    /* UPDATE WHEN BUTTON IS CLICKED */
+
+    checkCompatibility.addEventListener(
+        "click",
+        updateCompatibilityResult
+    );
+
+
+    /* INITIAL RESULT */
+
+    updateCompatibilityResult();
+
+}
         };
 
 
