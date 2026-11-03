@@ -2223,3 +2223,66 @@ button, input, select {
         grid-template-columns: 1fr;
     }
 }
+/* PROTECTIVE COATING SELECTOR */
+
+.coating-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 25px;
+    margin-top: 30px;
+}
+
+.coating-form,
+.coating-result {
+    background: white;
+    padding: 25px;
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.06);
+}
+
+.coating-form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.coating-form label {
+    font-weight: 600;
+    color: #23384e;
+}
+
+.coating-form select {
+    padding: 12px;
+    border: 1px solid #d5e0eb;
+    border-radius: 8px;
+    font-size: 15px;
+}
+
+.coating-form button {
+    margin-top: 15px;
+    padding: 13px;
+    border: none;
+    border-radius: 8px;
+    background: #1769aa;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.coating-form button:hover {
+    background: #102d50;
+}
+
+.coating-result h3 {
+    color: #1769aa;
+}
+
+.coating-result h4 {
+    color: #102d50;
+}
+
+@media (max-width: 768px) {
+    .coating-container {
+        grid-template-columns: 1fr;
+    }
+}
