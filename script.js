@@ -628,9 +628,6 @@ if (metalOne && metalTwo && checkCompatibility && compatibilityResult) {
 
     updateCompatibilityResult();
 
-}
-        };
-
 
         /* =====================================
            REFRESH COMPATIBILITY RESULT
