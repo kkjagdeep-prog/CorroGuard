@@ -1724,7 +1724,6 @@ button, input, select {
         min-height: auto;
     }
 }
-```css
 /* CORROGUARD KNOWLEDGE QUIZ */
 
 .quiz-section {
@@ -1871,8 +1870,7 @@ button, input, select {
         flex-wrap: wrap;
     }
 }
-```
-```css
+
 /* =====================================
    CORROGUARD KNOWLEDGE QUIZ
 ===================================== */
@@ -2051,7 +2049,7 @@ button, input, select {
     }
 
 }
-```
+
 /* PDF REPORT BUTTON */
 
 .report-button-container {
