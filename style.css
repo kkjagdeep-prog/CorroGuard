@@ -3620,4 +3620,8 @@ input:focus-visible {
         font-size: 22px !important;
     }
 }
+/* QUICK ACCESS — BALANCE THE FINAL ITEM */
 
+.dashboard-links a:last-child:nth-child(odd) {
+    grid-column: 1 / -1;
+}
