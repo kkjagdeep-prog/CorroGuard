@@ -3279,3 +3279,62 @@ input:focus-visible {
     box-shadow: 0 8px 20px rgba(20, 40, 62, 0.055) !important;
 }
 
+/* ==========================================
+   CORROGUARD — QUICK ACCESS REFINEMENT
+   ========================================== */
+
+.dashboard-links {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+    margin-top: 22px;
+}
+
+.dashboard-links a {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-height: 58px;
+    padding: 14px 15px;
+
+    background: #ffffff !important;
+    border: 1px solid #e7ebef !important;
+    border-radius: 6px !important;
+
+    color: #344c60 !important;
+    font-size: 12px;
+    font-weight: 600;
+    text-decoration: none;
+
+    transition: background 0.2s ease,
+                border-color 0.2s ease,
+                transform 0.2s ease;
+}
+
+.dashboard-links a::after {
+    content: "↗";
+    color: #168b83;
+    font-size: 15px;
+    opacity: 0;
+    transform: translate(-4px, 4px);
+    transition: 0.2s ease;
+}
+
+.dashboard-links a:hover {
+    background: #f4f8f7 !important;
+    border-color: #c5dcd7 !important;
+    transform: translateY(-2px);
+}
+
+.dashboard-links a:hover::after {
+    opacity: 1;
+    transform: translate(0, 0);
+}
+
+@media (max-width: 600px) {
+    .dashboard-links {
+        grid-template-columns: 1fr;
+    }
+}
+
