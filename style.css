@@ -3261,5 +3261,21 @@ input:focus-visible {
 .dashboard-card {
     border-left: 1px solid #e5e9ee !important;
 }
+/* DASHBOARD — CLEAN STATISTIC CARDS */
 
+.dashboard-card::after {
+    display: none !important;
+}
+
+.dashboard-card {
+    background: #ffffff !important;
+    border: 1px solid #e3e8ed !important;
+    border-radius: 7px !important;
+    box-shadow: 0 2px 8px rgba(20, 40, 62, 0.025) !important;
+}
+
+.dashboard-card:hover {
+    border-color: #b9d2d0 !important;
+    box-shadow: 0 8px 20px rgba(20, 40, 62, 0.055) !important;
+}
 
