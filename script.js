@@ -58,17 +58,28 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function updateSliderValues() {
 
-        temperatureValue.textContent = temperature.value + " °C";
-        humidityValue.textContent = humidity.value + "%";
-        phValue.textContent = Number(ph.value).toFixed(1);
-        salinityValue.textContent = salinity.value + "%";
+        if (temperatureValue && temperature) {
+            temperatureValue.textContent = temperature.value + " °C";
+        }
+
+        if (humidityValue && humidity) {
+            humidityValue.textContent = humidity.value + "%";
+        }
+
+        if (phValue && ph) {
+            phValue.textContent = Number(ph.value).toFixed(1);
+        }
+
+        if (salinityValue && salinity) {
+            salinityValue.textContent = salinity.value + "%";
+        }
 
     }
 
-    temperature.addEventListener("input", updateSliderValues);
-    humidity.addEventListener("input", updateSliderValues);
-    ph.addEventListener("input", updateSliderValues);
-    salinity.addEventListener("input", updateSliderValues);
+    if (temperature) temperature.addEventListener("input", updateSliderValues);
+    if (humidity) humidity.addEventListener("input", updateSliderValues);
+    if (ph) ph.addEventListener("input", updateSliderValues);
+    if (salinity) salinity.addEventListener("input", updateSliderValues);
 
     updateSliderValues();
 
@@ -79,12 +90,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function calculateCorrosionRisk() {
 
-        const temp = Number(temperature.value);
-        const humid = Number(humidity.value);
-        const acidity = Number(ph.value);
-        const salt = Number(salinity.value);
+        const temp = Number(temperature?.value || 0);
+        const humid = Number(humidity?.value || 0);
+        const acidity = Number(ph?.value || 7);
+        const salt = Number(salinity?.value || 0);
 
-        const selectedMetal = metal.value;
+        const selectedMetal = metal?.value || "iron";
 
         const humidityRisk = humid;
         const temperatureRisk = (temp / 60) * 100;
@@ -98,7 +109,6 @@ document.addEventListener("DOMContentLoaded", function () {
             (phRisk * 0.15);
 
         const metalFactors = {
-
             iron: 1.00,
             steel: 0.95,
             aluminium: 0.70,
@@ -110,7 +120,6 @@ document.addEventListener("DOMContentLoaded", function () {
             bronze: 0.45,
             zinc: 0.65,
             titanium: 0.15
-
         };
 
         const factor = metalFactors[selectedMetal] ?? 1;
@@ -129,12 +138,18 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function analyzeCorrosion() {
 
+        if (
+            !metal ||
+            !riskScore ||
+            !riskLevel ||
+            !riskDescription ||
+            !riskCircle ||
+            !resultMetal
+        ) return;
+
         const score = calculateCorrosionRisk();
 
         const selectedMetal = metalNames[metal.value] || metal.value;
-
-        riskScore.textContent = score;
-        resultMetal.textContent = selectedMetal;
 
         let level;
         let description;
@@ -173,6 +188,9 @@ document.addEventListener("DOMContentLoaded", function () {
                 "The selected conditions produce a very high score. A detailed engineering assessment and suitable protection strategy are recommended.";
 
         }
+
+        riskScore.textContent = score;
+        resultMetal.textContent = selectedMetal;
 
         riskLevel.textContent = level;
         riskLevel.style.color = color;
@@ -217,9 +235,13 @@ document.addEventListener("DOMContentLoaded", function () {
        5. ANALYZE BUTTON
     ===================================== */
 
-    analyzeButton.addEventListener("click", analyzeCorrosion);
+    if (analyzeButton) {
+        analyzeButton.addEventListener("click", analyzeCorrosion);
+    }
 
-    metal.addEventListener("change", analyzeCorrosion);
+    if (metal) {
+        metal.addEventListener("change", analyzeCorrosion);
+    }
 
     analyzeCorrosion();
 
@@ -237,7 +259,7 @@ document.addEventListener("DOMContentLoaded", function () {
             type: "bar",
 
             data: {
-                               labels: [
+                labels: [
                     "Humidity",
                     "Temperature",
                     "Salt Exposure",
@@ -245,7 +267,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 ],
 
                 datasets: [{
-
                     label: "Illustrative Model Weight (%)",
                     data: [35, 20, 30, 15],
 
@@ -258,18 +279,14 @@ document.addEventListener("DOMContentLoaded", function () {
 
                     borderRadius: 8,
                     borderSkipped: false
-
                 }]
-
             },
 
             options: {
-
                 responsive: true,
                 maintainAspectRatio: false,
 
                 plugins: {
-
                     legend: {
                         display: false
                     },
@@ -278,13 +295,10 @@ document.addEventListener("DOMContentLoaded", function () {
                         backgroundColor: "#10243e",
                         padding: 12
                     }
-
                 },
 
                 scales: {
-
                     y: {
-
                         beginAtZero: true,
                         max: 100,
 
@@ -296,7 +310,6 @@ document.addEventListener("DOMContentLoaded", function () {
                         grid: {
                             color: "#edf1f6"
                         }
-
                     },
 
                     x: {
@@ -304,11 +317,8 @@ document.addEventListener("DOMContentLoaded", function () {
                             display: false
                         }
                     }
-
                 }
-
             }
-
         });
 
     } else if (chartCanvas) {
@@ -420,7 +430,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 precaution:
                     "Check material-specific galvanic data and consider electrical isolation where appropriate."
             }
-
         };
 
 
@@ -586,14 +595,14 @@ document.addEventListener("DOMContentLoaded", function () {
 
         getRecommendations.addEventListener("click", function () {
 
-            const selectedMetal = metal.value;
+            const selectedMetal = metal?.value || "iron";
 
-            const humid = Number(humidity.value);
-            const temp = Number(temperature.value);
-            const acidity = Number(ph.value);
-            const salt = Number(salinity.value);
+            const humid = Number(humidity?.value || 0);
+            const temp = Number(temperature?.value || 0);
+            const acidity = Number(ph?.value || 7);
+            const salt = Number(salinity?.value || 0);
 
-            const selectedMetalName = materialNames[selectedMetal];
+            const selectedMetalName = materialNames[selectedMetal] || selectedMetal;
 
             let recommendations = [];
 
@@ -820,6 +829,18 @@ document.addEventListener("DOMContentLoaded", function () {
             const areaInput = document.getElementById("surfaceArea");
             const timeInput = document.getElementById("exposureTime");
 
+            if (
+                !initialInput ||
+                !finalInput ||
+                !areaInput ||
+                !timeInput
+            ) {
+                rateResult.textContent =
+                    "The measurement fields could not be found.";
+
+                return;
+            }
+
             const initialWeight = Number(initialInput.value);
             const finalWeight = Number(finalInput.value);
             const surfaceArea = Number(areaInput.value);
@@ -845,12 +866,16 @@ document.addEventListener("DOMContentLoaded", function () {
                 initialWeight <= 0 ||
                 finalWeight < 0 ||
                 surfaceArea <= 0 ||
-                exposureTime <= 0
+                exposureTime <= 0 ||
+                !Number.isFinite(initialWeight) ||
+                !Number.isFinite(finalWeight) ||
+                !Number.isFinite(surfaceArea) ||
+                !Number.isFinite(exposureTime)
             ) {
 
                 rateResult.innerHTML = `
                     <h3>Invalid Measurements</h3>
-                    <p>Weights, surface area, and exposure time must be valid positive measurements. Final weight cannot be negative.</p>
+                    <p>Enter valid positive measurements. Final weight cannot be negative.</p>
                 `;
 
                 return;
@@ -898,8 +923,526 @@ document.addEventListener("DOMContentLoaded", function () {
         });
 
     }
-   /* ==========================================
-   CORROGUARD KNOWLEDGE QUIZ
+
+
+}); // END OF MAIN PAGE INITIALIZATION
+/* ==========================================
+   11. CORROGUARD VIRTUAL EXPERIMENTAL LAB
+========================================== */
+
+
+/* ==========================================
+   OPEN EXPERIMENT
+========================================== */
+
+function openExperiment(type) {
+
+    const experimentDisplay = document.getElementById("experimentDisplay");
+    const experimentTitle = document.getElementById("experimentTitle");
+    const experimentDescription = document.getElementById("experimentDescription");
+    const experimentControls = document.getElementById("experimentControls");
+    const experimentResult = document.getElementById("experimentResult");
+
+    if (
+        !experimentDisplay ||
+        !experimentTitle ||
+        !experimentDescription ||
+        !experimentControls ||
+        !experimentResult
+    ) {
+        console.warn("Experimental Lab elements could not be found.");
+        return;
+    }
+
+    experimentDisplay.style.display = "block";
+    experimentControls.replaceChildren();
+    experimentResult.replaceChildren();
+
+    if (type === "rust") {
+
+        experimentTitle.textContent = "Virtual Rusting Experiment";
+
+        experimentDescription.textContent =
+            "Explore how environmental conditions influence an illustrative iron corrosion model. Adjust humidity, oxygen availability, and salt exposure to compare the relative corrosion tendency.";
+
+        experimentControls.innerHTML = `
+            <div class="experiment-control">
+                <label for="rustHumidity">Humidity (%)</label>
+                <input type="range" id="rustHumidity" min="0" max="100" value="60">
+                <span id="rustHumidityValue">60%</span>
+            </div>
+
+            <div class="experiment-control">
+                <label for="rustOxygen">Oxygen Availability (%)</label>
+                <input type="range" id="rustOxygen" min="0" max="100" value="70">
+                <span id="rustOxygenValue">70%</span>
+            </div>
+
+            <div class="experiment-control">
+                <label for="rustSalt">Salt Exposure (%)</label>
+                <input type="range" id="rustSalt" min="0" max="100" value="30">
+                <span id="rustSaltValue">30%</span>
+            </div>
+
+            <button type="button" id="runRustExperiment">
+                Run Simulation
+            </button>
+        `;
+
+        const humidityInput = document.getElementById("rustHumidity");
+        const oxygenInput = document.getElementById("rustOxygen");
+        const saltInput = document.getElementById("rustSalt");
+
+        humidityInput.addEventListener("input", function () {
+            document.getElementById("rustHumidityValue").textContent =
+                this.value + "%";
+        });
+
+        oxygenInput.addEventListener("input", function () {
+            document.getElementById("rustOxygenValue").textContent =
+                this.value + "%";
+        });
+
+        saltInput.addEventListener("input", function () {
+            document.getElementById("rustSaltValue").textContent =
+                this.value + "%";
+        });
+
+        document.getElementById("runRustExperiment")
+            .addEventListener("click", runRustExperiment);
+
+    }
+
+
+    else if (type === "salt") {
+
+        experimentTitle.textContent = "Salt Exposure Experiment";
+
+        experimentDescription.textContent =
+            "Compare the illustrative effect of increasing salt exposure on a metal surface. This simulation demonstrates why chloride-rich environments can increase corrosion concerns.";
+
+        experimentControls.innerHTML = `
+            <div class="experiment-control">
+                <label for="saltConcentration">Salt Exposure (%)</label>
+                <input type="range" id="saltConcentration" min="0" max="100" value="20">
+                <span id="saltConcentrationValue">20%</span>
+            </div>
+
+            <div class="experiment-control">
+                <label for="saltHumidity">Humidity (%)</label>
+                <input type="range" id="saltHumidity" min="0" max="100" value="50">
+                <span id="saltHumidityValue">50%</span>
+            </div>
+
+            <button type="button" id="runSaltExperiment">
+                Run Simulation
+            </button>
+        `;
+
+        const concentrationInput =
+            document.getElementById("saltConcentration");
+
+        const humidityInput =
+            document.getElementById("saltHumidity");
+
+        concentrationInput.addEventListener("input", function () {
+            document.getElementById("saltConcentrationValue").textContent =
+                this.value + "%";
+        });
+
+        humidityInput.addEventListener("input", function () {
+            document.getElementById("saltHumidityValue").textContent =
+                this.value + "%";
+        });
+
+        document.getElementById("runSaltExperiment")
+            .addEventListener("click", runSaltExperiment);
+
+    }
+
+
+    else if (type === "galvanic") {
+
+        experimentTitle.textContent = "Virtual Galvanic Corrosion Experiment";
+
+        experimentDescription.textContent =
+            "Explore a simplified galvanic corrosion model. Compare two different metals and see how electrical connection and electrolyte presence affect the possibility of galvanic corrosion.";
+
+        experimentControls.innerHTML = `
+            <div class="experiment-control">
+                <label for="galvanicMetalOne">First Material</label>
+                <select id="galvanicMetalOne">
+                    <option value="iron">Iron</option>
+                    <option value="steel">Carbon Steel</option>
+                    <option value="aluminium">Aluminium</option>
+                    <option value="copper">Copper</option>
+                    <option value="zinc">Zinc</option>
+                </select>
+            </div>
+
+            <div class="experiment-control">
+                <label for="galvanicMetalTwo">Second Material</label>
+                <select id="galvanicMetalTwo">
+                    <option value="copper">Copper</option>
+                    <option value="iron">Iron</option>
+                    <option value="steel">Carbon Steel</option>
+                    <option value="aluminium">Aluminium</option>
+                    <option value="zinc">Zinc</option>
+                </select>
+            </div>
+
+            <div class="experiment-control">
+                <label for="galvanicContact">Electrical Contact</label>
+                <select id="galvanicContact">
+                    <option value="yes">Connected</option>
+                    <option value="no">Not Connected</option>
+                </select>
+            </div>
+
+            <div class="experiment-control">
+                <label for="galvanicElectrolyte">Electrolyte Present</label>
+                <select id="galvanicElectrolyte">
+                    <option value="yes">Present</option>
+                    <option value="no">Absent</option>
+                </select>
+            </div>
+
+            <button type="button" id="runGalvanicExperiment">
+                Run Simulation
+            </button>
+        `;
+
+        document.getElementById("runGalvanicExperiment")
+            .addEventListener("click", runGalvanicExperiment);
+
+    }
+
+    else {
+
+        experimentTitle.textContent = "Experiment Not Found";
+
+        experimentDescription.textContent =
+            "The selected experiment is not available.";
+
+    }
+
+}
+
+
+/* ==========================================
+   RUSTING EXPERIMENT
+========================================== */
+
+function runRustExperiment() {
+
+    const humidity = Number(
+        document.getElementById("rustHumidity").value
+    );
+
+    const oxygen = Number(
+        document.getElementById("rustOxygen").value
+    );
+
+    const salt = Number(
+        document.getElementById("rustSalt").value
+    );
+
+    const result = document.getElementById("experimentResult");
+
+    const score = Math.round(
+        (humidity * 0.35) +
+        (oxygen * 0.30) +
+        (salt * 0.35)
+    );
+
+    let level;
+    let explanation;
+
+    if (score < 30) {
+
+        level = "Lower Relative Tendency";
+
+        explanation =
+            "The selected conditions produce a lower relative corrosion tendency in this simplified model.";
+
+    } else if (score < 60) {
+
+        level = "Moderate Relative Tendency";
+
+        explanation =
+            "The selected conditions produce a moderate relative corrosion tendency. Moisture, oxygen, and salt exposure all influence the result.";
+
+    } else {
+
+        level = "Higher Relative Tendency";
+
+        explanation =
+            "The selected conditions produce a higher relative corrosion tendency. Moisture, oxygen, and salt can contribute to iron corrosion.";
+
+    }
+
+    result.innerHTML = `
+        <h3>Simulation Results</h3>
+
+        <p><strong>Humidity:</strong> ${humidity}%</p>
+        <p><strong>Oxygen availability:</strong> ${oxygen}%</p>
+        <p><strong>Salt exposure:</strong> ${salt}%</p>
+
+        <h3>Relative Corrosion Score: ${score}/100</h3>
+
+        <h4>${level}</h4>
+
+        <p>${explanation}</p>
+
+        <p>
+            <strong>Scientific concept:</strong>
+            Ordinary iron rusting involves electrochemical reactions
+            involving iron, water, and oxygen. Dissolved salts can
+            increase the conductivity of the moisture layer.
+        </p>
+
+        <p>
+            This is an illustrative educational simulation,
+            not a measured corrosion rate.
+        </p>
+    `;
+
+}
+
+
+/* ==========================================
+   SALT EXPOSURE EXPERIMENT
+========================================== */
+
+function runSaltExperiment() {
+
+    const salt = Number(
+        document.getElementById("saltConcentration").value
+    );
+
+    const humidity = Number(
+        document.getElementById("saltHumidity").value
+    );
+
+    const result = document.getElementById("experimentResult");
+
+    const score = Math.round(
+        (salt * 0.60) +
+        (humidity * 0.40)
+    );
+
+    let level;
+    let explanation;
+
+    if (score < 30) {
+
+        level = "Lower Relative Exposure";
+
+        explanation =
+            "The selected salt exposure and humidity produce a lower relative corrosion tendency in this model.";
+
+    } else if (score < 60) {
+
+        level = "Moderate Relative Exposure";
+
+        explanation =
+            "The selected conditions produce a moderate relative corrosion tendency. Moisture can help dissolved salts form a conductive surface layer.";
+
+    } else {
+
+        level = "Higher Relative Exposure";
+
+        explanation =
+            "The selected conditions produce a higher relative corrosion tendency. Salt-rich moisture can increase corrosion concerns for susceptible metals.";
+
+    }
+
+    result.innerHTML = `
+        <h3>Simulation Results</h3>
+
+        <p><strong>Salt exposure:</strong> ${salt}%</p>
+        <p><strong>Humidity:</strong> ${humidity}%</p>
+
+        <h3>Relative Exposure Score: ${score}/100</h3>
+
+        <h4>${level}</h4>
+
+        <p>${explanation}</p>
+
+        <p>
+            <strong>Scientific concept:</strong>
+            Dissolved salts, particularly chloride-containing salts,
+            can increase the electrical conductivity of moisture
+            on metal surfaces and influence corrosion processes.
+        </p>
+
+        <p>
+            This is an illustrative educational simulation,
+            not a measured corrosion rate.
+        </p>
+    `;
+
+}
+
+
+/* ==========================================
+   GALVANIC CORROSION EXPERIMENT
+========================================== */
+
+function runGalvanicExperiment() {
+
+    const firstMetal =
+        document.getElementById("galvanicMetalOne").value;
+
+    const secondMetal =
+        document.getElementById("galvanicMetalTwo").value;
+
+    const contact =
+        document.getElementById("galvanicContact").value;
+
+    const electrolyte =
+        document.getElementById("galvanicElectrolyte").value;
+
+    const result =
+        document.getElementById("experimentResult");
+
+    const names = {
+        iron: "Iron",
+        steel: "Carbon Steel",
+        aluminium: "Aluminium",
+        copper: "Copper",
+        zinc: "Zinc"
+    };
+
+    if (firstMetal === secondMetal) {
+
+        result.innerHTML = `
+            <h3>Simulation Results</h3>
+
+            <p><strong>Materials:</strong> ${names[firstMetal]} + ${names[secondMetal]}</p>
+
+            <h4>No Dissimilar-Metal Pair</h4>
+
+            <p>
+                The selected materials are the same. This simplified
+                simulation does not identify a galvanic driving
+                force between two identical materials.
+            </p>
+
+            <p>
+                Ordinary corrosion may still occur depending on
+                environmental conditions.
+            </p>
+        `;
+
+        return;
+
+    }
+
+    if (contact === "no") {
+
+        result.innerHTML = `
+            <h3>Simulation Results</h3>
+
+            <p><strong>Materials:</strong> ${names[firstMetal]} + ${names[secondMetal]}</p>
+
+            <h4>Electrical Connection Absent</h4>
+
+            <p>
+                The selected metals are not electrically connected.
+                The conditions for a galvanic corrosion cell are
+                therefore incomplete in this simplified model.
+            </p>
+        `;
+
+        return;
+
+    }
+
+    if (electrolyte === "no") {
+
+        result.innerHTML = `
+            <h3>Simulation Results</h3>
+
+            <p><strong>Materials:</strong> ${names[firstMetal]} + ${names[secondMetal]}</p>
+
+            <h4>Electrolyte Absent</h4>
+
+            <p>
+                An electrolyte is absent. The conditions for
+                galvanic corrosion are therefore incomplete
+                in this simplified model.
+            </p>
+        `;
+
+        return;
+
+    }
+
+    const activityOrder = [
+        "zinc",
+        "aluminium",
+        "iron",
+        "steel",
+        "copper"
+    ];
+
+    const firstPosition = activityOrder.indexOf(firstMetal);
+    const secondPosition = activityOrder.indexOf(secondMetal);
+
+    let explanation;
+
+    if (firstPosition < secondPosition) {
+
+        explanation =
+            names[firstMetal] +
+            " is generally more active than " +
+            names[secondMetal] +
+            " in this simplified illustrative material ordering.";
+
+    } else {
+
+        explanation =
+            names[secondMetal] +
+            " is generally more active than " +
+            names[firstMetal] +
+            " in this simplified illustrative material ordering.";
+
+    }
+
+    result.innerHTML = `
+        <h3>Simulation Results</h3>
+
+        <p><strong>First material:</strong> ${names[firstMetal]}</p>
+        <p><strong>Second material:</strong> ${names[secondMetal]}</p>
+
+        <h4>Galvanic Corrosion Conditions Present</h4>
+
+        <p>
+            The selected materials are different, electrical
+            contact is present, and an electrolyte is present.
+        </p>
+
+        <p>${explanation}</p>
+
+        <p>
+            <strong>Important:</strong>
+            The actual anodic and cathodic behaviour depends on
+            the exact alloy grades, surface condition, electrolyte,
+            temperature, and exposed surface areas.
+        </p>
+
+        <p>
+            This is a simplified educational model and does not
+            replace material-specific galvanic-series data.
+        </p>
+    `;
+
+}
+
+
+/* ==========================================
+   12. CORROGUARD KNOWLEDGE QUIZ
 ========================================== */
 
 const quizQuestions = [
@@ -913,21 +1456,24 @@ const quizQuestions = [
             "Polishing of metals"
         ],
         answer: 1,
-        explanation: "Corrosion is the gradual deterioration of a material due to reactions with its environment."
+        explanation:
+            "Corrosion is the gradual deterioration of a material due to reactions with its environment."
     },
 
     {
         question: "Which metal is commonly used to protect iron through galvanization?",
         options: ["Copper", "Silver", "Zinc", "Gold"],
         answer: 2,
-        explanation: "Zinc provides a protective coating and helps protect iron from corrosion."
+        explanation:
+            "Zinc provides a protective coating and helps protect iron from corrosion."
     },
 
     {
         question: "What is the common name for iron corrosion?",
         options: ["Rusting", "Scaling", "Cracking", "Melting"],
         answer: 0,
-        explanation: "Rusting is the corrosion process that affects iron and many iron-based materials."
+        explanation:
+            "Rusting is the corrosion process that affects iron and many iron-based materials."
     },
 
     {
@@ -939,7 +1485,8 @@ const quizQuestions = [
             "Only heat"
         ],
         answer: 1,
-        explanation: "Water and oxygen are both important for ordinary rust formation."
+        explanation:
+            "Water and oxygen are both important for ordinary rust formation."
     },
 
     {
@@ -951,7 +1498,8 @@ const quizQuestions = [
             "Increasing exposure to salt"
         ],
         answer: 0,
-        explanation: "Paint creates a barrier that helps prevent the environment from reaching the metal."
+        explanation:
+            "Paint creates a barrier that helps prevent the environment from reaching the metal."
     },
 
     {
@@ -963,7 +1511,8 @@ const quizQuestions = [
             "Temperature"
         ],
         answer: 2,
-        explanation: "pH indicates how acidic or alkaline a solution is."
+        explanation:
+            "pH indicates how acidic or alkaline a solution is."
     },
 
     {
@@ -975,7 +1524,8 @@ const quizQuestions = [
             "Erosion"
         ],
         answer: 0,
-        explanation: "Galvanic corrosion can occur when dissimilar metals are electrically connected in an electrolyte."
+        explanation:
+            "Galvanic corrosion can occur when dissimilar metals are electrically connected in an electrolyte."
     },
 
     {
@@ -987,7 +1537,8 @@ const quizQuestions = [
             "Pure iron"
         ],
         answer: 1,
-        explanation: "Stainless steel contains chromium, which helps form a protective passive layer."
+        explanation:
+            "Stainless steel contains chromium, which helps form a protective passive layer."
     },
 
     {
@@ -999,7 +1550,8 @@ const quizQuestions = [
             "A measuring instrument"
         ],
         answer: 1,
-        explanation: "Corrosion inhibitors are substances that reduce the rate of corrosion."
+        explanation:
+            "Corrosion inhibitors are substances that reduce the rate of corrosion."
     },
 
     {
@@ -1011,7 +1563,8 @@ const quizQuestions = [
             "The melting point of a metal"
         ],
         answer: 0,
-        explanation: "Corrosion rate describes how quickly material deterioration occurs."
+        explanation:
+            "Corrosion rate describes how quickly material deterioration occurs."
     }
 
 ];
@@ -1034,19 +1587,42 @@ function loadQuizQuestion() {
 
     const question = quizQuestions[currentQuizQuestion];
 
-    document.getElementById("quizProgress").textContent =
+    const progress = document.getElementById("quizProgress");
+    const score = document.getElementById("quizScore");
+    const progressFill = document.getElementById("quizProgressFill");
+    const questionElement = document.getElementById("quizQuestion");
+    const optionsContainer = document.getElementById("quizOptions");
+    const feedback = document.getElementById("quizFeedback");
+    const nextButton = document.getElementById("nextQuestion");
+    const restartButton = document.getElementById("restartQuiz");
+    const finalResult = document.getElementById("quizFinalResult");
+
+    if (
+        !progress ||
+        !score ||
+        !progressFill ||
+        !questionElement ||
+        !optionsContainer ||
+        !feedback ||
+        !nextButton ||
+        !restartButton ||
+        !finalResult
+    ) {
+        console.warn("One or more quiz elements could not be found.");
+        return;
+    }
+
+    progress.textContent =
         `Question ${currentQuizQuestion + 1} of ${quizQuestions.length}`;
 
-    document.getElementById("quizScore").textContent =
+    score.textContent =
         `Score: ${quizTotalScore}`;
 
-    document.getElementById("quizProgressFill").style.width =
+    progressFill.style.width =
         `${(currentQuizQuestion / quizQuestions.length) * 100}%`;
 
-    document.getElementById("quizQuestion").textContent =
+    questionElement.textContent =
         question.question;
-
-    const optionsContainer = document.getElementById("quizOptions");
 
     optionsContainer.innerHTML = "";
 
@@ -1054,23 +1630,26 @@ function loadQuizQuestion() {
 
         const button = document.createElement("button");
 
+        button.type = "button";
         button.className = "quiz-option";
         button.textContent = option;
 
-        button.onclick = () => selectQuizAnswer(index);
+        button.addEventListener("click", function () {
+            selectQuizAnswer(index);
+        });
 
         optionsContainer.appendChild(button);
 
     });
 
-    document.getElementById("quizFeedback").textContent = "";
+    feedback.textContent = "";
 
-    document.getElementById("nextQuestion").disabled = true;
-    document.getElementById("nextQuestion").style.display = "inline-block";
+    nextButton.disabled = true;
+    nextButton.style.display = "inline-block";
 
-    document.getElementById("restartQuiz").style.display = "none";
+    restartButton.style.display = "none";
 
-    document.getElementById("quizFinalResult").textContent = "";
+    finalResult.textContent = "";
 
     quizAnswered = false;
 
@@ -1092,6 +1671,8 @@ function selectQuizAnswer(selectedIndex) {
     const options = document.querySelectorAll(".quiz-option");
 
     const feedback = document.getElementById("quizFeedback");
+    const score = document.getElementById("quizScore");
+    const nextButton = document.getElementById("nextQuestion");
 
     options.forEach(button => {
         button.disabled = true;
@@ -1117,10 +1698,10 @@ function selectQuizAnswer(selectedIndex) {
 
     }
 
-    document.getElementById("quizScore").textContent =
+    score.textContent =
         `Score: ${quizTotalScore}`;
 
-    document.getElementById("nextQuestion").disabled = false;
+    nextButton.disabled = false;
 
 }
 
@@ -1154,22 +1735,39 @@ function nextQuizQuestion() {
 
 function showQuizResult() {
 
-    document.getElementById("quizProgress").textContent =
-        "Quiz completed!";
+    const progress = document.getElementById("quizProgress");
+    const progressFill = document.getElementById("quizProgressFill");
+    const questionElement = document.getElementById("quizQuestion");
+    const optionsContainer = document.getElementById("quizOptions");
+    const feedback = document.getElementById("quizFeedback");
+    const nextButton = document.getElementById("nextQuestion");
+    const restartButton = document.getElementById("restartQuiz");
+    const finalResult = document.getElementById("quizFinalResult");
 
-    document.getElementById("quizProgressFill").style.width =
-        "100%";
+    if (
+        !progress ||
+        !progressFill ||
+        !questionElement ||
+        !optionsContainer ||
+        !feedback ||
+        !nextButton ||
+        !restartButton ||
+        !finalResult
+    ) return;
 
-    document.getElementById("quizQuestion").textContent =
-        "Your Results";
+    progress.textContent = "Quiz completed!";
 
-    document.getElementById("quizOptions").innerHTML = "";
+    progressFill.style.width = "100%";
 
-    document.getElementById("quizFeedback").textContent = "";
+    questionElement.textContent = "Your Results";
 
-    document.getElementById("nextQuestion").style.display = "none";
+    optionsContainer.innerHTML = "";
 
-    document.getElementById("restartQuiz").style.display = "inline-block";
+    feedback.textContent = "";
+
+    nextButton.style.display = "none";
+
+    restartButton.style.display = "inline-block";
 
     const percentage = Math.round(
         (quizTotalScore / quizQuestions.length) * 100
@@ -1194,7 +1792,7 @@ function showQuizResult() {
 
     }
 
-    document.getElementById("quizFinalResult").innerHTML = `
+    finalResult.innerHTML = `
         <h3>${quizTotalScore} / ${quizQuestions.length}</h3>
         <h4>${percentage}%</h4>
         <p>${message}</p>
@@ -1231,8 +1829,8 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
 });
-   /* ==========================================
-   CORROGUARD - PDF REPORT GENERATOR
+/* ==========================================
+   13. CORROGUARD PDF REPORT GENERATOR
 ========================================== */
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -1244,584 +1842,780 @@ document.addEventListener("DOMContentLoaded", function () {
     downloadButton.addEventListener("click", function () {
 
         if (!window.jspdf || !window.jspdf.jsPDF) {
-
-            alert("PDF library is not available. Please refresh the page and try again.");
-
+            alert("PDF library not found. Please check the jsPDF script in your HTML file.");
             return;
-
         }
 
         const { jsPDF } = window.jspdf;
+        const doc = new jsPDF();
 
-        const pdf = new jsPDF();
+        const metalElement = document.getElementById("metal");
+        const temperatureElement = document.getElementById("temperature");
+        const humidityElement = document.getElementById("humidity");
+        const phElement = document.getElementById("ph");
+        const salinityElement = document.getElementById("salinity");
 
-        const selectedMetal =
-            document.getElementById("metal").selectedOptions[0].text;
+        const riskScoreElement = document.getElementById("riskScore");
+        const riskLevelElement = document.getElementById("riskLevel");
+        const riskDescriptionElement = document.getElementById("riskDescription");
 
-        const temperature =
-            document.getElementById("temperature").value;
+        const selectedMetal = metalElement
+            ? metalElement.options[metalElement.selectedIndex].text
+            : "Not selected";
 
-        const humidity =
-            document.getElementById("humidity").value;
+        const temperature = temperatureElement
+            ? temperatureElement.value
+            : "N/A";
 
-        const ph =
-            document.getElementById("ph").value;
+        const humidity = humidityElement
+            ? humidityElement.value
+            : "N/A";
 
-        const salinity =
-            document.getElementById("salinity").value;
+        const ph = phElement
+            ? phElement.value
+            : "N/A";
 
-        const riskScore =
-            document.getElementById("riskScore").textContent;
+        const salinity = salinityElement
+            ? salinityElement.value
+            : "N/A";
 
-        const riskLevel =
-            document.getElementById("riskLevel").textContent;
+        const riskScore = riskScoreElement
+            ? riskScoreElement.textContent.trim()
+            : "Not calculated";
 
-        const riskDescription =
-            document.getElementById("riskDescription").textContent;
+        const riskLevel = riskLevelElement
+            ? riskLevelElement.textContent.trim()
+            : "Not calculated";
+
+        const riskDescription = riskDescriptionElement
+            ? riskDescriptionElement.textContent.trim()
+            : "Run the risk calculator to generate an assessment.";
 
         const date = new Date().toLocaleDateString();
 
-
         /* PDF HEADER */
 
-        pdf.setFillColor(16, 45, 80);
-        pdf.rect(0, 0, 210, 38, "F");
+        doc.setFillColor(16, 36, 62);
+        doc.rect(0, 0, 210, 38, "F");
 
-        pdf.setTextColor(255, 255, 255);
-        pdf.setFontSize(23);
-        pdf.setFont("helvetica", "bold");
+        doc.setTextColor(255, 255, 255);
+        doc.setFont("helvetica", "bold");
+        doc.setFontSize(23);
+        doc.text("CORROGUARD", 15, 19);
 
-        pdf.text("CORROGUARD", 15, 18);
+        doc.setFont("helvetica", "normal");
+        doc.setFontSize(10);
+        doc.text("CORROSION ANALYSIS REPORT", 15, 28);
 
-        pdf.setFontSize(11);
-        pdf.setFont("helvetica", "normal");
+        doc.setFontSize(9);
+        doc.text("Generated: " + date, 195, 28, {
+            align: "right"
+        });
 
-        pdf.text("Corrosion Analysis Report", 15, 28);
+        /* REPORT INTRODUCTION */
 
+        let y = 51;
 
-        /* REPORT INFORMATION */
+        doc.setTextColor(16, 36, 62);
+        doc.setFont("helvetica", "bold");
+        doc.setFontSize(15);
+        doc.text("1. Material Information", 15, y);
 
-        pdf.setTextColor(30, 45, 65);
+        y += 10;
 
-        pdf.setFontSize(15);
-        pdf.setFont("helvetica", "bold");
+        doc.setFont("helvetica", "normal");
+        doc.setFontSize(11);
+        doc.setTextColor(55, 65, 81);
 
-        pdf.text("Analysis Information", 15, 52);
+        doc.text("Selected Material: " + selectedMetal, 15, y);
 
-        pdf.setFontSize(11);
-        pdf.setFont("helvetica", "normal");
+        y += 8;
 
-        pdf.text("Report Date: " + date, 15, 64);
-        pdf.text("Selected Metal: " + selectedMetal, 15, 74);
-
+        doc.text("Analysis Date: " + date, 15, y);
 
         /* ENVIRONMENTAL CONDITIONS */
 
-        pdf.setFontSize(15);
-        pdf.setFont("helvetica", "bold");
+        y += 17;
 
-        pdf.text("Environmental Conditions", 15, 94);
+        doc.setFont("helvetica", "bold");
+        doc.setFontSize(15);
+        doc.setTextColor(16, 36, 62);
 
-        pdf.setFontSize(11);
-        pdf.setFont("helvetica", "normal");
+        doc.text("2. Environmental Conditions", 15, y);
 
-        pdf.text("Temperature: " + temperature + " °C", 15, 106);
-        pdf.text("Humidity: " + humidity + "%", 15, 116);
-        pdf.text("pH Level: " + ph, 15, 126);
-        pdf.text("Salinity: " + salinity + "%", 15, 136);
+        y += 10;
 
+        doc.setFont("helvetica", "normal");
+        doc.setFontSize(11);
+        doc.setTextColor(55, 65, 81);
+
+        const environmentalData = [
+            ["Temperature", temperature + " °C"],
+            ["Relative Humidity", humidity + " %"],
+            ["pH Value", ph],
+            ["Salt Exposure", salinity + " %"]
+        ];
+
+        environmentalData.forEach(function (item) {
+
+            doc.text(item[0] + ": " + item[1], 18, y);
+
+            y += 8;
+
+        });
 
         /* RISK ASSESSMENT */
 
-        pdf.setFontSize(15);
-        pdf.setFont("helvetica", "bold");
+        y += 9;
 
-        pdf.text("Corrosion Risk Assessment", 15, 157);
+        doc.setFont("helvetica", "bold");
+        doc.setFontSize(15);
+        doc.setTextColor(16, 36, 62);
 
-        pdf.setFontSize(13);
+        doc.text("3. Corrosion Risk Assessment", 15, y);
 
-        pdf.text("Risk Score: " + riskScore + " / 100", 15, 170);
-        pdf.text("Risk Level: " + riskLevel, 15, 181);
+        y += 11;
 
-        pdf.setFontSize(10);
-        pdf.setFont("helvetica", "normal");
+        doc.setFont("helvetica", "normal");
+        doc.setFontSize(11);
+        doc.setTextColor(55, 65, 81);
 
-        const descriptionLines = pdf.splitTextToSize(
+        doc.text("Risk Score: " + riskScore, 18, y);
+
+        y += 8;
+
+        doc.text("Risk Classification: " + riskLevel, 18, y);
+
+        y += 12;
+
+        doc.setFont("helvetica", "bold");
+        doc.text("Assessment:", 18, y);
+
+        y += 7;
+
+        doc.setFont("helvetica", "normal");
+
+        const descriptionLines = doc.splitTextToSize(
             riskDescription,
-            175
+            174
         );
 
-        pdf.text(descriptionLines, 15, 194);
+        doc.text(descriptionLines, 18, y);
 
+        y += descriptionLines.length * 6 + 12;
 
         /* DISCLAIMER */
 
-        pdf.setFontSize(13);
-        pdf.setFont("helvetica", "bold");
+        if (y > 240) {
+            doc.addPage();
+            y = 25;
+        }
 
-        pdf.text("Important Note", 15, 225);
+        doc.setFont("helvetica", "bold");
+        doc.setFontSize(13);
+        doc.setTextColor(16, 36, 62);
 
-        pdf.setFontSize(10);
-        pdf.setFont("helvetica", "normal");
+        doc.text("4. Important Disclaimer", 15, y);
 
-        const disclaimer = pdf.splitTextToSize(
-            "This report is generated using the CorroGuard educational risk model. Its score is illustrative and is not a measured corrosion rate or a validated engineering prediction. Professional assessment and material-specific data are required for real-world decisions.",
-            175
+        y += 9;
+
+        doc.setFont("helvetica", "normal");
+        doc.setFontSize(9);
+        doc.setTextColor(90, 90, 90);
+
+        const disclaimer =
+            "This report is generated using an illustrative educational corrosion risk model. " +
+            "The calculated score is not a validated engineering prediction, laboratory measurement, " +
+            "or substitute for professional corrosion assessment. Actual corrosion behaviour depends " +
+            "on material grade, surface condition, environmental chemistry, exposure duration, " +
+            "and operating conditions.";
+
+        const disclaimerLines = doc.splitTextToSize(
+            disclaimer,
+            178
         );
 
-        pdf.text(disclaimer, 15, 235);
-
+        doc.text(disclaimerLines, 15, y);
 
         /* FOOTER */
 
-        pdf.setFontSize(9);
-        pdf.setTextColor(110, 120, 130);
+        const pageCount = doc.internal.getNumberOfPages();
 
-        pdf.text(
-            "Generated by CorroGuard - Engineering Chemistry Capstone Project",
-            15,
-            280
-        );
+        for (let i = 1; i <= pageCount; i++) {
 
+            doc.setPage(i);
 
-        /* SAVE PDF */
+            doc.setDrawColor(210, 220, 230);
+            doc.line(15, 282, 195, 282);
 
-        pdf.save("CorroGuard_Corrosion_Report.pdf");
+            doc.setFontSize(8);
+            doc.setTextColor(120, 130, 140);
+
+            doc.text(
+                "CorroGuard | Engineering Chemistry Project",
+                15,
+                289
+            );
+
+            doc.text(
+                "Page " + i + " of " + pageCount,
+                195,
+                289,
+                { align: "right" }
+            );
+
+        }
+
+        doc.save("CorroGuard_Corrosion_Report.pdf");
 
     });
 
 });
-   // ==========================================
-// PROTECTIVE COATING SELECTOR
-// ==========================================
+
+
+/* ==========================================
+   14. PROTECTIVE COATING SELECTOR
+========================================== */
+
+
+/*
+   Each recommendation contains:
+   - name
+   - mechanism
+   - advantages
+   - limitations
+   - applications
+*/
+
+function makeCoating(name, mechanism, advantages, limitations, applications) {
+
+    return {
+        name: name,
+        mechanism: mechanism,
+        advantages: advantages,
+        limitations: limitations,
+        applications: applications
+    };
+
+}
+
+
+/* ==========================================
+   COATING RECOMMENDATION DATABASE
+========================================== */
 
 const coatingRecommendations = {
 
+    /* IRON */
+
     iron: {
-        indoor: {
-            name: "Epoxy Primer with Protective Topcoat",
-            mechanism: "Creates a barrier between iron and moisture or oxygen.",
-            advantages: "Good adhesion and protection in indoor environments.",
-            limitations: "Surface preparation is important.",
-            applications: "Indoor iron structures and equipment."
-        },
-        outdoor: {
-            name: "Zinc-Rich Primer with Epoxy and PU Topcoat",
-            mechanism: "Provides barrier protection and sacrificial zinc protection.",
-            advantages: "Suitable for many outdoor atmospheric conditions.",
-            limitations: "Requires proper surface preparation and maintenance.",
-            applications: "Outdoor iron structures and machinery."
-        },
-        coastal: {
-            name: "Marine-Grade Epoxy Coating System",
-            mechanism: "Forms a protective barrier against moisture and salt.",
-            advantages: "Designed for demanding marine exposure.",
-            limitations: "Application quality and coating inspection are essential.",
-            applications: "Coastal iron structures and marine equipment."
-        },
-        industrial: {
-            name: "Chemical-Resistant Epoxy Coating",
-            mechanism: "Provides a barrier against selected industrial chemicals.",
-            advantages: "Can offer good chemical resistance when correctly specified.",
-            limitations: "Must be matched to the exact chemical exposure.",
-            applications: "Industrial iron equipment and structures."
-        }
+
+        indoor: makeCoating(
+            "Epoxy Primer with Protective Paint",
+            "Creates a barrier between iron and moisture or oxygen.",
+            "Good indoor protection, strong adhesion, and a smooth finish.",
+            "Surface preparation is important. Damaged paint can expose the iron.",
+            "Indoor equipment, structural components, and metal furniture."
+        ),
+
+        outdoor: makeCoating(
+            "Zinc-Rich Primer with Polyurethane Topcoat",
+            "Zinc provides sacrificial protection while the topcoat acts as a barrier.",
+            "Good atmospheric protection and resistance to weathering.",
+            "Requires suitable surface preparation and periodic inspection.",
+            "Outdoor iron structures, railings, and support frames."
+        ),
+
+        coastal: makeCoating(
+            "Multi-Layer Epoxy and Polyurethane Marine Coating",
+            "Combines barrier protection with a weather-resistant outer layer.",
+            "Designed for demanding marine and salt-exposure environments.",
+            "Coating damage and poor application can reduce protection.",
+            "Coastal structures, marine equipment, and exposed iron components."
+        ),
+
+        industrial: makeCoating(
+            "High-Build Epoxy Coating",
+            "Forms a thick protective barrier against moisture and selected chemicals.",
+            "Good adhesion and chemical resistance when correctly specified.",
+            "Chemical compatibility must be checked for the actual process.",
+            "Industrial frames, machinery housings, and plant structures."
+        )
+
     },
+
+
+    /* CARBON STEEL */
 
     steel: {
-        indoor: {
-            name: "Epoxy Primer and Protective Topcoat",
-            mechanism: "Separates steel from moisture and oxygen.",
-            advantages: "Good general-purpose protection.",
-            limitations: "Damaged coating areas may need repair.",
-            applications: "Indoor steel frames and equipment."
-        },
-        outdoor: {
-            name: "Zinc-Rich Epoxy Primer and PU Topcoat",
-            mechanism: "Combines sacrificial and barrier protection.",
-            advantages: "Useful for outdoor structural steel.",
-            limitations: "Requires correct preparation and application.",
-            applications: "Bridges, railings and structural steel."
-        },
-        coastal: {
-            name: "Marine Protective Epoxy System",
-            mechanism: "Creates a barrier against saltwater and humidity.",
-            advantages: "Suitable for properly specified marine systems.",
-            limitations: "Needs regular inspection and maintenance.",
-            applications: "Marine steel structures."
-        },
-        industrial: {
-            name: "Chemical-Resistant Epoxy System",
-            mechanism: "Limits contact between steel and corrosive substances.",
-            advantages: "Can protect against selected chemicals.",
-            limitations: "Chemical compatibility must be checked.",
-            applications: "Industrial tanks and steel equipment."
-        }
+
+        indoor: makeCoating(
+            "Epoxy Primer and Enamel Finish",
+            "Separates the steel surface from indoor moisture and contaminants.",
+            "Good adhesion, appearance, and general indoor protection.",
+            "Scratches and exposed edges may become corrosion entry points.",
+            "Indoor machinery, equipment frames, and steel furniture."
+        ),
+
+        outdoor: makeCoating(
+            "Zinc-Rich Primer and Polyurethane Finish",
+            "Provides sacrificial zinc protection and a weather-resistant barrier.",
+            "Good protection against atmospheric corrosion.",
+            "Requires proper application, inspection, and maintenance.",
+            "Bridges, outdoor frames, railings, and structural steel."
+        ),
+
+        coastal: makeCoating(
+            "Marine-Grade Multi-Coat Epoxy System",
+            "Uses multiple barrier layers to reduce contact with chloride-rich moisture.",
+            "Suitable for severe marine exposure when correctly specified.",
+            "Application quality and coating maintenance are critical.",
+            "Coastal steel structures, marine supports, and exposed installations."
+        ),
+
+        industrial: makeCoating(
+            "Chemical-Resistant Epoxy System",
+            "Provides a barrier against moisture and selected industrial chemicals.",
+            "Good chemical resistance and strong adhesion for suitable environments.",
+            "Not every epoxy is compatible with every chemical or temperature.",
+            "Industrial platforms, tanks, steel equipment, and plant structures."
+        )
+
     },
+
+
+    /* ALUMINIUM */
 
     aluminium: {
-        indoor: {
-            name: "Clear Protective Anodizing",
-            mechanism: "Thickens the naturally occurring aluminium oxide layer.",
-            advantages: "Improves surface durability.",
-            limitations: "Not suitable for every chemical environment.",
-            applications: "Indoor aluminium components."
-        },
-        outdoor: {
-            name: "Anodizing or Exterior-Grade Powder Coating",
-            mechanism: "Provides a durable protective surface layer.",
-            advantages: "Good weathering performance when properly applied.",
-            limitations: "Coating selection depends on the aluminium alloy.",
-            applications: "Window frames and outdoor aluminium panels."
-        },
-        coastal: {
-            name: "Marine-Grade Anodizing or Suitable Protective Coating",
-            mechanism: "Reduces direct exposure of aluminium to the environment.",
-            advantages: "Can improve resistance in coastal conditions.",
-            limitations: "Edges, joints and damaged areas need attention.",
-            applications: "Coastal aluminium structures."
-        },
-        industrial: {
-            name: "Chemically Compatible Protective Coating",
-            mechanism: "Separates aluminium from selected corrosive chemicals.",
-            advantages: "Can provide protection for compatible chemical exposures.",
-            limitations: "Aluminium can react with some chemicals; compatibility testing is essential.",
-            applications: "Industrial aluminium components."
-        }
+
+        indoor: makeCoating(
+            "Clear Protective Conversion Coating",
+            "Supports surface protection while maintaining the aluminium appearance.",
+            "Preserves the metallic appearance and provides additional surface protection.",
+            "Performance depends on the conversion process and service environment.",
+            "Indoor aluminium panels, housings, and decorative components."
+        ),
+
+        outdoor: makeCoating(
+            "Anodizing",
+            "Electrochemically forms a thicker aluminium oxide layer.",
+            "Good atmospheric corrosion resistance and durable surface finish.",
+            "Some highly aggressive environments may require additional protection.",
+            "Outdoor aluminium frames, architectural panels, and components."
+        ),
+
+        coastal: makeCoating(
+            "Marine-Grade Anodizing with Suitable Sealing",
+            "Creates a protective oxide layer and seals its porous structure.",
+            "Improves resistance to atmospheric exposure and salt contamination.",
+            "Correct alloy selection and sealing quality are important.",
+            "Coastal aluminium structures, panels, and marine components."
+        ),
+
+        industrial: makeCoating(
+            "Chemical Conversion Coating with Compatible Topcoat",
+            "Creates a conversion layer that improves surface protection and coating adhesion.",
+            "Can improve corrosion resistance and provide a base for further coating.",
+            "Chemical compatibility and process control are required.",
+            "Industrial aluminium housings, equipment, and fabricated components."
+        )
+
     },
+
+
+    /* COPPER */
 
     copper: {
-        indoor: {
-            name: "Clear Anti-Tarnish Coating",
-            mechanism: "Limits contact with air and moisture.",
-            advantages: "Helps preserve the surface appearance.",
-            limitations: "Coating condition must be maintained.",
-            applications: "Indoor copper fittings and decorative items."
-        },
-        outdoor: {
-            name: "Exterior-Grade Protective Clear Coating",
-            mechanism: "Provides a barrier against atmospheric exposure.",
-            advantages: "Can slow unwanted surface changes.",
-            limitations: "Weathering may require recoating.",
-            applications: "Outdoor copper surfaces."
-        },
-        coastal: {
-            name: "Marine-Compatible Protective Coating",
-            mechanism: "Reduces direct contact with salt and moisture.",
-            advantages: "Can reduce surface deterioration.",
-            limitations: "Must be selected for the specific copper alloy and exposure.",
-            applications: "Coastal copper components."
-        },
-        industrial: {
-            name: "Chemical-Compatible Polymer Coating",
-            mechanism: "Acts as a barrier against selected chemicals.",
-            advantages: "Provides targeted protection.",
-            limitations: "Must be checked against the actual chemical.",
-            applications: "Industrial copper equipment."
-        }
+
+        indoor: makeCoating(
+            "Clear Lacquer Coating",
+            "Forms a transparent barrier that reduces contact with air and contaminants.",
+            "Maintains the copper appearance and slows surface tarnishing.",
+            "Scratches or damaged areas may allow local surface changes.",
+            "Indoor copper fittings, decorative objects, and architectural details."
+        ),
+
+        outdoor: makeCoating(
+            "UV-Resistant Clear Protective Coating",
+            "Creates a barrier against moisture and atmospheric contaminants.",
+            "Can preserve the intended copper surface appearance.",
+            "Requires compatible application and periodic condition checks.",
+            "Outdoor copper details and architectural components."
+        ),
+
+        coastal: makeCoating(
+            "Marine-Compatible Protective Barrier Coating",
+            "Reduces direct contact between copper and chloride-containing moisture.",
+            "Provides additional protection in exposed environments.",
+            "The coating must be compatible with copper and the service conditions.",
+            "Coastal copper fittings and exposed copper components."
+        ),
+
+        industrial: makeCoating(
+            "Chemical-Compatible Epoxy or Polymer Coating",
+            "Separates copper from selected industrial chemicals and moisture.",
+            "Can provide a protective barrier in suitable chemical environments.",
+            "The exact chemical and operating temperature must be evaluated.",
+            "Industrial copper piping exteriors, fittings, and equipment."
+        )
+
     },
+
+
+    /* STAINLESS STEEL 304 */
 
     stainless304: {
-        indoor: {
-            name: "Passivation Treatment",
-            mechanism: "Supports formation of the protective chromium-rich passive film.",
-            advantages: "Maintains the natural corrosion resistance of stainless steel.",
-            limitations: "Does not prevent every type of corrosion.",
-            applications: "Indoor stainless steel equipment."
-        },
-        outdoor: {
-            name: "Passivation and Suitable Surface Finish",
-            mechanism: "Supports the passive surface layer.",
-            advantages: "Helps maintain atmospheric corrosion resistance.",
-            limitations: "Chloride exposure can still cause corrosion.",
-            applications: "Outdoor stainless steel components."
-        },
-        coastal: {
-            name: "Protective Coating or Upgrade to a More Suitable Alloy",
-            mechanism: "A coating can reduce direct chloride contact.",
-            advantages: "May reduce exposure-related corrosion.",
-            limitations: "Grade 304 can be vulnerable to chloride environments.",
-            applications: "Coastal equipment after engineering assessment."
-        },
-        industrial: {
-            name: "Chemical-Compatible Protective Coating",
-            mechanism: "Provides a barrier against selected chemicals.",
-            advantages: "Can extend service life in compatible environments.",
-            limitations: "Chemical compatibility must be verified.",
-            applications: "Industrial stainless steel equipment."
-        }
+
+        indoor: makeCoating(
+            "Passivation Treatment",
+            "Supports the formation of a clean, chromium-rich passive surface.",
+            "Maintains the natural metallic finish and improves surface cleanliness.",
+            "Does not make the alloy immune to every corrosive environment.",
+            "Indoor stainless equipment, fittings, and fabricated components."
+        ),
+
+        outdoor: makeCoating(
+            "Passivation with Optional Protective Clear Finish",
+            "Maintains the passive surface and can add a barrier where required.",
+            "Useful for suitable atmospheric exposure and appearance retention.",
+            "Exposure conditions should be evaluated, especially where chlorides are present.",
+            "Outdoor architectural fittings and stainless components."
+        ),
+
+        coastal: makeCoating(
+            "Specialist Protective Coating System",
+            "Adds a barrier to reduce chloride contact with the stainless surface.",
+            "Can reduce exposure-related surface corrosion concerns.",
+            "Type 304 may be unsuitable for some severe chloride environments; material selection is important.",
+            "Selected coastal components where the alloy and coating system are suitable."
+        ),
+
+        industrial: makeCoating(
+            "Chemical-Compatible Protective Coating",
+            "Adds a barrier against selected industrial chemicals.",
+            "Can provide additional protection for compatible process conditions.",
+            "The chemical, temperature, and cleaning regime must be checked.",
+            "Industrial stainless housings and equipment exteriors."
+        )
+
     },
+
+
+    /* STAINLESS STEEL 316 */
 
     stainless316: {
-        indoor: {
-            name: "Passivation Treatment",
-            mechanism: "Supports the protective chromium-rich passive film.",
-            advantages: "Maintains the natural corrosion resistance of the alloy.",
-            limitations: "Surface contamination should be avoided.",
-            applications: "Indoor stainless steel equipment."
-        },
-        outdoor: {
-            name: "Passivation and Suitable Surface Finish",
-            mechanism: "Supports the passive surface layer.",
-            advantages: "Good general atmospheric corrosion resistance.",
-            limitations: "Severe exposure may still require additional protection.",
-            applications: "Outdoor stainless steel structures."
-        },
-        coastal: {
-            name: "Passivation with Marine-Compatible Protection if Needed",
-            mechanism: "Maintains the passive film and can add a protective barrier.",
-            advantages: "Molybdenum improves resistance to chloride-related corrosion compared with 304.",
-            limitations: "316 is not immune to seawater corrosion.",
-            applications: "Marine fittings and coastal equipment."
-        },
-        industrial: {
-            name: "Chemical-Compatible Protective System",
-            mechanism: "Uses the passive alloy surface and, where needed, a compatible barrier coating.",
-            advantages: "Can provide protection in selected industrial environments.",
-            limitations: "Resistance depends on chemical concentration and temperature.",
-            applications: "Industrial stainless steel equipment."
-        }
+
+        indoor: makeCoating(
+            "Passivation Treatment",
+            "Maintains a clean passive surface and supports corrosion resistance.",
+            "Preserves the natural finish and supports surface cleanliness.",
+            "Correct cleaning and passivation procedures are still necessary.",
+            "Indoor process equipment, fittings, and stainless components."
+        ),
+
+        outdoor: makeCoating(
+            "Passivation and Optional Protective Finish",
+            "Maintains the passive surface with additional protection where needed.",
+            "Good general surface protection for suitable atmospheric conditions.",
+            "Coating selection depends on exposure and appearance requirements.",
+            "Outdoor architectural and industrial stainless components."
+        ),
+
+        coastal: makeCoating(
+            "Passivation with Marine-Compatible Protective Finish",
+            "Combines the passive stainless surface with an additional barrier where appropriate.",
+            "Grade 316 has improved chloride resistance compared with grade 304 in many environments.",
+            "Severe marine exposure can still cause corrosion; inspection and material assessment remain necessary.",
+            "Marine fittings, coastal structures, and exposed stainless equipment."
+        ),
+
+        industrial: makeCoating(
+            "Chemical-Compatible Protective System",
+            "Provides an additional barrier against selected process chemicals.",
+            "Can extend protection in suitable industrial environments.",
+            "Grade 316 and any added coating must be checked against the actual chemical conditions.",
+            "Chemical plant equipment, process housings, and industrial fittings."
+        )
+
     },
+
+
+    /* GALVANIZED IRON */
 
     galvanized: {
-        indoor: {
-            name: "Compatible Clear Sealer",
-            mechanism: "Adds a barrier over the zinc coating.",
-            advantages: "Can reduce exposure to moisture and contaminants.",
-            limitations: "Must be compatible with galvanized surfaces.",
-            applications: "Indoor galvanized components."
-        },
-        outdoor: {
-            name: "Duplex System: Zinc Coating with Compatible Paint",
-            mechanism: "Combines sacrificial zinc protection with a paint barrier.",
-            advantages: "Can provide extended protection when properly designed.",
-            limitations: "Surface preparation and paint compatibility are important.",
-            applications: "Outdoor galvanized steel."
-        },
-        coastal: {
-            name: "Marine-Compatible Duplex Coating",
-            mechanism: "Combines zinc protection with an additional barrier.",
-            advantages: "Can improve protection in salt-rich environments.",
-            limitations: "Requires a coating system designed for galvanized surfaces.",
-            applications: "Coastal galvanized structures."
-        },
-        industrial: {
-            name: "Chemical-Compatible Sealer or Topcoat",
-            mechanism: "Adds a barrier against selected industrial substances.",
-            advantages: "Can protect the zinc layer in compatible environments.",
-            limitations: "Some chemicals attack zinc; compatibility must be checked.",
-            applications: "Industrial galvanized components."
-        }
+
+        indoor: makeCoating(
+            "Compatible Clear Sealer",
+            "Adds a barrier over the existing zinc coating.",
+            "Can reduce surface contamination and help maintain appearance.",
+            "The sealer must be compatible with the galvanized surface.",
+            "Indoor galvanized panels, supports, and fittings."
+        ),
+
+        outdoor: makeCoating(
+            "Duplex System: Compatible Primer and Topcoat",
+            "Combines the zinc coating with an additional paint barrier.",
+            "Provides complementary protection when correctly applied.",
+            "Surface preparation and coating compatibility are important.",
+            "Outdoor galvanized steel structures and supports."
+        ),
+
+        coastal: makeCoating(
+            "Marine-Compatible Duplex Coating",
+            "Adds a protective paint system over the zinc layer.",
+            "Provides additional protection in salt-exposed environments.",
+            "Damaged areas and edges require suitable maintenance.",
+            "Coastal galvanized structures and outdoor supports."
+        ),
+
+        industrial: makeCoating(
+            "Chemical-Compatible Protective Topcoat",
+            "Provides an additional barrier against selected industrial contaminants.",
+            "Can improve service performance in compatible environments.",
+            "Strong acids and alkalis may attack zinc; chemical suitability must be assessed.",
+            "Industrial galvanized supports and equipment exteriors."
+        )
+
     },
+
+
+    /* BRASS */
 
     brass: {
-        indoor: {
-            name: "Clear Anti-Tarnish Lacquer",
-            mechanism: "Reduces contact with air and moisture.",
-            advantages: "Helps preserve appearance.",
-            limitations: "May wear or require maintenance.",
-            applications: "Indoor brass fittings and decorative components."
-        },
-        outdoor: {
-            name: "Exterior-Grade Clear Protective Coating",
-            mechanism: "Forms a barrier against atmospheric exposure.",
-            advantages: "Can slow tarnishing and surface deterioration.",
-            limitations: "Requires periodic inspection.",
-            applications: "Outdoor brass fixtures."
-        },
-        coastal: {
-            name: "Marine-Compatible Protective Coating",
-            mechanism: "Reduces direct exposure to salt and moisture.",
-            advantages: "Can help protect suitable brass alloys.",
-            limitations: "Alloy composition and exposure conditions matter.",
-            applications: "Coastal brass fittings."
-        },
-        industrial: {
-            name: "Chemical-Compatible Polymer Coating",
-            mechanism: "Separates brass from selected chemicals.",
-            advantages: "Provides targeted barrier protection.",
-            limitations: "Must be checked for chemical compatibility.",
-            applications: "Industrial brass components."
-        }
+
+        indoor: makeCoating(
+            "Clear Anti-Tarnish Lacquer",
+            "Forms a transparent barrier against air and moisture.",
+            "Helps maintain the brass finish and reduce tarnishing.",
+            "Damaged coating areas may require repair.",
+            "Indoor brass fittings, decorative parts, and hardware."
+        ),
+
+        outdoor: makeCoating(
+            "Weather-Resistant Clear Protective Coating",
+            "Reduces direct exposure to moisture and atmospheric contaminants.",
+            "Can help preserve the intended surface appearance.",
+            "Outdoor exposure may require periodic recoating.",
+            "Outdoor brass fixtures and architectural details."
+        ),
+
+        coastal: makeCoating(
+            "Marine-Compatible Clear Barrier Coating",
+            "Reduces contact with salt-containing moisture.",
+            "Adds a protective barrier for suitable brass components.",
+            "The alloy and coating must be evaluated for marine service.",
+            "Selected coastal brass fittings and decorative components."
+        ),
+
+        industrial: makeCoating(
+            "Chemical-Compatible Polymer Coating",
+            "Creates a barrier against selected industrial contaminants.",
+            "Can protect brass surfaces in compatible environments.",
+            "Ammonia-containing and other aggressive environments require special attention.",
+            "Industrial brass fittings and equipment components."
+        )
+
     },
+
+
+    /* BRONZE */
 
     bronze: {
-        indoor: {
-            name: "Clear Protective Wax or Lacquer",
-            mechanism: "Limits contact with moisture and air.",
-            advantages: "Helps preserve surface appearance.",
-            limitations: "May need periodic renewal.",
-            applications: "Indoor bronze objects and fittings."
-        },
-        outdoor: {
-            name: "Exterior-Grade Protective Coating",
-            mechanism: "Provides a barrier against atmospheric exposure.",
-            advantages: "Can reduce unwanted surface deterioration.",
-            limitations: "Maintenance depends on weather exposure.",
-            applications: "Outdoor bronze fittings."
-        },
-        coastal: {
-            name: "Marine-Compatible Protective Coating",
-            mechanism: "Reduces contact with saltwater and moisture.",
-            advantages: "Can provide additional protection.",
-            limitations: "Bronze alloy type and service conditions must be assessed.",
-            applications: "Marine bronze components."
-        },
-        industrial: {
-            name: "Chemical-Compatible Barrier Coating",
-            mechanism: "Limits exposure to selected industrial chemicals.",
-            advantages: "Offers targeted protection.",
-            limitations: "Requires compatibility verification.",
-            applications: "Industrial bronze equipment."
-        }
+
+        indoor: makeCoating(
+            "Clear Protective Wax or Lacquer",
+            "Reduces contact with moisture and contaminants.",
+            "Can preserve the bronze appearance and slow surface changes.",
+            "Protection depends on coating condition and maintenance.",
+            "Indoor bronze fittings, sculptures, and decorative objects."
+        ),
+
+        outdoor: makeCoating(
+            "Weather-Resistant Clear Coating",
+            "Forms a barrier against atmospheric moisture and contaminants.",
+            "Helps control surface appearance and environmental exposure.",
+            "The coating may need periodic inspection and renewal.",
+            "Outdoor bronze architectural features and fittings."
+        ),
+
+        coastal: makeCoating(
+            "Marine-Compatible Protective Coating",
+            "Reduces direct exposure to salt-rich moisture.",
+            "Adds a barrier for suitable bronze applications.",
+            "The bronze alloy and service conditions must be evaluated.",
+            "Selected coastal bronze components and fittings."
+        ),
+
+        industrial: makeCoating(
+            "Chemical-Compatible Protective Polymer",
+            "Separates bronze from selected industrial chemicals and moisture.",
+            "Can provide additional surface protection.",
+            "Chemical compatibility and temperature limits must be checked.",
+            "Industrial bronze fittings and equipment components."
+        )
+
     },
+
+
+    /* ZINC */
 
     zinc: {
-        indoor: {
-            name: "Compatible Clear Sealer",
-            mechanism: "Adds a barrier over the zinc surface.",
-            advantages: "Can reduce staining and surface exposure.",
-            limitations: "Must be compatible with zinc.",
-            applications: "Indoor zinc components."
-        },
-        outdoor: {
-            name: "Zinc-Compatible Exterior Coating",
-            mechanism: "Provides additional barrier protection.",
-            advantages: "Can reduce atmospheric exposure.",
-            limitations: "Correct preparation is essential.",
-            applications: "Outdoor zinc surfaces."
-        },
-        coastal: {
-            name: "Marine-Compatible Protective Sealer",
-            mechanism: "Reduces direct salt and moisture contact.",
-            advantages: "Can provide additional protection.",
-            limitations: "Zinc can be consumed over time as a sacrificial coating.",
-            applications: "Coastal zinc-coated components."
-        },
-        industrial: {
-            name: "Chemical-Compatible Protective Coating",
-            mechanism: "Separates zinc from selected corrosive substances.",
-            advantages: "Provides targeted barrier protection.",
-            limitations: "Zinc is incompatible with some acidic and alkaline environments.",
-            applications: "Industrial zinc components."
-        }
+
+        indoor: makeCoating(
+            "Compatible Clear Sealer",
+            "Provides an additional barrier over the zinc surface.",
+            "Can reduce surface contamination and improve appearance retention.",
+            "The coating must be compatible with zinc.",
+            "Indoor zinc-coated parts and components."
+        ),
+
+        outdoor: makeCoating(
+            "Compatible Paint System",
+            "Adds a barrier that reduces direct atmospheric exposure.",
+            "Can extend the protection of zinc-coated components.",
+            "Surface preparation and primer compatibility are important.",
+            "Outdoor zinc-coated panels and structures."
+        ),
+
+        coastal: makeCoating(
+            "Marine-Compatible Protective Paint System",
+            "Reduces contact between zinc and chloride-rich moisture.",
+            "Adds a barrier in demanding atmospheric environments.",
+            "Zinc can be consumed over time; damaged coatings need inspection.",
+            "Coastal zinc-coated structures and components."
+        ),
+
+        industrial: makeCoating(
+            "Chemical-Compatible Barrier Coating",
+            "Protects zinc from selected industrial contaminants.",
+            "Can reduce exposure to compatible process environments.",
+            "Zinc is vulnerable to some acidic and alkaline conditions; verify compatibility.",
+            "Industrial zinc-coated equipment and components."
+        )
+
     },
 
+
+    /* TITANIUM */
+
     titanium: {
-        indoor: {
-            name: "Natural Oxide Film / Passivation",
-            mechanism: "Maintains the stable titanium oxide surface layer.",
-            advantages: "Titanium has excellent natural corrosion resistance in many environments.",
-            limitations: "Not immune to every chemical or service condition.",
-            applications: "Indoor titanium components."
-        },
-        outdoor: {
-            name: "Natural Oxide Film / Passivation",
-            mechanism: "Relies on titanium's protective oxide layer.",
-            advantages: "Usually does not require a conventional corrosion coating.",
-            limitations: "Specific environments may require additional assessment.",
-            applications: "Outdoor titanium components."
-        },
-        coastal: {
-            name: "Natural Oxide Film / Passivation",
-            mechanism: "The stable oxide film protects titanium in many marine conditions.",
-            advantages: "Excellent resistance in many seawater applications.",
-            limitations: "Crevices and unusual chemical conditions need assessment.",
-            applications: "Marine titanium equipment."
-        },
-        industrial: {
-            name: "Chemical-Specific Protective System if Required",
-            mechanism: "Uses titanium's passive film or a compatible additional barrier.",
-            advantages: "Titanium resists many industrial chemicals.",
-            limitations: "Suitability depends on the exact chemical and temperature.",
-            applications: "Industrial titanium equipment."
-        }
+
+        indoor: makeCoating(
+            "Natural Passive Oxide Film",
+            "Titanium naturally forms a stable, protective oxide film.",
+            "Excellent general corrosion resistance in many indoor environments.",
+            "Specific chemical environments may still require evaluation.",
+            "Indoor titanium equipment and precision components."
+        ),
+
+        outdoor: makeCoating(
+            "Natural Passive Oxide Film",
+            "The naturally formed oxide layer protects the titanium surface.",
+            "Good atmospheric corrosion resistance without a conventional paint coating.",
+            "Surface contamination and application-specific conditions should be considered.",
+            "Outdoor titanium components and architectural applications."
+        ),
+
+        coastal: makeCoating(
+            "Natural Passive Oxide Film",
+            "The stable oxide layer provides strong resistance in many seawater environments.",
+            "Titanium is widely valued for corrosion resistance in marine applications.",
+            "Grade, temperature, crevice conditions, and service chemistry still matter.",
+            "Marine equipment, seawater systems, and coastal components."
+        ),
+
+        industrial: makeCoating(
+            "Application-Specific Protective Treatment",
+            "Titanium often relies on its naturally stable passive oxide layer.",
+            "Strong corrosion resistance in many industrial environments.",
+            "Highly specific chemicals and operating conditions require material compatibility checks.",
+            "Chemical processing equipment and industrial titanium components."
+        )
+
     }
 
 };
 
 
 /* ==========================================
-   COATING SELECTOR INTERACTION
+   15. COATING SELECTOR INTERACTION
 ========================================== */
 
-const coatingButton = document.getElementById("findCoating");
+document.addEventListener("DOMContentLoaded", function () {
 
-if (coatingButton) {
+    const findCoatingButton = document.getElementById("findCoating");
 
-    coatingButton.addEventListener("click", function () {
+    if (!findCoatingButton) return;
 
-        const metal = document.getElementById("coatingMetal").value;
+    findCoatingButton.addEventListener("click", function () {
 
-        const environment =
-            document.getElementById("coatingEnvironment").value;
+        const metalElement = document.getElementById("coatingMetal");
+        const environmentElement = document.getElementById("coatingEnvironment");
+        const concernElement = document.getElementById("coatingConcern");
+        const resultBox = document.getElementById("coatingResult");
 
-        const concern =
-            document.getElementById("coatingConcern").value;
+        if (!metalElement || !environmentElement || !concernElement || !resultBox) {
+            console.warn("Coating selector elements could not be found.");
+            return;
+        }
 
-        const resultBox =
-            document.getElementById("coatingResult");
-
+        const metal = metalElement.value;
+        const environment = environmentElement.value;
+        const concern = concernElement.value;
 
         if (!metal || !environment || !concern) {
 
-            resultBox.innerHTML = `
-                <span class="section-tag">MISSING INFORMATION</span>
-                <h3>Complete Your Selection</h3>
-                <p>Please select a material, environment, and corrosion concern before requesting a recommendation.</p>
-            `;
+            resultBox.textContent =
+                "Please select a material, environment, and corrosion concern.";
 
             return;
 
         }
-
 
         const recommendation =
             coatingRecommendations[metal]?.[environment];
 
-
         if (!recommendation) {
 
-            resultBox.innerHTML = `
-                <h3>No Recommendation Available</h3>
-                <p>Please try another selection.</p>
-            `;
+            resultBox.textContent =
+                "No coating recommendation is available for this selection.";
 
             return;
 
         }
 
-
         const concernNames = {
-            moisture: "Moisture",
-            salt: "Salt Exposure",
-            chemical: "Chemical Exposure",
-            general: "General Corrosion"
+            moisture: "Moisture exposure",
+            salt: "Salt exposure",
+            chemical: "Chemical exposure",
+            general: "General corrosion protection"
         };
 
+        const concernName =
+            concernNames[concern] || "General corrosion protection";
 
         resultBox.innerHTML = `
-            <span class="section-tag">COATING RECOMMENDATION</span>
+            <h3>Recommended Protective Coating</h3>
 
-            <h3>${recommendation.name}</h3>
+            <h4>${recommendation.name}</h4>
 
             <p>
                 <strong>Selected Material:</strong>
-                ${document.getElementById("coatingMetal").selectedOptions[0].text}
+                ${metalNames[metal] || metal}
             </p>
 
             <p>
                 <strong>Environment:</strong>
-                ${document.getElementById("coatingEnvironment").selectedOptions[0].text}
+                ${environment.charAt(0).toUpperCase() + environment.slice(1)}
             </p>
 
             <p>
                 <strong>Main Concern:</strong>
-                ${concernNames[concern]}
+                ${concernName}
             </p>
 
             <div class="coating-detail">
-                <h4>How It Works</h4>
+                <h4>Protection Mechanism</h4>
                 <p>${recommendation.mechanism}</p>
             </div>
 
@@ -1839,8 +2633,21 @@ if (coatingButton) {
                 <h4>Typical Applications</h4>
                 <p>${recommendation.applications}</p>
             </div>
+
+            <p class="coating-disclaimer">
+                <strong>Engineering note:</strong>
+                This is an educational recommendation. Final coating
+                selection should consider the exact alloy, surface
+                preparation, exposure conditions, operating temperature,
+                and coating manufacturer's technical specifications.
+            </p>
         `;
 
     });
 
-}
+});
+
+
+/* ==========================================
+   END OF CORROGUARD JAVASCRIPT
+========================================== */
