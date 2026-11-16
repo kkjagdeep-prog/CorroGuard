@@ -1,4 +1,3 @@
-
 /* =========================================
    CORROGUARD - JAVASCRIPT
    Corrosion Risk Analysis Platform
@@ -238,8 +237,7 @@ document.addEventListener("DOMContentLoaded", function () {
             type: "bar",
 
             data: {
-
-                labels: [
+                               labels: [
                     "Humidity",
                     "Temperature",
                     "Salt Exposure",
@@ -249,7 +247,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 datasets: [{
 
                     label: "Illustrative Model Weight (%)",
-
                     data: [35, 20, 30, 15],
 
                     backgroundColor: [
@@ -303,11 +300,9 @@ document.addEventListener("DOMContentLoaded", function () {
                     },
 
                     x: {
-
                         grid: {
                             display: false
                         }
-
                     }
 
                 }
@@ -324,327 +319,145 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
     /* =====================================
-   7. METAL COMPATIBILITY CHECKER
-===================================== */
+       7. METAL COMPATIBILITY CHECKER
+    ===================================== */
 
-const metalOne = document.getElementById("metalOne");
-const metalTwo = document.getElementById("metalTwo");
+    const metalOne = document.getElementById("metalOne");
+    const metalTwo = document.getElementById("metalTwo");
 
-const checkCompatibility =
-    document.getElementById("checkCompatibility");
+    const checkCompatibility =
+        document.getElementById("checkCompatibility");
 
-const compatibilityResult =
-    document.getElementById("compatibilityResult");
-
-
-if (metalOne && metalTwo && checkCompatibility && compatibilityResult) {
-
-    const galvanicPairs = {
-
-        "copper-iron": {
-            anodic: "Iron may corrode preferentially",
-            explanation:
-                "Iron is generally less noble than copper in many aqueous environments and may corrode preferentially when electrically connected to copper.",
-            precaution:
-                "Consider electrical isolation and suitable protective coatings."
-        },
-
-        "copper-steel": {
-            anodic: "Carbon Steel may corrode preferentially",
-            explanation:
-                "Carbon steel is generally more active than copper in many aqueous environments.",
-            precaution:
-                "Consider insulating the connection, applying suitable coatings, and preventing electrolyte accumulation."
-        },
-
-        "copper-zinc": {
-            anodic: "Zinc may corrode preferentially",
-            explanation:
-                "Zinc is generally more active than copper in many aqueous environments.",
-            precaution:
-                "Consider electrical insulation, compatible material selection, and suitable protective systems."
-        },
-
-        "aluminium-copper": {
-            anodic: "Aluminium may corrode preferentially",
-            explanation:
-                "Aluminium is generally more active than copper. Its protective oxide film and the environment influence actual behaviour.",
-            precaution:
-                "Consider electrical isolation and suitable protective coatings."
-        },
-
-        "aluminium-steel": {
-            anodic: "Environment dependent",
-            explanation:
-                "The galvanic behaviour of aluminium and carbon steel depends on alloy grades, surface films, electrolyte, and exposed areas.",
-            precaution:
-                "Consult material-specific galvanic-series data and consider electrical isolation."
-        },
-
-        "iron-zinc": {
-            anodic: "Zinc may corrode preferentially",
-            explanation:
-                "Zinc is generally more active than iron and can provide sacrificial protection to iron when properly connected.",
-            precaution:
-                "Monitor zinc consumption and inspect the protective system."
-        },
-
-        "aluminium-stainless304": {
-            anodic: "Environment dependent",
-            explanation:
-                "Aluminium and passive Stainless Steel 304 may form a galvanic couple in conductive environments.",
-            precaution:
-                "Consider electrical isolation and suitable joint protection."
-        },
-
-        "aluminium-stainless316": {
-            anodic: "Environment dependent",
-            explanation:
-                "The behaviour of aluminium coupled with Stainless Steel 316 depends on alloy grades, passive films, electrolyte, and exposed areas.",
-            precaution:
-                "Consult material-specific galvanic data before selecting the combination."
-        },
-
-        "copper-stainless304": {
-            anodic: "Environment dependent",
-            explanation:
-                "Copper and passive Stainless Steel 304 may have different galvanic behaviour depending on electrolyte and surface condition.",
-            precaution:
-                "Check the exact material grade and operating environment."
-        },
-
-        "copper-stainless316": {
-            anodic: "Environment dependent",
-            explanation:
-                "Copper and passive Stainless Steel 316 may have different galvanic behaviour depending on electrolyte, surface condition, and exposed areas.",
-            precaution:
-                "Check material-specific galvanic data and consider electrical isolation where appropriate."
-        }
-
-    };
+    const compatibilityResult =
+        document.getElementById("compatibilityResult");
 
 
-    /* NORMALIZE MATERIAL VALUES */
+    if (
+        metalOne &&
+        metalTwo &&
+        checkCompatibility &&
+        compatibilityResult
+    ) {
 
-    function normalizeMaterial(value) {
+        const galvanicPairs = {
 
-        const rawValue = String(value || "").trim().toLowerCase();
+            "copper-iron": {
+                anodic: "Iron may corrode preferentially",
+                explanation:
+                    "Iron is generally less noble than copper in many aqueous environments and may corrode preferentially when electrically connected to copper.",
+                precaution:
+                    "Consider electrical isolation and suitable protective coatings."
+            },
 
-        for (const [key, name] of Object.entries(materialNames)) {
+            "copper-steel": {
+                anodic: "Carbon Steel may corrode preferentially",
+                explanation:
+                    "Carbon steel is generally more active than copper in many aqueous environments.",
+                precaution:
+                    "Consider insulating the connection, applying suitable coatings, and preventing electrolyte accumulation."
+            },
 
-            if (
-                key.toLowerCase() === rawValue ||
-                name.trim().toLowerCase() === rawValue
-            ) {
-                return key;
+            "copper-zinc": {
+                anodic: "Zinc may corrode preferentially",
+                explanation:
+                    "Zinc is generally more active than copper in many aqueous environments.",
+                precaution:
+                    "Consider electrical insulation, compatible material selection, and suitable protective systems."
+            },
+
+            "aluminium-copper": {
+                anodic: "Aluminium may corrode preferentially",
+                explanation:
+                    "Aluminium is generally more active than copper. Its protective oxide film and the environment influence actual behaviour.",
+                precaution:
+                    "Consider electrical isolation and suitable protective coatings."
+            },
+
+            "aluminium-steel": {
+                anodic: "Environment dependent",
+                explanation:
+                    "The galvanic behaviour of aluminium and carbon steel depends on alloy grades, surface films, electrolyte, and exposed areas.",
+                precaution:
+                    "Consult material-specific galvanic-series data and consider electrical isolation."
+            },
+
+            "iron-zinc": {
+                anodic: "Zinc may corrode preferentially",
+                explanation:
+                    "Zinc is generally more active than iron and can provide sacrificial protection to iron when properly connected.",
+                precaution:
+                    "Monitor zinc consumption and inspect the protective system."
+            },
+
+            "aluminium-stainless304": {
+                anodic: "Environment dependent",
+                explanation:
+                    "Aluminium and passive Stainless Steel 304 may form a galvanic couple in conductive environments.",
+                precaution:
+                    "Consider electrical isolation and suitable joint protection."
+            },
+
+            "aluminium-stainless316": {
+                anodic: "Environment dependent",
+                explanation:
+                    "The behaviour of aluminium coupled with Stainless Steel 316 depends on alloy grades, passive films, electrolyte, and exposed areas.",
+                precaution:
+                    "Consult material-specific galvanic data before selecting the combination."
+            },
+
+            "copper-stainless304": {
+                anodic: "Environment dependent",
+                explanation:
+                    "Copper and passive Stainless Steel 304 may have different galvanic behaviour depending on electrolyte and surface condition.",
+                precaution:
+                    "Check the exact material grade and operating environment."
+            },
+
+            "copper-stainless316": {
+                anodic: "Environment dependent",
+                explanation:
+                    "Copper and passive Stainless Steel 316 may have different galvanic behaviour depending on electrolyte, surface condition, and exposed areas.",
+                precaution:
+                    "Check material-specific galvanic data and consider electrical isolation where appropriate."
             }
 
-        }
-
-        return rawValue.replace(/\s+/g, "");
-
-    }
+        };
 
 
-    /* GET MATERIAL DISPLAY NAME */
+        function normalizeMaterial(value) {
 
-    function getMaterialName(value, key) {
+            const rawValue = String(value || "").trim().toLowerCase();
 
-        return materialNames[key] ||
-               materialNames[value] ||
-               String(value).trim();
+            for (const [key, name] of Object.entries(materialNames)) {
 
-    }
+                if (
+                    key.toLowerCase() === rawValue ||
+                    name.trim().toLowerCase() === rawValue
+                ) {
+                    return key;
+                }
 
+            }
 
-    /* UPDATE COMPATIBILITY RESULT */
-
-    function updateCompatibilityResult() {
-
-        const firstValue = metalOne.value;
-        const secondValue = metalTwo.value;
-
-        const first = normalizeMaterial(firstValue);
-        const second = normalizeMaterial(secondValue);
-
-        const firstName = getMaterialName(firstValue, first);
-        const secondName = getMaterialName(secondValue, second);
-
-        compatibilityResult.replaceChildren();
-
-
-        /* CHECK EMPTY SELECTION */
-
-        if (!firstValue || !secondValue) {
-
-            compatibilityResult.textContent =
-                "Please select both materials.";
-
-            return;
+            return rawValue.replace(/\s+/g, "");
 
         }
 
-
-        /* CHECK SAME MATERIAL */
-
-        if (first === second) {
-
-            compatibilityResult.innerHTML = `
-
-                <h3>Same Material Combination</h3>
-
-                <p>
-                    <strong>Selected materials:</strong>
-                    ${firstName} + ${secondName}
-                </p>
-
-                <p>
-                    Coupling identical material grades generally
-                    does not create a galvanic driving force
-                    between two dissimilar metals.
-                </p>
-
-                <p>
-                    <strong>Important:</strong>
-                    Ordinary corrosion can still occur depending
-                    on environmental conditions.
-                </p>
-
-            `;
-
-            return;
-
-        }
-
-
-        /* SORT PAIR FOR LOOKUP */
-
-        const pairKey = [first, second].sort().join("-");
-
-        const pair = galvanicPairs[pairKey];
-
-
-        /* KNOWN COMBINATIONS */
-
-        if (pair) {
-
-            compatibilityResult.innerHTML = `
-
-                <h3>Galvanic Compatibility Information</h3>
-
-                <p>
-                    <strong>Selected materials:</strong>
-                    ${firstName} + ${secondName}
-                </p>
-
-                <p>${pair.explanation}</p>
-
-                <p>
-                    <strong>Possible preferentially corroding material:</strong>
-                    ${pair.anodic}
-                </p>
-
-                <p>
-                    <strong>Recommended precaution:</strong>
-                    ${pair.precaution}
-                </p>
-
-            `;
-
-        } else {
-
-            /* OTHER COMBINATIONS */
-
-            compatibilityResult.innerHTML = `
-
-                <h3>Condition-Dependent Compatibility</h3>
-
-                <p>
-                    <strong>Selected materials:</strong>
-                    ${firstName} + ${secondName}
-                </p>
-
-                <p>
-                    These materials may behave differently when
-                    electrically connected in a conductive
-                    environment. Their galvanic behaviour depends
-                    on their exact alloy grades, surface films,
-                    electrolyte chemistry, and exposed surface areas.
-                </p>
-
-                <p>
-                    <strong>Possible corrosion concern:</strong>
-                    Galvanic corrosion should be evaluated before
-                    using these materials together in a wet or
-                    conductive environment.
-                </p>
-
-                <p>
-                    <strong>Recommended precautions:</strong>
-                    Check material-specific galvanic-series data,
-                    consider electrical isolation, and use suitable
-                    protective systems where appropriate.
-                </p>
-
-            `;
-
-        }
-
-
-        /* SCIENTIFIC DISCLAIMER */
-
-        const note = document.createElement("p");
-
-        note.textContent =
-            "Educational estimate only. Galvanic corrosion requires electrical contact and an electrolyte. Actual behaviour also depends on alloy grade, surface condition, electrolyte chemistry, and the relative exposed areas.";
-
-        compatibilityResult.appendChild(note);
-
-    }
-
-
-    /* UPDATE WHEN DROPDOWNS CHANGE */
-
-    metalOne.addEventListener(
-        "change",
-        updateCompatibilityResult
-    );
-
-    metalTwo.addEventListener(
-        "change",
-        updateCompatibilityResult
-    );
-
-
-    /* UPDATE WHEN BUTTON IS CLICKED */
-
-    checkCompatibility.addEventListener(
-        "click",
-        updateCompatibilityResult
-    );
-
-
-    /* INITIAL RESULT */
-
-    updateCompatibilityResult();
-
-
-        /* =====================================
-           REFRESH COMPATIBILITY RESULT
-        ===================================== */
 
         function updateCompatibilityResult() {
 
-            const first = metalOne.value;
-            const second = metalTwo.value;
+            const firstValue = metalOne.value;
+            const secondValue = metalTwo.value;
 
-            const firstName = materialNames[first] || first;
-            const secondName = materialNames[second] || second;
+            const first = normalizeMaterial(firstValue);
+            const second = normalizeMaterial(secondValue);
 
-            /* Always clear the previous result first */
+            const firstName = materialNames[first] || firstValue;
+            const secondName = materialNames[second] || secondValue;
+
             compatibilityResult.replaceChildren();
 
-            if (!first || !second) {
+            if (!firstValue || !secondValue) {
 
                 compatibilityResult.textContent =
                     "Please select both materials.";
@@ -652,9 +465,6 @@ if (metalOne && metalTwo && checkCompatibility && compatibilityResult) {
                 return;
 
             }
-
-
-            /* SAME MATERIAL */
 
             if (first === second) {
 
@@ -683,15 +493,8 @@ if (metalOne && metalTwo && checkCompatibility && compatibilityResult) {
 
             }
 
-
-            /* SORT THE PAIR */
-
             const pairKey = [first, second].sort().join("-");
-
             const pair = galvanicPairs[pairKey];
-
-
-            /* KNOWN COMBINATIONS */
 
             if (pair) {
 
@@ -717,8 +520,6 @@ if (metalOne && metalTwo && checkCompatibility && compatibilityResult) {
                 `;
 
             } else {
-
-                /* GENERAL RESULT FOR OTHER COMBINATIONS */
 
                 compatibilityResult.innerHTML = `
                     <h3>Condition-Dependent Compatibility</h3>
@@ -753,9 +554,6 @@ if (metalOne && metalTwo && checkCompatibility && compatibilityResult) {
 
             }
 
-
-            /* SCIENTIFIC DISCLAIMER */
-
             const note = document.createElement("p");
 
             note.textContent =
@@ -766,35 +564,14 @@ if (metalOne && metalTwo && checkCompatibility && compatibilityResult) {
         }
 
 
-        /* UPDATE WHEN EITHER DROPDOWN CHANGES */
-
-        metalOne.addEventListener(
-            "change",
-            updateCompatibilityResult
-        );
-
-        metalTwo.addEventListener(
-            "change",
-            updateCompatibilityResult
-        );
-
-
-        /* UPDATE WHEN BUTTON IS CLICKED */
-
-        checkCompatibility.addEventListener(
-            "click",
-            updateCompatibilityResult
-        );
-
-
-        /* SHOW INITIAL RESULT */
+        metalOne.addEventListener("change", updateCompatibilityResult);
+        metalTwo.addEventListener("change", updateCompatibilityResult);
+        checkCompatibility.addEventListener("click", updateCompatibilityResult);
 
         updateCompatibilityResult();
 
     }
-
-
-    /* =====================================
+       /* =====================================
        8. CORROSION PREVENTION RECOMMENDATIONS
     ===================================== */
 
@@ -953,7 +730,7 @@ if (metalOne && metalTwo && checkCompatibility && compatibilityResult) {
             recommendationResult.replaceChildren();
 
             const heading = document.createElement("h3");
-            heading.textContent = "🛡️ Recommended Protection Measures";
+            heading.textContent = "Recommended Protection Measures";
 
             const materialInfo = document.createElement("p");
             materialInfo.textContent =
@@ -1056,7 +833,7 @@ if (metalOne && metalTwo && checkCompatibility && compatibilityResult) {
             ) {
 
                 rateResult.innerHTML = `
-                    <h3>⚠️ Missing Measurements</h3>
+                    <h3>Missing Measurements</h3>
                     <p>Please fill in all four fields before calculating.</p>
                 `;
 
@@ -1072,7 +849,7 @@ if (metalOne && metalTwo && checkCompatibility && compatibilityResult) {
             ) {
 
                 rateResult.innerHTML = `
-                    <h3>⚠️ Invalid Measurements</h3>
+                    <h3>Invalid Measurements</h3>
                     <p>Weights, surface area, and exposure time must be valid positive measurements. Final weight cannot be negative.</p>
                 `;
 
@@ -1083,7 +860,7 @@ if (metalOne && metalTwo && checkCompatibility && compatibilityResult) {
             if (finalWeight > initialWeight) {
 
                 rateResult.innerHTML = `
-                    <h3>⚠️ Check Your Weights</h3>
+                    <h3>Check Your Weights</h3>
                     <p>Final weight is greater than initial weight. Check your measurements before calculating weight loss.</p>
                 `;
 
@@ -1097,7 +874,7 @@ if (metalOne && metalTwo && checkCompatibility && compatibilityResult) {
                 weightLoss / (surfaceArea * exposureTime);
 
             rateResult.innerHTML = `
-                <h3>✅ Corrosion Rate Result</h3>
+                <h3>Corrosion Rate Result</h3>
 
                 <p><strong>Initial Weight:</strong> ${initialWeight} g</p>
                 <p><strong>Final Weight:</strong> ${finalWeight} g</p>
@@ -1121,308 +898,7 @@ if (metalOne && metalTwo && checkCompatibility && compatibilityResult) {
         });
 
     }
-
-
-    console.log("CorroGuard initialized successfully!");
-
-});
-
-
-/* ==========================================
-   CORROGUARD - VIRTUAL EXPERIMENTAL LAB
-========================================== */
-
-function openExperiment(type) {
-
-    const title = document.getElementById("experimentTitle");
-    const description = document.getElementById("experimentDescription");
-    const controls = document.getElementById("experimentControls");
-    const result = document.getElementById("experimentResult");
-
-    result.innerHTML =
-        "Adjust the experiment settings and click Run Experiment.";
-
-
-    if (type === "rust") {
-
-        title.textContent = "Experiment 01: Rusting of Iron";
-
-        description.textContent =
-            "Explore how the presence of water and oxygen affects iron corrosion.";
-
-        controls.innerHTML = `
-            <label for="rustWater">Water availability</label>
-
-            <select id="rustWater">
-                <option value="1">Present</option>
-                <option value="0">Absent</option>
-            </select>
-
-            <label for="rustOxygen">Oxygen availability</label>
-
-            <select id="rustOxygen">
-                <option value="1">Present</option>
-                <option value="0">Absent</option>
-            </select>
-
-            <button onclick="runRustExperiment()">Run Experiment</button>
-        `;
-
-    } else if (type === "salt") {
-
-        title.textContent = "Experiment 02: Effect of Salt";
-
-        description.textContent =
-            "Compare the simulated corrosion tendency of iron in different water conditions.";
-
-        controls.innerHTML = `
-            <label for="saltLevel">Environment</label>
-
-            <select id="saltLevel">
-                <option value="0">Fresh Water</option>
-                <option value="1">Salt Water</option>
-            </select>
-
-            <button onclick="runSaltExperiment()">Run Experiment</button>
-        `;
-
-    } else if (type === "galvanic") {
-
-        title.textContent = "Experiment 03: Galvanic Corrosion";
-
-        description.textContent =
-            "Explore the effect of connecting two different metals in an electrolyte.";
-
-        controls.innerHTML = `
-            <label for="metalPair">Metal combination</label>
-
-            <select id="metalPair">
-                <option value="iron-copper">Iron + Copper</option>
-                <option value="zinc-copper">Zinc + Copper</option>
-                <option value="iron-zinc">Iron + Zinc</option>
-                <option value="aluminium-copper">Aluminium + Copper</option>
-                <option value="steel-copper">Carbon Steel + Copper</option>
-                <option value="stainless316-copper">Stainless Steel 316 + Copper</option>
-                <option value="brass-steel">Brass + Carbon Steel</option>
-                <option value="bronze-zinc">Bronze + Zinc</option>
-                <option value="titanium-aluminium">Titanium + Aluminium</option>
-            </select>
-
-            <button onclick="runGalvanicExperiment()">Run Experiment</button>
-        `;
-
-    }
-
-    document.getElementById("experimentDisplay").scrollIntoView({
-        behavior: "smooth",
-        block: "start"
-    });
-
-}
-
-
-/* ==========================================
-   EXPERIMENT 01: RUSTING OF IRON
-========================================== */
-
-function runRustExperiment() {
-
-    const water = Number(document.getElementById("rustWater").value);
-    const oxygen = Number(document.getElementById("rustOxygen").value);
-
-    const result = document.getElementById("experimentResult");
-
-    if (water && oxygen) {
-
-        result.innerHTML = `
-            <h4>Result: Rusting Conditions Present</h4>
-
-            <p>
-                Both water and oxygen are available. Iron can undergo
-                electrochemical corrosion and form rust over time.
-            </p>
-
-            <strong>Observation:</strong>
-            Rust formation is possible.
-        `;
-
-    } else {
-
-        result.innerHTML = `
-            <h4>Result: Rusting Conditions Limited</h4>
-
-            <p>
-                One of the essential conditions is absent in this simplified
-                model, so ordinary rust formation is greatly restricted.
-            </p>
-
-            <strong>Observation:</strong>
-            Water and oxygen are important for ordinary iron rusting.
-        `;
-
-    }
-
-}
-
-
-/* ==========================================
-   EXPERIMENT 02: EFFECT OF SALT
-========================================== */
-
-function runSaltExperiment() {
-
-    const salt = Number(document.getElementById("saltLevel").value);
-
-    const result = document.getElementById("experimentResult");
-
-    if (salt === 1) {
-
-        result.innerHTML = `
-            <h4>Result: Higher Corrosion Tendency</h4>
-
-            <p>
-                Salt water generally increases the electrical conductivity
-                of the electrolyte, which can accelerate electrochemical
-                corrosion of iron.
-            </p>
-
-            <strong>Observation:</strong>
-            Salt water generally promotes faster corrosion than fresh water
-            under comparable conditions.
-        `;
-
-    } else {
-
-        result.innerHTML = `
-            <h4>Result: Fresh Water Environment</h4>
-
-            <p>
-                Fresh water can still support corrosion when oxygen and
-                other conditions are present. Its corrosion behaviour depends
-                on water chemistry and environmental conditions.
-            </p>
-
-            <strong>Observation:</strong>
-            Fresh water does not mean corrosion-free.
-        `;
-
-    }
-
-}
-
-
-/* ==========================================
-   EXPERIMENT 03: GALVANIC CORROSION
-========================================== */
-
-function runGalvanicExperiment() {
-
-    const pair = document.getElementById("metalPair").value;
-
-    const result = document.getElementById("experimentResult");
-
-    const explanations = {
-
-        "iron-copper": `
-            <h4>Result: Iron may act as the anode</h4>
-            <p>
-                Iron is generally less noble than copper in many aqueous
-                environments and may corrode preferentially when electrically
-                connected to copper.
-            </p>
-        `,
-
-        "zinc-copper": `
-            <h4>Result: Zinc may act as the anode</h4>
-            <p>
-                Zinc is generally less noble than copper and may corrode
-                preferentially in this galvanic couple.
-            </p>
-        `,
-
-        "iron-zinc": `
-            <h4>Result: Zinc may act as the anode</h4>
-            <p>
-                Zinc is generally less noble than iron and can provide
-                sacrificial protection to iron when properly connected.
-            </p>
-        `,
-
-        "aluminium-copper": `
-            <h4>Result: Environment-dependent galvanic behaviour</h4>
-            <p>
-                Aluminium is generally more active than copper, but its oxide
-                film and the environment influence the actual behaviour.
-            </p>
-        `,
-
-        "steel-copper": `
-            <h4>Result: Carbon steel may corrode preferentially</h4>
-            <p>
-                Carbon steel is generally more active than copper in many
-                aqueous environments. Actual behaviour depends on the
-                electrolyte and surface conditions.
-            </p>
-        `,
-
-        "stainless316-copper": `
-            <h4>Result: Grade and environment matter</h4>
-            <p>
-                Passive Stainless Steel 316 and copper may form a galvanic
-                couple. The actual corrosion behaviour depends on the
-                electrolyte, surface condition, and exposed areas.
-            </p>
-        `,
-
-        "brass-steel": `
-            <h4>Result: Material details are important</h4>
-            <p>
-                Brass and carbon steel can have different electrochemical
-                behaviour. The exact brass composition and environment
-                influence which material corrodes preferentially.
-            </p>
-        `,
-
-        "bronze-zinc": `
-            <h4>Result: Zinc may corrode preferentially</h4>
-            <p>
-                Zinc is generally more active than many copper-based alloys.
-                However, the exact bronze composition and electrolyte
-                influence galvanic behaviour.
-            </p>
-        `,
-
-        "titanium-aluminium": `
-            <h4>Result: Environment-dependent galvanic behaviour</h4>
-            <p>
-                Titanium and aluminium have different passive-film
-                characteristics. Their galvanic behaviour depends on the
-                alloy grades, electrolyte, and surface conditions.
-            </p>
-        `
-
-    };
-
-    result.innerHTML = (explanations[pair] || `
-        <h4>Result: Condition-Dependent Behaviour</h4>
-        <p>
-            The galvanic behaviour of this combination depends on the
-            exact material grades, electrolyte, surface conditions,
-            and relative exposed areas.
-        </p>
-    `) + `
-        <p>
-            <strong>Observation:</strong>
-            Galvanic corrosion requires electrical contact between
-            dissimilar metals and an electrolyte. Actual behaviour
-            depends on the environment and material conditions.
-        </p>
-    `;
-
-}
-
-
-/* ==========================================
+   /* ==========================================
    CORROGUARD KNOWLEDGE QUIZ
 ========================================== */
 
@@ -1755,9 +1231,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
 });
-
-
-/* ==========================================
+   /* ==========================================
    CORROGUARD - PDF REPORT GENERATOR
 ========================================== */
 
@@ -1917,11 +1391,12 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
 });
-// ==========================================
+   // ==========================================
 // PROTECTIVE COATING SELECTOR
 // ==========================================
 
 const coatingRecommendations = {
+
     iron: {
         indoor: {
             name: "Epoxy Primer with Protective Topcoat",
@@ -2262,35 +1737,60 @@ const coatingRecommendations = {
             applications: "Industrial titanium equipment."
         }
     }
+
 };
+
+
+/* ==========================================
+   COATING SELECTOR INTERACTION
+========================================== */
 
 const coatingButton = document.getElementById("findCoating");
 
 if (coatingButton) {
+
     coatingButton.addEventListener("click", function () {
+
         const metal = document.getElementById("coatingMetal").value;
-        const environment = document.getElementById("coatingEnvironment").value;
-        const concern = document.getElementById("coatingConcern").value;
-        const resultBox = document.getElementById("coatingResult");
+
+        const environment =
+            document.getElementById("coatingEnvironment").value;
+
+        const concern =
+            document.getElementById("coatingConcern").value;
+
+        const resultBox =
+            document.getElementById("coatingResult");
+
 
         if (!metal || !environment || !concern) {
+
             resultBox.innerHTML = `
                 <span class="section-tag">MISSING INFORMATION</span>
                 <h3>Complete Your Selection</h3>
                 <p>Please select a material, environment, and corrosion concern before requesting a recommendation.</p>
             `;
+
             return;
+
         }
 
-        const recommendation = coatingRecommendations[metal]?.[environment];
+
+        const recommendation =
+            coatingRecommendations[metal]?.[environment];
+
 
         if (!recommendation) {
+
             resultBox.innerHTML = `
                 <h3>No Recommendation Available</h3>
                 <p>Please try another selection.</p>
             `;
+
             return;
+
         }
+
 
         const concernNames = {
             moisture: "Moisture",
@@ -2299,13 +1799,26 @@ if (coatingButton) {
             general: "General Corrosion"
         };
 
+
         resultBox.innerHTML = `
             <span class="section-tag">COATING RECOMMENDATION</span>
+
             <h3>${recommendation.name}</h3>
 
-            <p><strong>Selected Material:</strong> ${document.getElementById("coatingMetal").selectedOptions[0].text}</p>
-            <p><strong>Environment:</strong> ${document.getElementById("coatingEnvironment").selectedOptions[0].text}</p>
-            <p><strong>Main Concern:</strong> ${concernNames[concern]}</p>
+            <p>
+                <strong>Selected Material:</strong>
+                ${document.getElementById("coatingMetal").selectedOptions[0].text}
+            </p>
+
+            <p>
+                <strong>Environment:</strong>
+                ${document.getElementById("coatingEnvironment").selectedOptions[0].text}
+            </p>
+
+            <p>
+                <strong>Main Concern:</strong>
+                ${concernNames[concern]}
+            </p>
 
             <div class="coating-detail">
                 <h4>How It Works</h4>
@@ -2327,5 +1840,7 @@ if (coatingButton) {
                 <p>${recommendation.applications}</p>
             </div>
         `;
+
     });
+
 }
