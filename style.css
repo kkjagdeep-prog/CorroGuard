@@ -2965,5 +2965,293 @@ input:focus-visible {
     }
 }
 
+/* ==========================================
+   CORROGUARD — LUXURY ENGINEERING DASHBOARD
+   Dashboard-only visual redesign
+   ========================================== */
+
+.dashboard-section {
+    background: #f7f8fa !important;
+    padding: 88px 6% 100px !important;
+    position: relative;
+    overflow: hidden;
+}
+
+.dashboard-section > * {
+    max-width: 1320px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* DASHBOARD INTRODUCTION */
+
+.dashboard-section .section-heading {
+    max-width: 1320px;
+    text-align: left;
+    margin: 0 auto 46px;
+}
+
+.dashboard-section .section-tag {
+    display: inline-block;
+    color: #168b83;
+    background: #e7f3f0;
+    padding: 8px 12px;
+    border-radius: 4px;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    margin-bottom: 20px;
+}
+
+.dashboard-section .section-heading h2 {
+    color: #14283e !important;
+    font-size: clamp(34px, 4vw, 48px);
+    font-weight: 650;
+    letter-spacing: -1.8px;
+    line-height: 1.12;
+    margin-bottom: 14px;
+}
+
+.dashboard-section .section-heading p {
+    color: #718092 !important;
+    font-size: 15px;
+    line-height: 1.8;
+    max-width: 620px;
+}
+
+/* STATISTICS LAYOUT */
+
+.dashboard-stats {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 16px;
+    margin-top: 0;
+    margin-bottom: 26px;
+}
+
+/* STATISTIC PANELS */
+
+.dashboard-card {
+    position: relative;
+    background: #ffffff !important;
+    border: 1px solid #e5e9ee !important;
+    border-radius: 8px !important;
+    padding: 26px 25px !important;
+    min-height: 172px;
+    box-shadow: 0 3px 12px rgba(20, 40, 62, 0.025) !important;
+    transition: border-color 0.25s ease,
+                box-shadow 0.25s ease,
+                transform 0.25s ease;
+}
+
+/* Remove decorative emoji icons */
+
+.dashboard-card-icon {
+    display: none !important;
+}
+
+.dashboard-card::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 22px;
+    bottom: 22px;
+    width: 3px;
+    background: #188d83;
+    border-radius: 2px;
+}
+
+.dashboard-card:hover {
+    transform: translateY(-3px);
+    border-color: #cbd9dc !important;
+    box-shadow: 0 10px 24px rgba(20, 40, 62, 0.06) !important;
+}
+
+.dashboard-card h3 {
+    color: #18344d !important;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 39px !important;
+    font-weight: 600;
+    letter-spacing: -1.5px;
+    margin: 14px 0 7px !important;
+}
+
+.dashboard-card p {
+    color: #778596 !important;
+    font-size: 12px !important;
+    font-weight: 600;
+    letter-spacing: 0.35px;
+    margin: 0;
+}
+
+/* LOWER DASHBOARD PANELS */
+
+.dashboard-lower {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+    margin-top: 0;
+}
+
+.dashboard-info-card {
+    background: #ffffff !important;
+    border: 1px solid #e5e9ee !important;
+    border-radius: 8px !important;
+    padding: 30px !important;
+    box-shadow: 0 3px 12px rgba(20, 40, 62, 0.025) !important;
+}
+
+.dashboard-info-card .section-tag {
+    margin-bottom: 16px;
+}
+
+.dashboard-info-card h3 {
+    color: #172d43 !important;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 21px;
+    font-weight: 600;
+    letter-spacing: -0.4px;
+    margin: 10px 0 22px !important;
+}
+
+.dashboard-info-card > p {
+    color: #788696 !important;
+    font-size: 13px;
+    line-height: 1.7;
+}
+
+/* RISK SUMMARY */
+
+.dashboard-risk {
+    display: flex;
+    gap: 48px;
+    flex-wrap: wrap;
+    padding: 20px 0;
+    border-top: 1px solid #edf0f3;
+    border-bottom: 1px solid #edf0f3;
+}
+
+.dashboard-risk div {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.dashboard-risk span {
+    color: #8793a0 !important;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.dashboard-risk strong {
+    color: #173750 !important;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 21px;
+    font-weight: 600;
+}
+
+/* DASHBOARD BUTTON */
+
+.dashboard-info-card .primary-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: #173750 !important;
+    color: #ffffff !important;
+    border: 1px solid #173750 !important;
+    border-radius: 5px !important;
+    padding: 12px 17px;
+    font-size: 12px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: background 0.2s ease,
+                border-color 0.2s ease;
+}
+
+.dashboard-info-card .primary-button:hover {
+    background: #22536a !important;
+    border-color: #22536a !important;
+}
+
+/* QUICK ACCESS LINKS */
+
+.dashboard-links {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+
+.dashboard-links a {
+    display: flex;
+    align-items: center;
+    min-height: 48px;
+    padding: 12px 14px;
+    background: #f8fafb;
+    border: 1px solid #e9edf0;
+    border-radius: 5px;
+    color: #42576a !important;
+    font-size: 12px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: background 0.2s ease,
+                border-color 0.2s ease,
+                color 0.2s ease;
+}
+
+.dashboard-links a:hover {
+    background: #edf5f4;
+    border-color: #c5ded9;
+    color: #147d75 !important;
+}
+
+/* RESPONSIVE LAYOUT */
+
+@media (max-width: 950px) {
+    .dashboard-stats {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .dashboard-lower {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 600px) {
+    .dashboard-section {
+        padding: 60px 5% 70px !important;
+    }
+
+    .dashboard-section .section-heading h2 {
+        font-size: 34px;
+    }
+
+    .dashboard-stats {
+        gap: 11px;
+    }
+
+    .dashboard-card {
+        min-height: 145px;
+        padding: 19px 17px !important;
+    }
+
+    .dashboard-card h3 {
+        font-size: 32px !important;
+    }
+
+    .dashboard-info-card {
+        padding: 22px !important;
+    }
+
+    .dashboard-links {
+        grid-template-columns: 1fr;
+    }
+
+    .dashboard-risk {
+        gap: 25px;
+    }
+}
+
 
 
