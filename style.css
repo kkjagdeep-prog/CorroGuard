@@ -3338,3 +3338,111 @@ input:focus-visible {
     }
 }
 
+/* ==========================================
+   CORROGUARD — PREMIUM NAVIGATION REDESIGN
+   ========================================== */
+
+/* NAVBAR */
+
+.navbar {
+    background: rgba(255, 255, 255, 0.97) !important;
+    border-bottom: 1px solid #e9edf1 !important;
+    box-shadow: 0 3px 16px rgba(20, 40, 62, 0.035) !important;
+    min-height: 76px;
+    backdrop-filter: blur(14px);
+}
+
+/* NAVIGATION LINKS */
+
+.navbar .main-nav a,
+.navbar .main-nav .nav-button {
+    color: #526477 !important;
+    font-size: 13px;
+    font-weight: 600;
+    transition: color 0.2s ease;
+}
+
+.navbar .main-nav a:hover,
+.navbar .main-nav .nav-button:hover {
+    color: #13877f !important;
+}
+
+/* MORE BUTTON */
+
+.navbar .nav-button {
+    background: transparent !important;
+    border: 1px solid transparent !important;
+    border-radius: 5px !important;
+    padding: 10px 13px !important;
+    box-shadow: none !important;
+    cursor: pointer;
+}
+
+.navbar .nav-button:hover,
+.navbar .nav-button:focus-visible {
+    background: #f1f7f6 !important;
+    border-color: #dcebe8 !important;
+    outline: none;
+}
+
+/* DROPDOWN CONTAINER */
+
+.navbar .nav-dropdown {
+    position: relative;
+}
+
+/* DROPDOWN MENU */
+
+.navbar .dropdown-content {
+    background: #ffffff !important;
+    border: 1px solid #e8edf0 !important;
+    border-radius: 8px !important;
+    box-shadow: 0 14px 35px rgba(20, 40, 62, 0.11) !important;
+    padding: 8px !important;
+    min-width: 225px;
+}
+
+/* DROPDOWN LINKS */
+
+.navbar .dropdown-content a {
+    display: flex;
+    align-items: center;
+    padding: 11px 13px !important;
+    border-radius: 5px !important;
+    color: #536579 !important;
+    font-size: 12px;
+    font-weight: 600;
+    transition: background 0.2s ease, color 0.2s ease;
+}
+
+.navbar .dropdown-content a:hover {
+    background: #f0f6f5 !important;
+    color: #13877f !important;
+}
+
+/* ANALYZE RISK BUTTON */
+
+.navbar .nav-button:not(.main-nav .nav-button) {
+    transition: 0.2s ease;
+}
+
+/* KEYBOARD ACCESSIBILITY */
+
+.navbar a:focus-visible,
+.navbar button:focus-visible {
+    outline: 2px solid #168b83 !important;
+    outline-offset: 3px;
+}
+
+/* MOBILE */
+
+@media (max-width: 900px) {
+    .navbar {
+        min-height: 68px;
+    }
+
+    .navbar .dropdown-content {
+        max-width: calc(100vw - 30px);
+    }
+}
+
