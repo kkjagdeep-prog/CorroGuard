@@ -3483,3 +3483,141 @@ input:focus-visible {
     outline-offset: 3px;
 }
 
+/* ==========================================
+   CORROGUARD — LATEST ANALYSIS PANEL
+   Premium engineering interface
+   ========================================== */
+
+.dashboard-lower > .dashboard-info-card:first-child {
+    background: #ffffff !important;
+    border: 1px solid #e3e9ed !important;
+    border-radius: 8px !important;
+    padding: 32px !important;
+    box-shadow: 0 5px 20px rgba(20, 40, 62, 0.035) !important;
+}
+
+/* SECTION LABEL */
+
+.dashboard-lower > .dashboard-info-card:first-child .section-tag {
+    display: inline-flex;
+    align-items: center;
+    background: #edf5f3 !important;
+    color: #16877f !important;
+    border-radius: 4px !important;
+    padding: 8px 12px !important;
+    font-size: 10px !important;
+    font-weight: 700;
+    letter-spacing: 1.8px;
+    margin-bottom: 17px;
+}
+
+/* PANEL HEADING */
+
+.dashboard-lower > .dashboard-info-card:first-child h3 {
+    color: #172d43 !important;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 22px !important;
+    font-weight: 600;
+    letter-spacing: -0.6px;
+    margin: 10px 0 25px !important;
+}
+
+/* METRIC CONTAINERS */
+
+.dashboard-lower > .dashboard-info-card:first-child .dashboard-risk {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px !important;
+    padding: 18px 0 !important;
+    border-top: 1px solid #edf0f2 !important;
+    border-bottom: 1px solid #edf0f2 !important;
+}
+
+.dashboard-lower > .dashboard-info-card:first-child .dashboard-risk > div {
+    background: #f7f9fa;
+    border: 1px solid #edf0f2;
+    border-radius: 6px;
+    padding: 19px 17px;
+    min-width: 0;
+    gap: 11px !important;
+}
+
+/* METRIC LABELS */
+
+.dashboard-lower > .dashboard-info-card:first-child .dashboard-risk span {
+    color: #82909d !important;
+    font-size: 10px !important;
+    font-weight: 700;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+}
+
+/* METRIC VALUES */
+
+.dashboard-lower > .dashboard-info-card:first-child .dashboard-risk strong {
+    color: #193a53 !important;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 25px !important;
+    font-weight: 600;
+    letter-spacing: -0.8px;
+    line-height: 1.25;
+    overflow-wrap: anywhere;
+}
+
+/* RISK SCORE */
+
+#dashboardRiskScore {
+    color: #16877f !important;
+    font-size: 31px !important;
+}
+
+/* SELECTED MATERIAL DESCRIPTION */
+
+#dashboardMetal {
+    color: #718092 !important;
+    font-size: 13px !important;
+    line-height: 1.8;
+    margin: 20px 0 !important;
+}
+
+/* OPEN CALCULATOR BUTTON */
+
+.dashboard-lower > .dashboard-info-card:first-child .primary-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 43px;
+    padding: 12px 17px !important;
+    background: #183a52 !important;
+    color: #ffffff !important;
+    border: 1px solid #183a52 !important;
+    border-radius: 5px !important;
+    font-size: 12px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: background 0.2s ease,
+                transform 0.2s ease;
+}
+
+.dashboard-lower > .dashboard-info-card:first-child .primary-button:hover {
+    background: #226078 !important;
+    border-color: #226078 !important;
+    transform: translateY(-2px);
+}
+
+/* MOBILE */
+
+@media (max-width: 600px) {
+    .dashboard-lower > .dashboard-info-card:first-child {
+        padding: 22px !important;
+    }
+
+    .dashboard-lower > .dashboard-info-card:first-child .dashboard-risk {
+        grid-template-columns: 1fr;
+    }
+
+    .dashboard-lower > .dashboard-info-card:first-child .dashboard-risk strong {
+        font-size: 22px !important;
+    }
+}
+
